@@ -8,6 +8,14 @@
     name="description"
     content="Elegant bridal, festive, and modern mehndi designs crafted for weddings, celebrations, and special moments."
   >
+  <link rel="canonical" href="https://mehndi-aura.onrender.com/">
+  <meta property="og:title" content="Mehndi Aura">
+  <meta property="og:description" content="Elegant bridal, festive, and modern mehndi designs crafted for weddings, celebrations, and special moments.">
+  <meta property="og:url" content="https://mehndi-aura.onrender.com/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mehndi Aura">
+  <meta name="twitter:description" content="Elegant bridal, festive, and modern mehndi designs crafted for weddings, celebrations, and special moments.">
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
 
@@ -1417,11 +1425,54 @@
       font-size: 0.98rem;
     }
 
+    .contact-item a {
+      word-break: break-word;
+    }
+
+    .quick-link-button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
     footer {
       padding: 34px 0 48px;
       color: var(--muted);
-      text-align: center;
       font-size: var(--font-body-sm);
+    }
+
+    .footer-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      margin: 0;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(138, 47, 36, 0.12);
+      background: rgba(255, 248, 240, 0.78);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.88rem;
+      font-family: inherit;
+      cursor: pointer;
     }
 
     @keyframes rise {
@@ -1709,6 +1760,11 @@
       .field select,
       .field textarea {
         border-radius: 14px;
+      }
+
+      .footer-wrap {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       .field textarea {
@@ -2283,6 +2339,10 @@
               <span><a href="mailto:tanya19.2003@hotmail.com?subject=Mehndi%20Aura%20Booking%20Enquiry">tanya19.2003@hotmail.com</a></span>
             </div>
             <div class="contact-item">
+              <strong>Website</strong>
+              <span><a href="https://mehndi-aura.onrender.com" target="_blank" rel="noreferrer">mehndi-aura.onrender.com</a></span>
+            </div>
+            <div class="contact-item">
               <strong>Instagram</strong>
               <span><a href="https://tinyurl.com/Mehndi-aura" target="_blank" rel="noreferrer">@Mehndi Aura</a></span>
             </div>
@@ -2297,6 +2357,8 @@
             <a class="quick-link" href="https://wa.me/447442778243?text=Can%20I%20get%20more%20information%20on%20henna%20bookings%3F" target="_blank" rel="noreferrer">WhatsApp Enquiry</a>
             <a class="quick-link" href="tel:+447442778243">Call for Booking</a>
             <a class="quick-link" href="https://tinyurl.com/Mehndi-aura" target="_blank" rel="noreferrer">View Instagram</a>
+            <a class="quick-link" href="https://mehndi-aura.onrender.com" target="_blank" rel="noreferrer">Open Website</a>
+            <button class="quick-link quick-link-button" type="button" id="copy-site-link">Copy Website Link</button>
           </div>
 
           <form class="enquiry-form" id="enquiry-form">
@@ -2403,7 +2465,13 @@
   </main>
 
   <footer>
-    <div class="shell">© 2026 Mehndi Aura. Crafted for elegant celebrations.</div>
+    <div class="shell footer-wrap">
+      <p class="footer-copy">© 2026 Mehndi Aura. Crafted for elegant celebrations.</p>
+      <div class="footer-actions">
+        <a class="footer-link" href="https://mehndi-aura.onrender.com" target="_blank" rel="noreferrer">mehndi-aura.onrender.com</a>
+        <button class="footer-link" type="button" id="copy-site-link-footer">Copy Website Link</button>
+      </div>
+    </div>
   </footer>
 
   <div class="sticky-bar" aria-label="Quick booking actions">
@@ -2444,6 +2512,8 @@
     const lightboxImage = document.getElementById("lightbox-image");
     const lightboxCaption = document.getElementById("lightbox-caption");
     const lightboxClose = document.getElementById("lightbox-close");
+    const copySiteLinkButton = document.getElementById("copy-site-link");
+    const copySiteLinkFooterButton = document.getElementById("copy-site-link-footer");
     const isLocalHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
     function getBookingHelpMessage() {
@@ -2511,6 +2581,19 @@
       }
     }
 
+    async function copyWebsiteLink() {
+      const websiteLink = "https://mehndi-aura.onrender.com";
+
+      try {
+        await navigator.clipboard.writeText(websiteLink);
+        formStatus.dataset.state = "success";
+        formStatus.textContent = "Website link copied successfully.";
+      } catch (error) {
+        formStatus.dataset.state = "error";
+        formStatus.textContent = "Unable to copy the website link automatically. Use mehndi-aura.onrender.com.";
+      }
+    }
+
     document.querySelectorAll("[data-enquiry-fill]").forEach((element) => {
       element.addEventListener("click", () => {
         const eventType = element.getAttribute("data-enquiry-fill");
@@ -2538,6 +2621,11 @@
           contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
         }
       });
+    });
+
+    [copySiteLinkButton, copySiteLinkFooterButton].forEach((button) => {
+      if (!button) return;
+      button.addEventListener("click", copyWebsiteLink);
     });
 
     document.querySelectorAll("[data-lightbox]").forEach((button) => {
