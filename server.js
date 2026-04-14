@@ -1,0 +1,812 @@
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
+const net = require("net");
+const tls = require("tls");
+const { spawnSync } = require("child_process");
+const { URL } = require("url");
+
+const ROOT = __dirname;
+const ENV_PATH = path.join(ROOT, ".env");
+
+function loadEnvFile() {
+  if (!fs.existsSync(ENV_PATH)) {
+    return;
+  }
+
+  const lines = fs.readFileSync(ENV_PATH, "utf8").split(/\r?\n/);
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) {
+      continue;
+    }
+
+    const separator = trimmed.indexOf("=");
+    if (separator === -1) {
+      continue;
+    }
+
+    const key = trimmed.slice(0, separator).trim();
+    const value = trimmed.slice(separator + 1).trim();
+
+    if (key && !(key in process.env)) {
+      process.env[key] = value;
+    }
+  }
+}
+
+loadEnvFile();
+
+const PORT = process.env.PORT || 3000;
+const INDEX_PATH = path.join(ROOT, "index.html");
+const ADMIN_PATH = path.join(ROOT, "admin.html");
+const DATA_DIR = path.join(ROOT, "data");
+const DB_PATH = path.join(DATA_DIR, "enquiries.db");
+const LEGACY_JSON_PATH = path.join(DATA_DIR, "enquiries.json");
+const NOTIFICATION_LOG_PATH = path.join(DATA_DIR, "notifications.log");
+const SQLITE_BIN = "sqlite3";
+const SENDMAIL_BIN = "/usr/sbin/sendmail";
+
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "change-me-admin-password";
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "";
+const SMTP_HOST = process.env.SMTP_HOST || "";
+const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
+const SMTP_USER = process.env.SMTP_USER || "";
+const SMTP_PASS = process.env.SMTP_PASS || "";
+const SMTP_FROM = process.env.SMTP_FROM || SMTP_USER || NOTIFY_EMAIL || "";
+const SMTP_SECURE = String(process.env.SMTP_SECURE || "true").toLowerCase() !== "false";
+const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
+const sessions = new Map();
+
+function ensureStorage() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+
+  if (!fs.existsSync(LEGACY_JSON_PATH)) {
+    fs.writeFileSync(LEGACY_JSON_PATH, "[]\n", "utf8");
+  }
+}
+
+function runSql(sql, { json = false } = {}) {
+  const args = [DB_PATH];
+
+  if (json) {
+    args.unshift("-json");
+  }
+
+  args.push(sql);
+  const result = spawnSync(SQLITE_BIN, args, { encoding: "utf8" });
+
+  if (result.status !== 0) {
+    throw new Error((result.stderr || result.stdout || "sqlite3 command failed").trim());
+  }
+
+  return String(result.stdout || "").trim();
+}
+
+function runSqlSafe(sql) {
+  try {
+    runSql(sql);
+  } catch (error) {
+    const message = String(error.message || "");
+    if (!message.includes("duplicate column name")) {
+      throw error;
+    }
+  }
+}
+
+function setupDatabase() {
+  ensureStorage();
+
+  runSql(`
+    CREATE TABLE IF NOT EXISTS enquiries (
+      id TEXT PRIMARY KEY,
+      created_at TEXT NOT NULL,
+      name TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      email TEXT NOT NULL,
+      event_type TEXT NOT NULL,
+      event_date TEXT,
+      package_name TEXT,
+      guest_count TEXT,
+      budget TEXT,
+      preferred_contact TEXT,
+      status TEXT NOT NULL DEFAULT 'New',
+      location TEXT,
+      message TEXT NOT NULL
+    );
+  `);
+
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN package_name TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN guest_count TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN budget TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN preferred_contact TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN status TEXT NOT NULL DEFAULT 'New';");
+
+  const countOutput = runSql("SELECT COUNT(*) AS count FROM enquiries;", { json: true });
+  const countRows = countOutput ? JSON.parse(countOutput) : [];
+  const count = countRows.length ? Number(countRows[0].count) : 0;
+
+  if (count === 0 && fs.existsSync(LEGACY_JSON_PATH)) {
+    const legacyRows = JSON.parse(fs.readFileSync(LEGACY_JSON_PATH, "utf8"));
+    for (const item of legacyRows) {
+      insertEnquiry(item);
+    }
+  }
+}
+
+function insertEnquiry(enquiry) {
+  runSql(`
+    INSERT INTO enquiries (
+      id,
+      created_at,
+      name,
+      phone,
+      email,
+      event_type,
+      event_date,
+      package_name,
+      guest_count,
+      budget,
+      preferred_contact,
+      status,
+      location,
+      message
+    ) VALUES (
+      ${sqlValue(enquiry.id)},
+      ${sqlValue(enquiry.createdAt)},
+      ${sqlValue(enquiry.name)},
+      ${sqlValue(enquiry.phone)},
+      ${sqlValue(enquiry.email)},
+      ${sqlValue(enquiry.eventType)},
+      ${sqlValue(enquiry.eventDate || "")},
+      ${sqlValue(enquiry.packageName || "")},
+      ${sqlValue(enquiry.guestCount || "")},
+      ${sqlValue(enquiry.budget || "")},
+      ${sqlValue(enquiry.preferredContact || "")},
+      ${sqlValue(enquiry.status || "New")},
+      ${sqlValue(enquiry.location || "")},
+      ${sqlValue(enquiry.message)}
+    );
+  `);
+}
+
+function readEnquiries() {
+  const output = runSql(`
+    SELECT
+      id,
+      created_at AS createdAt,
+      name,
+      phone,
+      email,
+      event_type AS eventType,
+      event_date AS eventDate,
+      package_name AS packageName,
+      guest_count AS guestCount,
+      budget,
+      preferred_contact AS preferredContact,
+      status,
+      location,
+      message
+    FROM enquiries
+    ORDER BY datetime(created_at) DESC;
+  `, { json: true });
+
+  return output ? JSON.parse(output) : [];
+}
+
+function sqlValue(value) {
+  if (value === null || value === undefined) {
+    return "NULL";
+  }
+
+  return `'${String(value).replace(/'/g, "''")}'`;
+}
+
+function sendJson(response, statusCode, payload, extraHeaders = {}) {
+  response.writeHead(statusCode, {
+    "Content-Type": "application/json; charset=utf-8",
+    ...extraHeaders
+  });
+  response.end(JSON.stringify(payload));
+}
+
+function serveHtml(response, filePath) {
+  fs.readFile(filePath, "utf8", (error, html) => {
+    if (error) {
+      sendJson(response, 500, { error: "Unable to load the website." });
+      return;
+    }
+
+    response.writeHead(200, {
+      "Content-Type": "text/html; charset=utf-8"
+    });
+    response.end(html);
+  });
+}
+
+function getMimeType(filePath) {
+  const extension = path.extname(filePath).toLowerCase();
+  if (extension === ".jpeg" || extension === ".jpg") return "image/jpeg";
+  if (extension === ".png") return "image/png";
+  if (extension === ".webp") return "image/webp";
+  if (extension === ".svg") return "image/svg+xml";
+  if (extension === ".css") return "text/css; charset=utf-8";
+  if (extension === ".js") return "application/javascript; charset=utf-8";
+  return "application/octet-stream";
+}
+
+function serveStaticFile(request, response, filePath) {
+  fs.readFile(filePath, (error, data) => {
+    if (error) {
+      sendJson(response, 404, { error: "Asset not found." });
+      return;
+    }
+
+    response.writeHead(200, {
+      "Content-Type": getMimeType(filePath),
+      "Cache-Control": "public, max-age=3600"
+    });
+    response.end(request.method === "HEAD" ? undefined : data);
+  });
+}
+
+function collectRequestBody(request) {
+  return new Promise((resolve, reject) => {
+    let body = "";
+
+    request.on("data", (chunk) => {
+      body += chunk;
+      if (body.length > 1_000_000) {
+        reject(new Error("Request body is too large."));
+        request.destroy();
+      }
+    });
+
+    request.on("end", () => resolve(body));
+    request.on("error", reject);
+  });
+}
+
+function sanitize(value) {
+  return String(value || "").trim();
+}
+
+function validateEnquiry(payload) {
+  const enquiry = {
+    name: sanitize(payload.name),
+    phone: sanitize(payload.phone),
+    email: sanitize(payload.email),
+    eventType: sanitize(payload.eventType),
+    eventDate: sanitize(payload.eventDate),
+    packageName: sanitize(payload.packageName),
+    guestCount: sanitize(payload.guestCount),
+    budget: sanitize(payload.budget),
+    preferredContact: sanitize(payload.preferredContact),
+    location: sanitize(payload.location),
+    message: sanitize(payload.message)
+  };
+
+  if (!enquiry.name || !enquiry.phone || !enquiry.email || !enquiry.eventType || !enquiry.message) {
+    return { error: "Please complete all required fields before sending your enquiry." };
+  }
+
+  return { enquiry };
+}
+
+function parseCookies(request) {
+  const header = request.headers.cookie || "";
+  const cookies = {};
+
+  for (const part of header.split(";")) {
+    const trimmed = part.trim();
+    if (!trimmed) continue;
+    const index = trimmed.indexOf("=");
+    const key = index >= 0 ? trimmed.slice(0, index) : trimmed;
+    const value = index >= 0 ? trimmed.slice(index + 1) : "";
+    cookies[key] = decodeURIComponent(value);
+  }
+
+  return cookies;
+}
+
+function createSession() {
+  const token = crypto.randomBytes(24).toString("hex");
+  sessions.set(token, { expiresAt: Date.now() + SESSION_TTL_MS });
+  return token;
+}
+
+function clearExpiredSessions() {
+  const now = Date.now();
+  for (const [token, session] of sessions.entries()) {
+    if (session.expiresAt <= now) {
+      sessions.delete(token);
+    }
+  }
+}
+
+function getAuthorizedSession(request) {
+  clearExpiredSessions();
+  const token = parseCookies(request).admin_session;
+  if (!token) return null;
+  const session = sessions.get(token);
+  if (!session) return null;
+  session.expiresAt = Date.now() + SESSION_TTL_MS;
+  return { token, session };
+}
+
+function requireAdmin(request, response) {
+  const authorized = getAuthorizedSession(request);
+  if (!authorized) {
+    sendJson(response, 401, { error: "Admin login required." });
+    return null;
+  }
+  return authorized;
+}
+
+function logNotification(message) {
+  const line = `[${new Date().toISOString()}] ${message}\n`;
+  fs.appendFileSync(NOTIFICATION_LOG_PATH, line, "utf8");
+}
+
+function createSmtpConnection() {
+  return new Promise((resolve, reject) => {
+    const options = {
+      host: SMTP_HOST,
+      port: SMTP_PORT
+    };
+
+    const socket = SMTP_SECURE
+      ? tls.connect({ ...options, servername: SMTP_HOST })
+      : net.createConnection(options);
+
+    const handleError = (error) => {
+      socket.destroy();
+      reject(error);
+    };
+
+    socket.once("error", handleError);
+    socket.once(SMTP_SECURE ? "secureConnect" : "connect", () => {
+      socket.removeListener("error", handleError);
+      resolve(socket);
+    });
+  });
+}
+
+function createSmtpReader(socket) {
+  let buffer = "";
+  let pending = null;
+
+  const tryResolve = () => {
+    if (!pending) return;
+    const lines = buffer.split("\r\n");
+
+    for (let index = 0; index < lines.length - 1; index += 1) {
+      const line = lines[index];
+      if (!/^\d{3}[ -]/.test(line)) {
+        continue;
+      }
+
+      const code = line.slice(0, 3);
+      if (line[3] !== " ") {
+        continue;
+      }
+
+      const consumed = lines.slice(0, index + 1).join("\r\n").length + 2;
+      buffer = buffer.slice(consumed);
+      const current = pending;
+      pending = null;
+      current.resolve({ code: Number(code), message: line });
+      return;
+    }
+  };
+
+  socket.on("data", (chunk) => {
+    buffer += chunk.toString("utf8");
+    tryResolve();
+  });
+
+  return function readResponse() {
+    return new Promise((resolve, reject) => {
+      pending = { resolve, reject };
+      tryResolve();
+    });
+  };
+}
+
+async function smtpCommand(socket, readResponse, command, expectedCodes) {
+  if (command) {
+    socket.write(`${command}\r\n`);
+  }
+
+  const response = await readResponse();
+  if (!expectedCodes.includes(response.code)) {
+    throw new Error(`SMTP error after "${command || "greeting"}": ${response.message}`);
+  }
+
+  return response;
+}
+
+function hasSmtpConfig() {
+  return Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS && SMTP_FROM && NOTIFY_EMAIL);
+}
+
+async function sendNotificationEmailViaSmtp({ to, subject, body }) {
+  const socket = await createSmtpConnection();
+  const readResponse = createSmtpReader(socket);
+
+  try {
+    await smtpCommand(socket, readResponse, "", [220]);
+    await smtpCommand(socket, readResponse, "EHLO mehdhiaura.local", [250]);
+    await smtpCommand(socket, readResponse, `AUTH LOGIN`, [334]);
+    await smtpCommand(socket, readResponse, Buffer.from(SMTP_USER).toString("base64"), [334]);
+    await smtpCommand(socket, readResponse, Buffer.from(SMTP_PASS).toString("base64"), [235]);
+    await smtpCommand(socket, readResponse, `MAIL FROM:<${SMTP_FROM}>`, [250]);
+    await smtpCommand(socket, readResponse, `RCPT TO:<${to}>`, [250, 251]);
+    await smtpCommand(socket, readResponse, "DATA", [354]);
+
+    const headers = [
+      `From: ${SMTP_FROM}`,
+      `To: ${to}`,
+      `Subject: ${subject}`,
+      "MIME-Version: 1.0",
+      "Content-Type: text/plain; charset=utf-8",
+      "",
+      body.replace(/\n\./g, "\n..")
+    ].join("\r\n");
+
+    socket.write(`${headers}\r\n.\r\n`);
+    await smtpCommand(socket, readResponse, "", [250]);
+    await smtpCommand(socket, readResponse, "QUIT", [221]);
+  } finally {
+    socket.end();
+  }
+}
+
+function sendNotificationEmailViaSendmail(to, subject, body, enquiryId) {
+  if (!fs.existsSync(SENDMAIL_BIN)) {
+    const reason = "sendmail is not available on this host.";
+    logNotification(`Notification skipped for ${enquiryId}: ${reason}`);
+    return { delivered: false, reason };
+  }
+
+  const result = spawnSync(
+    SENDMAIL_BIN,
+    ["-t"],
+    {
+      input: `To: ${to}\nSubject: ${subject}\nContent-Type: text/plain; charset=utf-8\n\n${body}\n`,
+      encoding: "utf8"
+    }
+  );
+
+  if (result.error) {
+    const reason = String(result.error.message || "sendmail failed");
+    logNotification(`Notification failed for ${enquiryId}: ${reason}`);
+    return { delivered: false, reason };
+  }
+
+  if (result.status !== 0) {
+    const reason = (result.stderr || result.stdout || "sendmail failed").trim();
+    logNotification(`Notification failed for ${enquiryId}: ${reason}`);
+    return { delivered: false, reason };
+  }
+
+  logNotification(`Notification delivered for ${enquiryId} to ${to} via sendmail.`);
+  return { delivered: true, method: "sendmail" };
+}
+
+async function sendNotificationEmail(enquiry) {
+  const subject = `New Henna Enquiry: ${enquiry.eventType} - ${enquiry.name}`;
+  const body = [
+    "A new enquiry was submitted on the website.",
+    "",
+    `Reference: ${enquiry.id}`,
+    `Created At: ${enquiry.createdAt}`,
+    `Name: ${enquiry.name}`,
+    `Phone: ${enquiry.phone}`,
+    `Email: ${enquiry.email}`,
+    `Event Type: ${enquiry.eventType}`,
+    `Event Date: ${enquiry.eventDate || "Not provided"}`,
+    `Package: ${enquiry.packageName || "Not provided"}`,
+    `Guest Count: ${enquiry.guestCount || "Not provided"}`,
+    `Budget: ${enquiry.budget || "Not provided"}`,
+    `Preferred Contact: ${enquiry.preferredContact || "Not provided"}`,
+    `Location: ${enquiry.location || "Not provided"}`,
+    `Status: ${enquiry.status || "New"}`,
+    "",
+    "Message:",
+    enquiry.message
+  ].join("\n");
+
+  if (!NOTIFY_EMAIL) {
+    logNotification(`Notification skipped for ${enquiry.id}: NOTIFY_EMAIL is not configured.`);
+    return { delivered: false, reason: "NOTIFY_EMAIL is not configured." };
+  }
+
+  if (hasSmtpConfig()) {
+    try {
+      await sendNotificationEmailViaSmtp({
+        to: NOTIFY_EMAIL,
+        subject,
+        body
+      });
+      logNotification(`Notification delivered for ${enquiry.id} to ${NOTIFY_EMAIL} via SMTP.`);
+      return { delivered: true, method: "smtp" };
+    } catch (error) {
+      logNotification(`SMTP notification failed for ${enquiry.id}: ${error.message || error}`);
+    }
+  }
+
+  return sendNotificationEmailViaSendmail(NOTIFY_EMAIL, subject, body, enquiry.id);
+}
+
+async function handleCreateEnquiry(request, response) {
+  try {
+    const body = await collectRequestBody(request);
+    const payload = JSON.parse(body || "{}");
+    const { enquiry, error } = validateEnquiry(payload);
+
+    if (error) {
+      sendJson(response, 400, { error });
+      return;
+    }
+
+    const savedEnquiry = {
+      id: "ENQ-" + Date.now(),
+      createdAt: new Date().toISOString(),
+      status: "New",
+      ...enquiry
+    };
+
+    insertEnquiry(savedEnquiry);
+    const notification = await sendNotificationEmail(savedEnquiry);
+
+    sendJson(response, 201, {
+      message: "Your enquiry has been sent successfully.",
+      enquiry: savedEnquiry,
+      notification
+    });
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      sendJson(response, 400, { error: "The enquiry data was not valid JSON." });
+      return;
+    }
+
+    sendJson(response, 500, { error: error.message || "Unable to save the enquiry." });
+  }
+}
+
+function handleListAdminEnquiries(request, response) {
+  if (!requireAdmin(request, response)) {
+    return;
+  }
+
+  try {
+    const enquiries = readEnquiries();
+    sendJson(response, 200, { enquiries });
+  } catch (error) {
+    sendJson(response, 500, { error: "Unable to load enquiries." });
+  }
+}
+
+async function handleUpdateEnquiryStatus(request, response) {
+  if (!requireAdmin(request, response)) {
+    return;
+  }
+
+  try {
+    const body = await collectRequestBody(request);
+    const payload = JSON.parse(body || "{}");
+    const enquiryId = sanitize(payload.id);
+    const status = sanitize(payload.status);
+    const allowedStatuses = new Set(["New", "Contacted", "Booked", "Closed"]);
+
+    if (!enquiryId || !allowedStatuses.has(status)) {
+      sendJson(response, 400, { error: "A valid enquiry id and status are required." });
+      return;
+    }
+
+    runSql(`
+      UPDATE enquiries
+      SET status = ${sqlValue(status)}
+      WHERE id = ${sqlValue(enquiryId)};
+    `);
+
+    sendJson(response, 200, { message: "Enquiry status updated." });
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      sendJson(response, 400, { error: "The status payload was not valid JSON." });
+      return;
+    }
+
+    sendJson(response, 500, { error: "Unable to update enquiry status." });
+  }
+}
+
+function toCsv(value) {
+  const stringValue = String(value || "");
+  return `"${stringValue.replace(/"/g, '""')}"`;
+}
+
+function handleExportEnquiries(request, response) {
+  if (!requireAdmin(request, response)) {
+    return;
+  }
+
+  try {
+    const enquiries = readEnquiries();
+    const header = [
+      "id",
+      "createdAt",
+      "status",
+      "name",
+      "phone",
+      "email",
+      "eventType",
+      "eventDate",
+      "packageName",
+      "guestCount",
+      "budget",
+      "preferredContact",
+      "location",
+      "message"
+    ];
+    const rows = enquiries.map((item) => [
+      item.id,
+      item.createdAt,
+      item.status,
+      item.name,
+      item.phone,
+      item.email,
+      item.eventType,
+      item.eventDate,
+      item.packageName,
+      item.guestCount,
+      item.budget,
+      item.preferredContact,
+      item.location,
+      item.message
+    ]);
+    const csv = [header, ...rows]
+      .map((row) => row.map(toCsv).join(","))
+      .join("\n");
+
+    response.writeHead(200, {
+      "Content-Type": "text/csv; charset=utf-8",
+      "Content-Disposition": "attachment; filename=\"henna-enquiries.csv\""
+    });
+    response.end(csv);
+  } catch (error) {
+    sendJson(response, 500, { error: "Unable to export enquiries." });
+  }
+}
+
+async function handleAdminLogin(request, response) {
+  try {
+    const body = await collectRequestBody(request);
+    const payload = JSON.parse(body || "{}");
+    const password = sanitize(payload.password);
+
+    if (!password || password !== ADMIN_PASSWORD) {
+      sendJson(response, 401, { error: "Incorrect admin password." });
+      return;
+    }
+
+    const token = createSession();
+    sendJson(
+      response,
+      200,
+      {
+        message: "Admin login successful."
+      },
+      {
+        "Set-Cookie": `admin_session=${token}; HttpOnly; Path=/; Max-Age=${SESSION_TTL_MS / 1000}; SameSite=Lax`
+      }
+    );
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      sendJson(response, 400, { error: "The login payload was not valid JSON." });
+      return;
+    }
+
+    sendJson(response, 500, { error: "Unable to process admin login." });
+  }
+}
+
+function handleAdminLogout(request, response) {
+  const token = parseCookies(request).admin_session;
+  if (token) {
+    sessions.delete(token);
+  }
+
+  sendJson(
+    response,
+    200,
+    { message: "Logged out." },
+    { "Set-Cookie": "admin_session=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax" }
+  );
+}
+
+function handleAdminSession(request, response) {
+  const authorized = getAuthorizedSession(request);
+  sendJson(response, 200, {
+    authenticated: Boolean(authorized),
+    usingDefaultPassword: ADMIN_PASSWORD === "change-me-admin-password"
+  });
+}
+
+setupDatabase();
+
+const server = http.createServer(async (request, response) => {
+  const url = new URL(request.url, `http://${request.headers.host || "localhost"}`);
+
+  if ((request.method === "GET" || request.method === "HEAD") && url.pathname.startsWith("/assets/")) {
+    const assetPath = path.normalize(path.join(ROOT, url.pathname.slice(1)));
+    const assetsRoot = path.join(ROOT, "assets");
+    if (!assetPath.startsWith(assetsRoot)) {
+      sendJson(response, 403, { error: "Forbidden." });
+      return;
+    }
+    serveStaticFile(request, response, assetPath);
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/") {
+    serveHtml(response, INDEX_PATH);
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/admin") {
+    serveHtml(response, ADMIN_PATH);
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/enquiries") {
+    await handleCreateEnquiry(request, response);
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/health") {
+    sendJson(response, 200, { ok: true, service: "Mehndi Aura API" });
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/admin/enquiries") {
+    handleListAdminEnquiries(request, response);
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/admin/enquiries/status") {
+    await handleUpdateEnquiryStatus(request, response);
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/admin/export") {
+    handleExportEnquiries(request, response);
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/admin/login") {
+    await handleAdminLogin(request, response);
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/admin/logout") {
+    handleAdminLogout(request, response);
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/api/admin/session") {
+    handleAdminSession(request, response);
+    return;
+  }
+
+  sendJson(response, 404, { error: "Route not found." });
+});
+
+server.listen(PORT, () => {
+  console.log(`Mehndi Aura website running on http://localhost:${PORT}`);
+});

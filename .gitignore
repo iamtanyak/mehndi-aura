@@ -1,0 +1,6 @@
+node_modules/
+.env
+.DS_Store
+data/enquiries.db
+data/notifications.log
+npm-debug.log*
