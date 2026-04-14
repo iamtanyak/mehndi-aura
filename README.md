@@ -78,6 +78,11 @@ The website, admin, and enquiry storage will work online with this setup.
 
 Booking email notifications support both SMTP and Resend. SMTP is useful for local development, while Resend is recommended for Render because it uses HTTPS instead of SMTP ports. If delivery fails, the app falls back to local `sendmail` when available, and all notification attempts are logged in `data/notifications.log`.
 
+Client thank-you emails are also sent automatically when a new enquiry is submitted. In the admin dashboard you can now see both:
+
+- the owner booking alert status
+- the client reply status
+
 ## Recommended setup for Mehndi Aura
 
 Use:
@@ -96,3 +101,24 @@ RESEND_FROM=Mehndi Aura <onboarding@resend.dev>
 ```
 
 For live hosting, the main secret you still need is a `RESEND_API_KEY`.
+
+## Custom domain on Render
+
+When you are ready, you can connect your own domain to the website in Render:
+
+1. Open your web service in Render.
+2. Go to `Settings` -> `Custom Domains`.
+3. Add your domain, for example `www.mehndiaura.com`.
+4. Copy the DNS records Render gives you and add them where you bought your domain.
+5. Wait for Render to verify the domain.
+
+### Recommended next step for email
+
+If you connect your own domain, also add that same domain in Resend and verify it there.
+Then change:
+
+```env
+RESEND_FROM=Mehndi Aura <hello@yourdomain.com>
+```
+
+That gives you a much more professional sender email for both booking alerts and client thank-you emails.

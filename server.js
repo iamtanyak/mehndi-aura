@@ -120,6 +120,9 @@ function setupDatabase() {
       notification_status TEXT,
       notification_method TEXT,
       notification_reason TEXT,
+      client_reply_status TEXT,
+      client_reply_method TEXT,
+      client_reply_reason TEXT,
       status TEXT NOT NULL DEFAULT 'New',
       location TEXT,
       message TEXT NOT NULL
@@ -133,6 +136,9 @@ function setupDatabase() {
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN notification_status TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN notification_method TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN notification_reason TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN client_reply_status TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN client_reply_method TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN client_reply_reason TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN status TEXT NOT NULL DEFAULT 'New';");
 
   const countOutput = runSql("SELECT COUNT(*) AS count FROM enquiries;", { json: true });
@@ -164,6 +170,9 @@ function insertEnquiry(enquiry) {
       notification_status,
       notification_method,
       notification_reason,
+      client_reply_status,
+      client_reply_method,
+      client_reply_reason,
       status,
       location,
       message
@@ -182,6 +191,9 @@ function insertEnquiry(enquiry) {
       ${sqlValue(enquiry.notificationStatus || "Pending")},
       ${sqlValue(enquiry.notificationMethod || "")},
       ${sqlValue(enquiry.notificationReason || "")},
+      ${sqlValue(enquiry.clientReplyStatus || "Pending")},
+      ${sqlValue(enquiry.clientReplyMethod || "")},
+      ${sqlValue(enquiry.clientReplyReason || "")},
       ${sqlValue(enquiry.status || "New")},
       ${sqlValue(enquiry.location || "")},
       ${sqlValue(enquiry.message)}
@@ -206,6 +218,9 @@ function readEnquiries() {
       notification_status AS notificationStatus,
       notification_method AS notificationMethod,
       notification_reason AS notificationReason,
+      client_reply_status AS clientReplyStatus,
+      client_reply_method AS clientReplyMethod,
+      client_reply_reason AS clientReplyReason,
       status,
       location,
       message
@@ -544,10 +559,10 @@ function sendNotificationEmailViaResend({ to, subject, body }) {
   });
 }
 
-function sendNotificationEmailViaSendmail(to, subject, body, enquiryId) {
+function sendEmailViaSendmail(to, subject, body, enquiryId, label) {
   if (!fs.existsSync(SENDMAIL_BIN)) {
     const reason = "sendmail is not available on this host.";
-    logNotification(`Notification skipped for ${enquiryId}: ${reason}`);
+    logNotification(`${label} skipped for ${enquiryId}: ${reason}`);
     return { delivered: false, reason };
   }
 
@@ -562,18 +577,46 @@ function sendNotificationEmailViaSendmail(to, subject, body, enquiryId) {
 
   if (result.error) {
     const reason = String(result.error.message || "sendmail failed");
-    logNotification(`Notification failed for ${enquiryId}: ${reason}`);
+    logNotification(`${label} failed for ${enquiryId}: ${reason}`);
     return { delivered: false, reason };
   }
 
   if (result.status !== 0) {
     const reason = (result.stderr || result.stdout || "sendmail failed").trim();
-    logNotification(`Notification failed for ${enquiryId}: ${reason}`);
+    logNotification(`${label} failed for ${enquiryId}: ${reason}`);
     return { delivered: false, reason };
   }
 
-  logNotification(`Notification delivered for ${enquiryId} to ${to} via sendmail.`);
+  logNotification(`${label} delivered for ${enquiryId} to ${to} via sendmail.`);
   return { delivered: true, method: "sendmail" };
+}
+
+async function deliverEmail({ to, subject, body, enquiryId, label }) {
+  if (hasResendConfig()) {
+    try {
+      const result = await sendNotificationEmailViaResend({ to, subject, body });
+      logNotification(`${label} delivered for ${enquiryId} to ${to} via Resend.`);
+      return {
+        delivered: true,
+        method: "resend",
+        providerId: result.id || ""
+      };
+    } catch (error) {
+      logNotification(`Resend ${label.toLowerCase()} failed for ${enquiryId}: ${error.message || error}`);
+    }
+  }
+
+  if (hasSmtpConfig()) {
+    try {
+      await sendNotificationEmailViaSmtp({ to, subject, body });
+      logNotification(`${label} delivered for ${enquiryId} to ${to} via SMTP.`);
+      return { delivered: true, method: "smtp" };
+    } catch (error) {
+      logNotification(`SMTP ${label.toLowerCase()} failed for ${enquiryId}: ${error.message || error}`);
+    }
+  }
+
+  return sendEmailViaSendmail(to, subject, body, enquiryId, label);
 }
 
 async function sendNotificationEmail(enquiry) {
@@ -604,39 +647,13 @@ async function sendNotificationEmail(enquiry) {
     return { delivered: false, reason: "NOTIFY_EMAIL is not configured." };
   }
 
-  if (hasResendConfig()) {
-    try {
-      const result = await sendNotificationEmailViaResend({
-        to: NOTIFY_EMAIL,
-        subject,
-        body
-      });
-      logNotification(`Notification delivered for ${enquiry.id} to ${NOTIFY_EMAIL} via Resend.`);
-      return {
-        delivered: true,
-        method: "resend",
-        providerId: result.id || ""
-      };
-    } catch (error) {
-      logNotification(`Resend notification failed for ${enquiry.id}: ${error.message || error}`);
-    }
-  }
-
-  if (hasSmtpConfig()) {
-    try {
-      await sendNotificationEmailViaSmtp({
-        to: NOTIFY_EMAIL,
-        subject,
-        body
-      });
-      logNotification(`Notification delivered for ${enquiry.id} to ${NOTIFY_EMAIL} via SMTP.`);
-      return { delivered: true, method: "smtp" };
-    } catch (error) {
-      logNotification(`SMTP notification failed for ${enquiry.id}: ${error.message || error}`);
-    }
-  }
-
-  return sendNotificationEmailViaSendmail(NOTIFY_EMAIL, subject, body, enquiry.id);
+  return deliverEmail({
+    to: NOTIFY_EMAIL,
+    subject,
+    body,
+    enquiryId: enquiry.id,
+    label: "Notification"
+  });
 }
 
 function updateEnquiryNotification(enquiryId, notification) {
@@ -646,6 +663,49 @@ function updateEnquiryNotification(enquiryId, notification) {
       notification_status = ${sqlValue(notification.delivered ? "Delivered" : "Failed")},
       notification_method = ${sqlValue(notification.method || "")},
       notification_reason = ${sqlValue(notification.reason || "")}
+    WHERE id = ${sqlValue(enquiryId)};
+  `);
+}
+
+async function sendClientReplyEmail(enquiry) {
+  if (!enquiry.email) {
+    return { delivered: false, reason: "Client email is not available." };
+  }
+
+  const subject = `Mehndi Aura received your enquiry`;
+  const body = [
+    `Hi ${enquiry.name || "there"},`,
+    "",
+    "Thank you for getting in touch with Mehndi Aura.",
+    "Your enquiry has been received successfully and Tanya will review it shortly.",
+    "",
+    `Reference: ${enquiry.id}`,
+    `Event Type: ${enquiry.eventType || "Not provided"}`,
+    `Event Date: ${enquiry.eventDate || "Not provided"}`,
+    `Package: ${enquiry.packageName || "Not provided"}`,
+    "",
+    "If you need to add anything else, you can reply to this email or contact Mehndi Aura directly by phone or WhatsApp.",
+    "",
+    "Warmly,",
+    "Mehndi Aura"
+  ].join("\n");
+
+  return deliverEmail({
+    to: enquiry.email,
+    subject,
+    body,
+    enquiryId: enquiry.id,
+    label: "Client reply"
+  });
+}
+
+function updateEnquiryClientReply(enquiryId, replyResult) {
+  runSql(`
+    UPDATE enquiries
+    SET
+      client_reply_status = ${sqlValue(replyResult.delivered ? "Delivered" : "Failed")},
+      client_reply_method = ${sqlValue(replyResult.method || "")},
+      client_reply_reason = ${sqlValue(replyResult.reason || "")}
     WHERE id = ${sqlValue(enquiryId)};
   `);
 }
@@ -668,20 +728,29 @@ async function handleCreateEnquiry(request, response) {
       notificationStatus: "Pending",
       notificationMethod: "",
       notificationReason: "",
+      clientReplyStatus: "Pending",
+      clientReplyMethod: "",
+      clientReplyReason: "",
       ...enquiry
     };
 
     insertEnquiry(savedEnquiry);
     const notification = await sendNotificationEmail(savedEnquiry);
+    const clientReply = await sendClientReplyEmail(savedEnquiry);
     updateEnquiryNotification(savedEnquiry.id, notification);
+    updateEnquiryClientReply(savedEnquiry.id, clientReply);
     savedEnquiry.notificationStatus = notification.delivered ? "Delivered" : "Failed";
     savedEnquiry.notificationMethod = notification.method || "";
     savedEnquiry.notificationReason = notification.reason || "";
+    savedEnquiry.clientReplyStatus = clientReply.delivered ? "Delivered" : "Failed";
+    savedEnquiry.clientReplyMethod = clientReply.method || "";
+    savedEnquiry.clientReplyReason = clientReply.reason || "";
 
     sendJson(response, 201, {
       message: "Your enquiry has been sent successfully.",
       enquiry: savedEnquiry,
-      notification
+      notification,
+      clientReply
     });
   } catch (error) {
     if (error instanceof SyntaxError) {
@@ -768,6 +837,9 @@ function handleExportEnquiries(request, response) {
       "notificationStatus",
       "notificationMethod",
       "notificationReason",
+      "clientReplyStatus",
+      "clientReplyMethod",
+      "clientReplyReason",
       "location",
       "message"
     ];
@@ -787,6 +859,9 @@ function handleExportEnquiries(request, response) {
       item.notificationStatus,
       item.notificationMethod,
       item.notificationReason,
+      item.clientReplyStatus,
+      item.clientReplyMethod,
+      item.clientReplyReason,
       item.location,
       item.message
     ]);
