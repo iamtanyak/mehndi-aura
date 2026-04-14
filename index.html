@@ -2444,6 +2444,19 @@
     const lightboxImage = document.getElementById("lightbox-image");
     const lightboxCaption = document.getElementById("lightbox-caption");
     const lightboxClose = document.getElementById("lightbox-close");
+    const isLocalHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+    function getBookingHelpMessage() {
+      if (window.location.protocol === "file:") {
+        return "This booking form will not work from a local file. Run npm start and open http://localhost:3000.";
+      }
+
+      if (isLocalHost) {
+        return "The booking backend is not available yet. Please run npm start and open http://localhost:3000.";
+      }
+
+      return "The booking service is temporarily unavailable. Please try again in a moment or contact Mehndi Aura directly by WhatsApp, phone, or email.";
+    }
 
     async function parseJsonResponse(response) {
       const contentType = response.headers.get("content-type") || "";
@@ -2456,7 +2469,7 @@
           data: null,
           error: response.ok
             ? "The server returned an empty response."
-            : "The booking server did not return a usable response. Please make sure the site is running through npm start at http://localhost:3000."
+            : getBookingHelpMessage()
         };
       }
 
@@ -2465,7 +2478,7 @@
           ok: false,
           status: response.status,
           data: null,
-          error: "The booking backend is not responding correctly. Please open the site through http://localhost:3000 after running npm start."
+          error: getBookingHelpMessage()
         };
       }
 
@@ -2481,24 +2494,20 @@
           ok: false,
           status: response.status,
           data: null,
-          error: "The booking server response could not be read properly. Please make sure you are using http://localhost:3000."
+          error: getBookingHelpMessage()
         };
       }
     }
 
     async function checkBookingBackend() {
       if (window.location.protocol === "file:") {
-        throw new Error("This booking form will not work from a local file. Run npm start and open http://localhost:3000.");
+        throw new Error(getBookingHelpMessage());
       }
 
       const healthResponse = await fetch("/api/health", { method: "GET" });
-      const healthResult = await parseJsonResponse(healthResponse);
-
-      if (!healthResult.ok) {
-        throw new Error(
-          healthResult.error ||
-          "The booking backend is not available. Run npm start and open http://localhost:3000."
-        );
+      if (!healthResponse.ok) {
+        const healthResult = await parseJsonResponse(healthResponse);
+        throw new Error(healthResult.error || getBookingHelpMessage());
       }
     }
 
