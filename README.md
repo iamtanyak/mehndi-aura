@@ -13,7 +13,8 @@ Luxury full-stack mehndi website with:
 2. Set `ADMIN_PASSWORD`
 3. Set `NOTIFY_EMAIL`
 4. If you want booking emails to arrive automatically, set SMTP values too
-5. Run:
+5. For hosted deployments like Render, use Resend values instead of SMTP
+6. Run:
 
 ```bash
 npm start
@@ -40,6 +41,16 @@ PORT=3000
 
 Use a Google App Password, not your normal Gmail password.
 
+### Resend example for hosted environments
+
+```env
+ADMIN_PASSWORD=your-strong-admin-password
+NOTIFY_EMAIL=tanya19.2003@hotmail.com
+RESEND_API_KEY=your-resend-api-key
+RESEND_FROM=Mehndi Aura <onboarding@resend.dev>
+PORT=3000
+```
+
 ## Deploy on Render
 
 This project is prepared for Docker-based deployment on [Render](https://render.com/).
@@ -54,12 +65,8 @@ This project is prepared for Docker-based deployment on [Render](https://render.
 ```env
 ADMIN_PASSWORD=your-strong-admin-password
 NOTIFY_EMAIL=tanya19.2003@hotmail.com
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=465
-SMTP_SECURE=true
-SMTP_USER=tanyak17.2003@gmail.com
-SMTP_PASS=your-google-app-password
-SMTP_FROM=tanyak17.2003@gmail.com
+RESEND_API_KEY=your-resend-api-key
+RESEND_FROM=Mehndi Aura <onboarding@resend.dev>
 PORT=3000
 ```
 
@@ -69,7 +76,7 @@ PORT=3000
 
 The website, admin, and enquiry storage will work online with this setup.
 
-Booking email notifications now support SMTP directly, which is much better for production. If SMTP is not configured or fails, the app falls back to local `sendmail` when available, and all notification attempts are logged in `data/notifications.log`.
+Booking email notifications support both SMTP and Resend. SMTP is useful for local development, while Resend is recommended for Render because it uses HTTPS instead of SMTP ports. If delivery fails, the app falls back to local `sendmail` when available, and all notification attempts are logged in `data/notifications.log`.
 
 ## Recommended setup for Mehndi Aura
 
@@ -77,6 +84,7 @@ Use:
 
 - Gmail `tanyak17.2003@gmail.com` as the sending account
 - Outlook `tanya19.2003@hotmail.com` as the inbox that receives booking alerts
+- Resend for live Render delivery
 
 That means:
 
@@ -84,6 +92,7 @@ That means:
 NOTIFY_EMAIL=tanya19.2003@hotmail.com
 SMTP_USER=tanyak17.2003@gmail.com
 SMTP_FROM=tanyak17.2003@gmail.com
+RESEND_FROM=Mehndi Aura <onboarding@resend.dev>
 ```
 
-The only secret you still need to generate is the Gmail App Password for `SMTP_PASS`.
+For live hosting, the main secret you still need is a `RESEND_API_KEY`.

@@ -1,4 +1,5 @@
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
@@ -57,6 +58,8 @@ const SMTP_USER = process.env.SMTP_USER || "";
 const SMTP_PASS = process.env.SMTP_PASS || "";
 const SMTP_FROM = process.env.SMTP_FROM || SMTP_USER || NOTIFY_EMAIL || "";
 const SMTP_SECURE = String(process.env.SMTP_SECURE || "true").toLowerCase() !== "false";
+const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
+const RESEND_FROM = process.env.RESEND_FROM || "";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
 const sessions = new Map();
 
@@ -114,6 +117,9 @@ function setupDatabase() {
       guest_count TEXT,
       budget TEXT,
       preferred_contact TEXT,
+      notification_status TEXT,
+      notification_method TEXT,
+      notification_reason TEXT,
       status TEXT NOT NULL DEFAULT 'New',
       location TEXT,
       message TEXT NOT NULL
@@ -124,6 +130,9 @@ function setupDatabase() {
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN guest_count TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN budget TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN preferred_contact TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN notification_status TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN notification_method TEXT;");
+  runSqlSafe("ALTER TABLE enquiries ADD COLUMN notification_reason TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN status TEXT NOT NULL DEFAULT 'New';");
 
   const countOutput = runSql("SELECT COUNT(*) AS count FROM enquiries;", { json: true });
@@ -152,6 +161,9 @@ function insertEnquiry(enquiry) {
       guest_count,
       budget,
       preferred_contact,
+      notification_status,
+      notification_method,
+      notification_reason,
       status,
       location,
       message
@@ -167,6 +179,9 @@ function insertEnquiry(enquiry) {
       ${sqlValue(enquiry.guestCount || "")},
       ${sqlValue(enquiry.budget || "")},
       ${sqlValue(enquiry.preferredContact || "")},
+      ${sqlValue(enquiry.notificationStatus || "Pending")},
+      ${sqlValue(enquiry.notificationMethod || "")},
+      ${sqlValue(enquiry.notificationReason || "")},
       ${sqlValue(enquiry.status || "New")},
       ${sqlValue(enquiry.location || "")},
       ${sqlValue(enquiry.message)}
@@ -188,6 +203,9 @@ function readEnquiries() {
       guest_count AS guestCount,
       budget,
       preferred_contact AS preferredContact,
+      notification_status AS notificationStatus,
+      notification_method AS notificationMethod,
+      notification_reason AS notificationReason,
       status,
       location,
       message
@@ -434,6 +452,10 @@ function hasSmtpConfig() {
   return Boolean(SMTP_HOST && SMTP_USER && SMTP_PASS && SMTP_FROM && NOTIFY_EMAIL);
 }
 
+function hasResendConfig() {
+  return Boolean(RESEND_API_KEY && RESEND_FROM && NOTIFY_EMAIL);
+}
+
 async function sendNotificationEmailViaSmtp({ to, subject, body }) {
   const socket = await createSmtpConnection();
   const readResponse = createSmtpReader(socket);
@@ -464,6 +486,62 @@ async function sendNotificationEmailViaSmtp({ to, subject, body }) {
   } finally {
     socket.end();
   }
+}
+
+function sendNotificationEmailViaResend({ to, subject, body }) {
+  return new Promise((resolve, reject) => {
+    const payload = JSON.stringify({
+      from: RESEND_FROM,
+      to: [to],
+      subject,
+      text: body
+    });
+
+    const request = https.request(
+      {
+        hostname: "api.resend.com",
+        path: "/emails",
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(payload)
+        }
+      },
+      (response) => {
+        let responseBody = "";
+
+        response.on("data", (chunk) => {
+          responseBody += chunk.toString("utf8");
+        });
+
+        response.on("end", () => {
+          if (response.statusCode >= 200 && response.statusCode < 300) {
+            resolve({
+              id: (() => {
+                try {
+                  return JSON.parse(responseBody || "{}").id || "";
+                } catch {
+                  return "";
+                }
+              })()
+            });
+            return;
+          }
+
+          reject(
+            new Error(
+              `Resend API error ${response.statusCode}: ${responseBody || "Unable to deliver email."}`
+            )
+          );
+        });
+      }
+    );
+
+    request.on("error", reject);
+    request.write(payload);
+    request.end();
+  });
 }
 
 function sendNotificationEmailViaSendmail(to, subject, body, enquiryId) {
@@ -526,6 +604,24 @@ async function sendNotificationEmail(enquiry) {
     return { delivered: false, reason: "NOTIFY_EMAIL is not configured." };
   }
 
+  if (hasResendConfig()) {
+    try {
+      const result = await sendNotificationEmailViaResend({
+        to: NOTIFY_EMAIL,
+        subject,
+        body
+      });
+      logNotification(`Notification delivered for ${enquiry.id} to ${NOTIFY_EMAIL} via Resend.`);
+      return {
+        delivered: true,
+        method: "resend",
+        providerId: result.id || ""
+      };
+    } catch (error) {
+      logNotification(`Resend notification failed for ${enquiry.id}: ${error.message || error}`);
+    }
+  }
+
   if (hasSmtpConfig()) {
     try {
       await sendNotificationEmailViaSmtp({
@@ -543,6 +639,17 @@ async function sendNotificationEmail(enquiry) {
   return sendNotificationEmailViaSendmail(NOTIFY_EMAIL, subject, body, enquiry.id);
 }
 
+function updateEnquiryNotification(enquiryId, notification) {
+  runSql(`
+    UPDATE enquiries
+    SET
+      notification_status = ${sqlValue(notification.delivered ? "Delivered" : "Failed")},
+      notification_method = ${sqlValue(notification.method || "")},
+      notification_reason = ${sqlValue(notification.reason || "")}
+    WHERE id = ${sqlValue(enquiryId)};
+  `);
+}
+
 async function handleCreateEnquiry(request, response) {
   try {
     const body = await collectRequestBody(request);
@@ -558,11 +665,18 @@ async function handleCreateEnquiry(request, response) {
       id: "ENQ-" + Date.now(),
       createdAt: new Date().toISOString(),
       status: "New",
+      notificationStatus: "Pending",
+      notificationMethod: "",
+      notificationReason: "",
       ...enquiry
     };
 
     insertEnquiry(savedEnquiry);
     const notification = await sendNotificationEmail(savedEnquiry);
+    updateEnquiryNotification(savedEnquiry.id, notification);
+    savedEnquiry.notificationStatus = notification.delivered ? "Delivered" : "Failed";
+    savedEnquiry.notificationMethod = notification.method || "";
+    savedEnquiry.notificationReason = notification.reason || "";
 
     sendJson(response, 201, {
       message: "Your enquiry has been sent successfully.",
@@ -651,6 +765,9 @@ function handleExportEnquiries(request, response) {
       "guestCount",
       "budget",
       "preferredContact",
+      "notificationStatus",
+      "notificationMethod",
+      "notificationReason",
       "location",
       "message"
     ];
@@ -667,6 +784,9 @@ function handleExportEnquiries(request, response) {
       item.guestCount,
       item.budget,
       item.preferredContact,
+      item.notificationStatus,
+      item.notificationMethod,
+      item.notificationReason,
       item.location,
       item.message
     ]);

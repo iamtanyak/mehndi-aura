@@ -473,12 +473,12 @@
         <aside class="panel stats-card">
           <h2>Admin Notes</h2>
           <p>
-            The dashboard is now password-protected and backed by SQLite. Notification delivery is attempted
-            through local `sendmail` when `NOTIFY_EMAIL` is configured.
+            The dashboard is password-protected and backed by SQLite. Notification delivery status is now
+            saved with each enquiry so email issues are easier to spot and fix.
           </p>
           <ul>
             <li>Set `ADMIN_PASSWORD` to change the starter password.</li>
-            <li>Set `NOTIFY_EMAIL` to receive new enquiry alerts.</li>
+            <li>Use `RESEND_API_KEY` and `RESEND_FROM` on Render for reliable hosted email alerts.</li>
             <li>Enquiries are stored in `data/enquiries.db`.</li>
           </ul>
         </aside>
@@ -591,6 +591,9 @@
               <span class="detail"><strong>Guests:</strong> ${item.guestCount || "Not provided"}</span>
               <span class="detail"><strong>Budget:</strong> ${item.budget || "Not provided"}</span>
               <span class="detail"><strong>Preferred contact:</strong> ${item.preferredContact || "Not provided"}</span>
+              <span class="detail"><strong>Email alert:</strong> ${item.notificationStatus || "Pending"}</span>
+              <span class="detail"><strong>Alert method:</strong> ${item.notificationMethod || "Not recorded"}</span>
+              <span class="detail"><strong>Alert note:</strong> ${item.notificationReason || "No error recorded"}</span>
             </div>
             <div class="message-box">${item.message}</div>
             <div class="card-actions">
