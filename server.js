@@ -471,6 +471,10 @@ function hasResendConfig() {
   return Boolean(RESEND_API_KEY && RESEND_FROM && NOTIFY_EMAIL);
 }
 
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function sendNotificationEmailViaSmtp({ to, subject, body }) {
   const socket = await createSmtpConnection();
   const readResponse = createSmtpReader(socket);
@@ -531,24 +535,30 @@ function sendNotificationEmailViaResend({ to, subject, body }) {
         });
 
         response.on("end", () => {
+          let parsed = {};
+          try {
+            parsed = JSON.parse(responseBody || "{}");
+          } catch {
+            parsed = {};
+          }
+
           if (response.statusCode >= 200 && response.statusCode < 300) {
             resolve({
-              id: (() => {
-                try {
-                  return JSON.parse(responseBody || "{}").id || "";
-                } catch {
-                  return "";
-                }
-              })()
+              id: parsed.id || "",
+              statusCode: response.statusCode
             });
             return;
           }
 
-          reject(
-            new Error(
-              `Resend API error ${response.statusCode}: ${responseBody || "Unable to deliver email."}`
-            )
-          );
+          const message =
+            parsed.message ||
+            parsed.error ||
+            responseBody ||
+            "Unable to deliver email.";
+
+          const error = new Error(`Resend API error ${response.statusCode}: ${message}`);
+          error.statusCode = response.statusCode;
+          reject(error);
         });
       }
     );
@@ -592,6 +602,8 @@ function sendEmailViaSendmail(to, subject, body, enquiryId, label) {
 }
 
 async function deliverEmail({ to, subject, body, enquiryId, label }) {
+  let lastReason = "";
+
   if (hasResendConfig()) {
     try {
       const result = await sendNotificationEmailViaResend({ to, subject, body });
@@ -602,7 +614,25 @@ async function deliverEmail({ to, subject, body, enquiryId, label }) {
         providerId: result.id || ""
       };
     } catch (error) {
-      logNotification(`Resend ${label.toLowerCase()} failed for ${enquiryId}: ${error.message || error}`);
+      lastReason = String(error.message || error);
+      logNotification(`Resend ${label.toLowerCase()} failed for ${enquiryId}: ${lastReason}`);
+
+      if (Number(error.statusCode) === 429) {
+        await delay(1200);
+
+        try {
+          const retryResult = await sendNotificationEmailViaResend({ to, subject, body });
+          logNotification(`${label} delivered for ${enquiryId} to ${to} via Resend after retry.`);
+          return {
+            delivered: true,
+            method: "resend",
+            providerId: retryResult.id || ""
+          };
+        } catch (retryError) {
+          lastReason = String(retryError.message || retryError);
+          logNotification(`Resend retry for ${label.toLowerCase()} failed for ${enquiryId}: ${lastReason}`);
+        }
+      }
     }
   }
 
@@ -612,11 +642,21 @@ async function deliverEmail({ to, subject, body, enquiryId, label }) {
       logNotification(`${label} delivered for ${enquiryId} to ${to} via SMTP.`);
       return { delivered: true, method: "smtp" };
     } catch (error) {
-      logNotification(`SMTP ${label.toLowerCase()} failed for ${enquiryId}: ${error.message || error}`);
+      lastReason = String(error.message || error);
+      logNotification(`SMTP ${label.toLowerCase()} failed for ${enquiryId}: ${lastReason}`);
     }
   }
 
-  return sendEmailViaSendmail(to, subject, body, enquiryId, label);
+  const fallbackResult = sendEmailViaSendmail(to, subject, body, enquiryId, label);
+  if (!fallbackResult.delivered && lastReason) {
+    return {
+      delivered: false,
+      method: fallbackResult.method || "",
+      reason: lastReason
+    };
+  }
+
+  return fallbackResult;
 }
 
 async function sendNotificationEmail(enquiry) {
