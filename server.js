@@ -60,6 +60,7 @@ const SMTP_FROM = process.env.SMTP_FROM || SMTP_USER || NOTIFY_EMAIL || "";
 const SMTP_SECURE = String(process.env.SMTP_SECURE || "true").toLowerCase() !== "false";
 const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 const RESEND_FROM = process.env.RESEND_FROM || "";
+const CLIENT_AUTO_REPLY_ENABLED = String(process.env.CLIENT_AUTO_REPLY_ENABLED || "false").toLowerCase() === "true";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
 const sessions = new Map();
 
@@ -714,6 +715,10 @@ function updateEnquiryNotification(enquiryId, notification) {
 }
 
 async function sendClientReplyEmail(enquiry) {
+  if (!CLIENT_AUTO_REPLY_ENABLED) {
+    return { delivered: false, reason: "Client auto-reply is disabled until a verified sending domain is connected." };
+  }
+
   if (!enquiry.email) {
     return { delivered: false, reason: "Client email is not available." };
   }

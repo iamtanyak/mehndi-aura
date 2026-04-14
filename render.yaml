@@ -32,3 +32,5 @@ services:
         sync: false
       - key: RESEND_FROM
         sync: false
+      - key: CLIENT_AUTO_REPLY_ENABLED
+        value: "false"

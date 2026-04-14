@@ -48,6 +48,7 @@ ADMIN_PASSWORD=your-strong-admin-password
 NOTIFY_EMAIL=tanya19.2003@hotmail.com
 RESEND_API_KEY=your-resend-api-key
 RESEND_FROM=Mehndi Aura <onboarding@resend.dev>
+CLIENT_AUTO_REPLY_ENABLED=false
 PORT=3000
 ```
 
@@ -67,6 +68,7 @@ ADMIN_PASSWORD=your-strong-admin-password
 NOTIFY_EMAIL=tanya19.2003@hotmail.com
 RESEND_API_KEY=your-resend-api-key
 RESEND_FROM=Mehndi Aura <onboarding@resend.dev>
+CLIENT_AUTO_REPLY_ENABLED=false
 PORT=3000
 ```
 
@@ -78,7 +80,7 @@ The website, admin, and enquiry storage will work online with this setup.
 
 Booking email notifications support both SMTP and Resend. SMTP is useful for local development, while Resend is recommended for Render because it uses HTTPS instead of SMTP ports. If delivery fails, the app falls back to local `sendmail` when available, and all notification attempts are logged in `data/notifications.log`.
 
-Client thank-you emails are also sent automatically when a new enquiry is submitted. In the admin dashboard you can now see both:
+Client thank-you emails can also be sent automatically when a new enquiry is submitted, but this should stay disabled until you verify your own sending domain in Resend. In the admin dashboard you can see both:
 
 - the owner booking alert status
 - the client reply status
