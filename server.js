@@ -633,6 +633,12 @@ async function deliverEmail({ to, subject, body, enquiryId, label }) {
           logNotification(`Resend retry for ${label.toLowerCase()} failed for ${enquiryId}: ${lastReason}`);
         }
       }
+
+      return {
+        delivered: false,
+        method: "resend",
+        reason: lastReason || "Resend could not deliver the email."
+      };
     }
   }
 
@@ -776,6 +782,7 @@ async function handleCreateEnquiry(request, response) {
 
     insertEnquiry(savedEnquiry);
     const notification = await sendNotificationEmail(savedEnquiry);
+    await delay(800);
     const clientReply = await sendClientReplyEmail(savedEnquiry);
     updateEnquiryNotification(savedEnquiry.id, notification);
     updateEnquiryClientReply(savedEnquiry.id, clientReply);
