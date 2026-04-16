@@ -73,12 +73,22 @@ PORT=3000
 ```
 
 5. Keep the attached disk enabled so enquiry data survives redeploys.
+6. In Google Search Console, submit this sitemap after deployment:
+
+```text
+https://mehndiaura.co.uk/sitemap.xml
+```
 
 ### Important note
 
 The website, admin, and enquiry storage will work online with this setup.
 
 Booking email notifications support both SMTP and Resend. SMTP is useful for local development, while Resend is recommended for Render because it uses HTTPS instead of SMTP ports. If delivery fails, the app falls back to local `sendmail` when available, and all notification attempts are logged in `data/notifications.log`.
+
+The website also includes:
+
+- `robots.txt` for crawl guidance
+- `sitemap.xml` for Search Console submission
 
 Client thank-you emails can also be sent automatically when a new enquiry is submitted, but this should stay disabled until you verify your own sending domain in Resend. In the admin dashboard you can see both:
 

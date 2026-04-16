@@ -43,6 +43,8 @@ loadEnvFile();
 const PORT = process.env.PORT || 3000;
 const INDEX_PATH = path.join(ROOT, "index.html");
 const ADMIN_PATH = path.join(ROOT, "admin.html");
+const ROBOTS_PATH = path.join(ROOT, "robots.txt");
+const SITEMAP_PATH = path.join(ROOT, "sitemap.xml");
 const DATA_DIR = path.join(ROOT, "data");
 const DB_PATH = path.join(DATA_DIR, "enquiries.db");
 const LEGACY_JSON_PATH = path.join(DATA_DIR, "enquiries.json");
@@ -259,6 +261,20 @@ function serveHtml(response, filePath) {
       "Content-Type": "text/html; charset=utf-8"
     });
     response.end(html);
+  });
+}
+
+function serveTextFile(response, filePath, contentType) {
+  fs.readFile(filePath, "utf8", (error, text) => {
+    if (error) {
+      sendJson(response, 500, { error: "Unable to load the requested file." });
+      return;
+    }
+
+    response.writeHead(200, {
+      "Content-Type": contentType
+    });
+    response.end(text);
   });
 }
 
@@ -1008,6 +1024,16 @@ const server = http.createServer(async (request, response) => {
 
   if (request.method === "GET" && url.pathname === "/admin") {
     serveHtml(response, ADMIN_PATH);
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/robots.txt") {
+    serveTextFile(response, ROBOTS_PATH, "text/plain; charset=utf-8");
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/sitemap.xml") {
+    serveTextFile(response, SITEMAP_PATH, "application/xml; charset=utf-8");
     return;
   }
 
