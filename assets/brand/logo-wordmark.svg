@@ -1,33 +1,23 @@
 <svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="88" y1="30" x2="1112" y2="334" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFF9F2"/>
-      <stop offset="0.56" stop-color="#F8E9E0"/>
+    <linearGradient id="bg" x1="84" y1="30" x2="1110" y2="334" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F3"/>
+      <stop offset="0.6" stop-color="#F8E9E1"/>
       <stop offset="1" stop-color="#F2DDD6"/>
     </linearGradient>
-    <linearGradient id="ink" x1="104" y1="84" x2="278" y2="286" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#CC5A78"/>
-      <stop offset="0.45" stop-color="#C86A33"/>
+    <linearGradient id="ink" x1="112" y1="92" x2="252" y2="282" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C85A78"/>
+      <stop offset="0.5" stop-color="#C86A33"/>
       <stop offset="1" stop-color="#8A2F24"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="360" rx="56" fill="url(#bg)"/>
   <rect x="40" y="40" width="284" height="284" rx="84" fill="#FBF1E3"/>
-  <circle cx="182" cy="182" r="94" fill="#FFFDF8" stroke="#ECD4CC" stroke-width="6"/>
-  <path d="M148 236V124H163L182 168L201 124H216V236" stroke="url(#ink)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M148 236V155L182 207L216 155V236" stroke="#8A2F24" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M182 92C187 105 197 114 210 118C197 122 187 132 182 145C177 132 167 122 154 118C167 114 177 105 182 92Z" fill="#8A2F24"/>
-  <path d="M160 103C154 93 144 87 133 86C139 95 141 105 140 116" stroke="#C86A33" stroke-width="3.4" stroke-linecap="round"/>
-  <path d="M204 103C210 93 220 87 231 86C225 95 223 105 224 116" stroke="#C86A33" stroke-width="3.4" stroke-linecap="round"/>
-  <path d="M128 140C139 137 148 130 155 120" stroke="#CB5475" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M236 140C225 137 216 130 209 120" stroke="#CB5475" stroke-width="3.2" stroke-linecap="round"/>
-  <g fill="#CB5475">
-    <circle cx="132" cy="85" r="4.8"/>
-    <circle cx="232" cy="85" r="4.8"/>
-  </g>
-  <g fill="#EFA53A">
-    <circle cx="182" cy="83" r="4.8"/>
-  </g>
+  <circle cx="182" cy="182" r="94" fill="#FFFDF9" stroke="#ECD7CF" stroke-width="6"/>
+  <path d="M145 235V121H159L182 168L205 121H219V235" stroke="url(#ink)" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M145 235V157L182 202L219 157V235" stroke="#8A2F24" stroke-opacity="0.92" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M182 90C186 99 194 106 203 109C194 112 186 120 182 129C178 120 170 112 161 109C170 106 178 99 182 90Z" fill="#8A2F24"/>
+  <circle cx="182" cy="81" r="4.5" fill="#EFA53A"/>
   <text x="392" y="160" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="112" font-weight="700" letter-spacing="1.4">Mehndi Aura</text>
   <text x="398" y="219" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="7">BRIDAL AND CELEBRATION MEHNDI</text>
   <path d="M398 250H1112" stroke="#E9C3B4" stroke-width="4"/>
