@@ -5,39 +5,44 @@
       <stop offset="0.58" stop-color="#F8E9E1"/>
       <stop offset="1" stop-color="#F2DDD6"/>
     </linearGradient>
-    <linearGradient id="ink" x1="170" y1="140" x2="432" y2="492" gradientUnits="userSpaceOnUse">
+    <linearGradient id="ring" x1="164" y1="126" x2="432" y2="494" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F1D8CF"/>
+      <stop offset="1" stop-color="#E5C1B8"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="176" y1="168" x2="428" y2="446" gradientUnits="userSpaceOnUse">
       <stop stop-color="#CB5475"/>
       <stop offset="0.45" stop-color="#C96A33"/>
       <stop offset="1" stop-color="#8A2F24"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="630" rx="48" fill="url(#bg)"/>
-  <circle cx="315" cy="315" r="182" fill="#FFFDF8" stroke="#ECD7CF" stroke-width="8"/>
+  <circle cx="315" cy="315" r="182" fill="#FFFDF9" stroke="url(#ring)" stroke-width="8"/>
+  <circle cx="315" cy="315" r="142" fill="#FFF9F4"/>
 
   <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M206 322C220 292 247 273 282 264C291 261 303 259 315 259C327 259 339 261 348 264C383 273 410 292 424 322" stroke-width="8"/>
-    <path d="M250 267C248 252 252 240 262 231C277 217 299 219 315 234C331 219 353 217 368 231C378 240 382 252 380 267" stroke-width="5.2"/>
-    <path d="M254 317C268 304 287 297 315 297C343 297 362 304 376 317" stroke-width="5"/>
-    <path d="M271 338C281 328 295 323 315 323C335 323 349 328 359 338" stroke-width="4.6"/>
-    <path d="M260 363C275 378 293 385 315 385C337 385 355 378 370 363" stroke-width="4.8"/>
-    <path d="M273 401C284 392 298 388 315 388C332 388 346 392 357 401" stroke-width="4.2"/>
+    <path d="M252 322C265 295 291 277 326 271C334 270 343 269 351 271C375 275 395 288 409 308" stroke-width="7"/>
+    <path d="M199 308C212 288 231 275 255 271C263 269 272 270 280 271C295 274 308 280 319 290" stroke-width="7"/>
+    <path d="M263 268C262 256 266 246 274 238C286 226 302 228 314 239C324 228 340 226 352 238C360 246 364 256 363 268" stroke-width="4.8"/>
+    <path d="M280 311C289 304 300 300 315 298C332 296 346 299 358 307" stroke-width="4.8"/>
+    <path d="M272 335C286 350 304 358 325 357C345 356 362 346 374 331" stroke-width="4.8"/>
+    <path d="M287 371C297 366 307 363 319 363C332 363 343 367 352 374" stroke-width="4.2"/>
+    <path d="M304 386C310 397 317 406 327 415" stroke-width="4"/>
   </g>
 
   <g fill="#8A2F24">
-    <circle cx="315" cy="259" r="4.8"/>
-    <circle cx="315" cy="297" r="4.8"/>
-    <circle cx="315" cy="323" r="4.8"/>
-    <circle cx="315" cy="349" r="4.8"/>
-    <circle cx="315" cy="388" r="4.8"/>
+    <circle cx="280" cy="271" r="4.8"/>
+    <circle cx="315" cy="298" r="4.8"/>
+    <circle cx="325" cy="357" r="4.8"/>
   </g>
   <g fill="#CB5475">
-    <circle cx="282" cy="264" r="5"/>
-    <circle cx="348" cy="264" r="5"/>
+    <circle cx="255" cy="271" r="5"/>
+    <circle cx="351" cy="271" r="5"/>
   </g>
   <g fill="#EFA53A">
-    <circle cx="315" cy="234" r="5"/>
-    <circle cx="273" cy="401" r="4.8"/>
-    <circle cx="357" cy="401" r="4.8"/>
+    <circle cx="294" cy="230" r="5"/>
+    <circle cx="333" cy="230" r="5"/>
+    <circle cx="287" cy="371" r="5"/>
+    <circle cx="352" cy="374" r="5"/>
   </g>
 
   <text x="566" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
