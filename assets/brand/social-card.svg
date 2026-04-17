@@ -1,26 +1,36 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="120" y1="40" x2="1010" y2="620" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFF7EC"/>
-      <stop offset="0.5" stop-color="#F7E8D9"/>
-      <stop offset="1" stop-color="#F0D7CF"/>
+    <linearGradient id="scBg" x1="116" y1="52" x2="1030" y2="612" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8EF"/>
+      <stop offset="0.55" stop-color="#F7E7DD"/>
+      <stop offset="1" stop-color="#F1D7CF"/>
     </linearGradient>
-    <linearGradient id="accent" x1="168" y1="128" x2="448" y2="468" gradientUnits="userSpaceOnUse">
+    <linearGradient id="scInk" x1="140" y1="138" x2="438" y2="500" gradientUnits="userSpaceOnUse">
       <stop stop-color="#CB5475"/>
-      <stop offset="0.5" stop-color="#C4542B"/>
+      <stop offset="0.48" stop-color="#C4542B"/>
       <stop offset="1" stop-color="#8A2F24"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="630" rx="48" fill="url(#bg)"/>
-  <circle cx="309" cy="315" r="182" fill="#FFF9F2" stroke="#E9C3B4" stroke-width="8"/>
-  <path d="M246 423L278 213H304L338 308L370 213H396L428 423H386L370 317L335 423H313L278 317L262 423H246Z" fill="#8A2F24"/>
-  <path d="M150 315C183 307 213 291 238 266C263 241 279 211 287 178C295 211 311 241 336 266C361 291 391 307 424 315C391 323 361 339 336 364C311 389 295 419 287 452C279 419 263 389 238 364C213 339 183 323 150 315Z" stroke="url(#accent)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="309" cy="130" r="14" fill="#CB5475"/>
-  <circle cx="494" cy="315" r="14" fill="#EFA53A"/>
-  <circle cx="309" cy="500" r="14" fill="#2F8D85"/>
-  <circle cx="124" cy="315" r="14" fill="#CB5475"/>
-  <text x="570" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
-  <text x="575" y="324" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL, FESTIVE AND BESPOKE MEHNDI</text>
-  <text x="575" y="398" fill="#5A3D3C" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="500">Elegant bridal mehndi, Eid designs, party bookings and celebration henna in the UK.</text>
-  <text x="575" y="454" fill="#8A2F24" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="700">mehndiaura.co.uk</text>
+  <rect width="1200" height="630" rx="48" fill="url(#scBg)"/>
+  <circle cx="315" cy="315" r="180" fill="#FFF9F3" stroke="#E7C7BF" stroke-width="8"/>
+  <path d="M224 429L260 208H288L316 273L343 208H371L407 429H368L352 288L326 349H306L279 288L263 429H224Z" fill="#8A2F24"/>
+  <path d="M214 427L251 207H282L315 324L349 207H379L416 427" stroke="url(#scInk)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M257 181C244 162 225 150 204 149C213 168 216 188 212 207" stroke="#C4542B" stroke-width="6" stroke-linecap="round"/>
+  <path d="M373 181C386 162 405 150 426 149C417 168 414 188 418 207" stroke="#C4542B" stroke-width="6" stroke-linecap="round"/>
+  <path d="M245 241C230 231 212 229 196 234C206 246 212 261 214 277" stroke="#CB5475" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M385 241C400 231 418 229 434 234C424 246 418 261 416 277" stroke="#CB5475" stroke-width="5.5" stroke-linecap="round"/>
+  <g fill="#CB5475">
+    <circle cx="202" cy="145" r="11"/>
+    <circle cx="428" cy="145" r="11"/>
+    <circle cx="315" cy="145" r="10"/>
+  </g>
+  <g fill="#EFA53A">
+    <circle cx="188" cy="234" r="9"/>
+    <circle cx="442" cy="234" r="9"/>
+    <circle cx="315" cy="487" r="12"/>
+  </g>
+  <text x="566" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
+  <text x="572" y="325" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL, FESTIVE AND BESPOKE MEHNDI</text>
+  <text x="572" y="398" fill="#5A3D3C" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="500">Elegant bridal mehndi, Eid designs, party bookings and celebration henna in the UK.</text>
+  <text x="572" y="454" fill="#8A2F24" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="700">mehndiaura.co.uk</text>
 </svg>
