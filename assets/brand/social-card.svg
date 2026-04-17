@@ -15,37 +15,36 @@
   <circle cx="315" cy="315" r="182" fill="#FFFDF8" stroke="#ECD7CF" stroke-width="8"/>
 
   <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M315 157C325 179 344 194 368 199C344 204 325 219 315 241C305 219 286 204 262 199C286 194 305 179 315 157Z" stroke-width="6.2"/>
-    <path d="M262 199C278 206 289 218 294 234" stroke-width="4"/>
-    <path d="M368 199C352 206 341 218 336 234" stroke-width="4"/>
-    <path d="M284 239C297 228 307 222 315 222C323 222 333 228 346 239" stroke-width="5"/>
-    <path d="M262 264C280 250 298 243 315 243C332 243 350 250 368 264" stroke-width="5.4"/>
-    <path d="M278 291C289 277 301 270 315 270C329 270 341 277 352 291" stroke-width="4.6"/>
-    <path d="M289 315C297 306 306 301 315 301C324 301 333 306 341 315" stroke-width="4.2"/>
-    <path d="M262 264C257 289 257 312 262 336" stroke-width="4.6"/>
-    <path d="M368 264C373 289 373 312 368 336" stroke-width="4.6"/>
-    <path d="M273 338C289 346 303 358 315 374C327 358 341 346 357 338" stroke-width="5.2"/>
-    <path d="M291 372C296 387 304 401 315 414C326 401 334 387 339 372" stroke-width="4.4"/>
+    <path d="M272 194C286 174 307 165 315 165C323 165 344 174 358 194" stroke-width="5"/>
+    <path d="M244 223C262 202 287 193 315 193C343 193 368 202 386 223" stroke-width="6"/>
+    <path d="M283 214C274 203 261 196 247 195C257 205 262 217 262 230" stroke-width="3.8"/>
+    <path d="M347 214C356 203 369 196 383 195C373 205 368 217 368 230" stroke-width="3.8"/>
+    <path d="M252 263C271 250 292 243 315 243C338 243 359 250 378 263" stroke-width="6.2"/>
+    <path d="M252 263C271 271 287 286 299 307" stroke-width="4.8"/>
+    <path d="M378 263C359 271 343 286 331 307" stroke-width="4.8"/>
+    <path d="M283 313C292 303 302 298 315 298C328 298 338 303 347 313" stroke-width="4.8"/>
+    <path d="M267 355C282 363 297 377 315 400C333 377 348 363 363 355" stroke-width="5.6"/>
+    <path d="M292 398C297 412 305 425 315 437C325 425 333 412 338 398" stroke-width="4.6"/>
   </g>
 
   <g fill="#8A2F24">
     <circle cx="315" cy="243" r="4.8"/>
-    <circle cx="315" cy="270" r="4.8"/>
-    <circle cx="315" cy="301" r="4.8"/>
-    <circle cx="315" cy="332" r="4.8"/>
+    <circle cx="315" cy="298" r="4.8"/>
+    <circle cx="315" cy="328" r="4.8"/>
+    <circle cx="315" cy="355" r="4.8"/>
   </g>
   <g fill="#CB5475">
-    <circle cx="262" cy="199" r="5.4"/>
-    <circle cx="368" cy="199" r="5.4"/>
+    <circle cx="247" cy="195" r="5.2"/>
+    <circle cx="383" cy="195" r="5.2"/>
   </g>
   <g fill="#EFA53A">
-    <circle cx="315" cy="157" r="5.4"/>
-    <circle cx="262" cy="336" r="4.8"/>
-    <circle cx="368" cy="336" r="4.8"/>
+    <circle cx="315" cy="165" r="5.2"/>
+    <circle cx="267" cy="355" r="4.8"/>
+    <circle cx="363" cy="355" r="4.8"/>
   </g>
 
   <text x="566" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
-  <text x="572" y="325" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL, FESTIVE AND BESPOKE MEHNDI</text>
+  <text x="572" y="325" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL AND CELEBRATION MEHNDI</text>
   <text x="572" y="398" fill="#5A3D3C" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="500">Elegant bridal mehndi, Eid designs, party bookings and celebration henna in the UK.</text>
   <text x="572" y="454" fill="#8A2F24" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="700">mehndiaura.co.uk</text>
 </svg>

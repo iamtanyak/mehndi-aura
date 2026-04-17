@@ -16,28 +16,26 @@
   <circle cx="182" cy="182" r="94" fill="#FFFDF8" stroke="#ECD7CF" stroke-width="6"/>
 
   <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M182 96C188 109 199 118 213 122C199 126 188 137 182 151C176 137 165 126 151 122C165 118 176 109 182 96Z" stroke-width="4.2"/>
-    <path d="M151 122C161 126 167 134 170 144" stroke-width="2.8"/>
-    <path d="M213 122C203 126 197 134 194 144" stroke-width="2.8"/>
-    <path d="M164 158C171 152 177 149 182 149C187 149 193 152 200 158" stroke-width="3.3"/>
-    <path d="M151 172C162 164 172 160 182 160C192 160 202 164 213 172" stroke-width="3.6"/>
-    <path d="M161 190C167 182 174 178 182 178C190 178 197 182 203 190" stroke-width="3.2"/>
-    <path d="M151 172C148 187 148 201 151 215" stroke-width="3"/>
-    <path d="M213 172C216 187 216 201 213 215" stroke-width="3"/>
-    <path d="M158 216C167 221 175 228 182 237C189 228 197 221 206 216" stroke-width="3.5"/>
+    <path d="M159 136C166 126 177 121 182 121C187 121 198 126 205 136" stroke-width="3.2"/>
+    <path d="M145 154C154 143 168 137 182 137C196 137 210 143 219 154" stroke-width="3.8"/>
+    <path d="M154 179C163 173 172 170 182 170C192 170 201 173 210 179" stroke-width="4"/>
+    <path d="M154 179C164 184 172 192 178 203" stroke-width="3.1"/>
+    <path d="M210 179C200 184 192 192 186 203" stroke-width="3.1"/>
+    <path d="M166 206C171 200 176 197 182 197C188 197 193 200 198 206" stroke-width="3.2"/>
+    <path d="M160 223C169 228 176 235 182 245C188 235 195 228 204 223" stroke-width="3.8"/>
   </g>
 
   <g fill="#8A2F24">
-    <circle cx="182" cy="160" r="3.3"/>
-    <circle cx="182" cy="178" r="3.3"/>
-    <circle cx="182" cy="196" r="3.3"/>
+    <circle cx="182" cy="170" r="3.2"/>
+    <circle cx="182" cy="197" r="3.2"/>
+    <circle cx="182" cy="223" r="3.2"/>
   </g>
   <g fill="#CB5475">
-    <circle cx="151" cy="122" r="4"/>
-    <circle cx="213" cy="122" r="4"/>
+    <circle cx="145" cy="154" r="4"/>
+    <circle cx="219" cy="154" r="4"/>
   </g>
   <g fill="#EFA53A">
-    <circle cx="182" cy="96" r="4"/>
+    <circle cx="182" cy="121" r="4"/>
   </g>
 
   <text x="392" y="160" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="112" font-weight="700" letter-spacing="1.4">Mehndi Aura</text>
