@@ -1,33 +1,38 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="scBg" x1="116" y1="52" x2="1030" y2="612" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFF8EF"/>
-      <stop offset="0.55" stop-color="#F7E7DD"/>
-      <stop offset="1" stop-color="#F1D7CF"/>
+    <linearGradient id="bg" x1="112" y1="46" x2="1026" y2="614" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F1"/>
+      <stop offset="0.56" stop-color="#F7E9DF"/>
+      <stop offset="1" stop-color="#F1DBD2"/>
     </linearGradient>
-    <linearGradient id="scInk" x1="140" y1="138" x2="438" y2="500" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#CB5475"/>
-      <stop offset="0.48" stop-color="#C4542B"/>
+    <linearGradient id="stroke" x1="160" y1="126" x2="434" y2="494" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C95A76"/>
+      <stop offset="0.5" stop-color="#C96A2E"/>
       <stop offset="1" stop-color="#8A2F24"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="630" rx="48" fill="url(#scBg)"/>
-  <circle cx="315" cy="315" r="180" fill="#FFF9F3" stroke="#E7C7BF" stroke-width="8"/>
-  <path d="M224 429L260 208H288L316 273L343 208H371L407 429H368L352 288L326 349H306L279 288L263 429H224Z" fill="#8A2F24"/>
-  <path d="M214 427L251 207H282L315 324L349 207H379L416 427" stroke="url(#scInk)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M257 181C244 162 225 150 204 149C213 168 216 188 212 207" stroke="#C4542B" stroke-width="6" stroke-linecap="round"/>
-  <path d="M373 181C386 162 405 150 426 149C417 168 414 188 418 207" stroke="#C4542B" stroke-width="6" stroke-linecap="round"/>
-  <path d="M245 241C230 231 212 229 196 234C206 246 212 261 214 277" stroke="#CB5475" stroke-width="5.5" stroke-linecap="round"/>
-  <path d="M385 241C400 231 418 229 434 234C424 246 418 261 416 277" stroke="#CB5475" stroke-width="5.5" stroke-linecap="round"/>
+  <rect width="1200" height="630" rx="48" fill="url(#bg)"/>
+  <circle cx="315" cy="315" r="182" fill="#FFFDF8" stroke="#E9D1C8" stroke-width="8"/>
+  <path d="M223 431L252 205H278L315 322L351 205H377L406 431" stroke="url(#stroke)" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M268 431L284 288L315 339L346 288L362 431" stroke="#8A2F24" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M282 198C268 176 247 163 224 161C237 178 242 197 239 216" stroke="#C96A2E" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M348 198C362 176 383 163 406 161C393 178 388 197 391 216" stroke="#C96A2E" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M257 234C243 224 225 221 209 225C220 237 226 250 227 265" stroke="#CB5475" stroke-width="5" stroke-linecap="round"/>
+  <path d="M373 234C387 224 405 221 421 225C410 237 404 250 403 265" stroke="#CB5475" stroke-width="5" stroke-linecap="round"/>
+  <g stroke="#8A2F24" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M315 156C321 170 333 179 346 182C333 185 321 194 315 208C309 194 297 185 284 182C297 179 309 170 315 156Z"/>
+    <path d="M206 315C216 320 224 328 228 338C232 328 240 320 250 315C240 310 232 302 228 292C224 302 216 310 206 315Z"/>
+    <path d="M380 315C390 320 398 328 402 338C406 328 414 320 424 315C414 310 406 302 402 292C398 302 390 310 380 315Z"/>
+    <path d="M315 435C322 449 334 459 348 462C334 465 322 475 315 489C308 475 296 465 282 462C296 459 308 449 315 435Z"/>
+  </g>
   <g fill="#CB5475">
-    <circle cx="202" cy="145" r="11"/>
-    <circle cx="428" cy="145" r="11"/>
-    <circle cx="315" cy="145" r="10"/>
+    <circle cx="226" cy="157" r="9"/>
+    <circle cx="404" cy="157" r="9"/>
   </g>
   <g fill="#EFA53A">
-    <circle cx="188" cy="234" r="9"/>
-    <circle cx="442" cy="234" r="9"/>
-    <circle cx="315" cy="487" r="12"/>
+    <circle cx="315" cy="153" r="9"/>
+    <circle cx="236" cy="432" r="7"/>
+    <circle cx="394" cy="432" r="7"/>
   </g>
   <text x="566" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
   <text x="572" y="325" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL, FESTIVE AND BESPOKE MEHNDI</text>
