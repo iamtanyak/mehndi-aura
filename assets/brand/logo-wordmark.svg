@@ -5,9 +5,9 @@
       <stop offset="0.58" stop-color="#F8E9E1"/>
       <stop offset="1" stop-color="#F2DDD6"/>
     </linearGradient>
-    <linearGradient id="ink" x1="102" y1="84" x2="280" y2="286" gradientUnits="userSpaceOnUse">
+    <linearGradient id="ink" x1="108" y1="86" x2="272" y2="286" gradientUnits="userSpaceOnUse">
       <stop stop-color="#CB5475"/>
-      <stop offset="0.46" stop-color="#C96A33"/>
+      <stop offset="0.45" stop-color="#C96A33"/>
       <stop offset="1" stop-color="#8A2F24"/>
     </linearGradient>
   </defs>
@@ -15,30 +15,29 @@
   <rect x="40" y="40" width="284" height="284" rx="84" fill="#FBF1E3"/>
   <circle cx="182" cy="182" r="94" fill="#FFFDF8" stroke="#ECD7CF" stroke-width="6"/>
 
-  <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M182 96C188 109 200 118 214 122C200 126 188 138 182 152C176 138 164 126 150 122C164 118 176 109 182 96Z" stroke-width="4.6"/>
-    <path d="M148 126C141 119 131 116 121 116C128 123 132 132 133 142" stroke-width="2.8"/>
-    <path d="M216 126C223 119 233 116 243 116C236 123 232 132 231 142" stroke-width="2.8"/>
-    <path d="M160 147C171 148 180 152 182 162C184 152 193 148 204 147" stroke-width="3.8"/>
-    <path d="M155 167C172 167 182 180 182 196C182 180 192 167 209 167" stroke-width="3.8"/>
-    <path d="M155 167C162 184 162 203 155 222" stroke-width="3.4"/>
-    <path d="M209 167C202 184 202 203 209 222" stroke-width="3.4"/>
-    <path d="M155 222C170 228 178 238 182 250C186 238 194 228 209 222" stroke-width="3.8"/>
+  <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M182 96C188 109 199 118 213 122C199 126 188 137 182 151C176 137 165 126 151 122C165 118 176 109 182 96Z" stroke-width="4.2"/>
+    <path d="M151 122C161 126 167 134 170 144" stroke-width="2.8"/>
+    <path d="M213 122C203 126 197 134 194 144" stroke-width="2.8"/>
+    <path d="M164 158C171 152 177 149 182 149C187 149 193 152 200 158" stroke-width="3.3"/>
+    <path d="M151 172C162 164 172 160 182 160C192 160 202 164 213 172" stroke-width="3.6"/>
+    <path d="M161 190C167 182 174 178 182 178C190 178 197 182 203 190" stroke-width="3.2"/>
+    <path d="M151 172C148 187 148 201 151 215" stroke-width="3"/>
+    <path d="M213 172C216 187 216 201 213 215" stroke-width="3"/>
+    <path d="M158 216C167 221 175 228 182 237C189 228 197 221 206 216" stroke-width="3.5"/>
   </g>
 
   <g fill="#8A2F24">
-    <circle cx="182" cy="168" r="3.5"/>
-    <circle cx="182" cy="196" r="3.5"/>
-    <circle cx="182" cy="222" r="3.5"/>
+    <circle cx="182" cy="160" r="3.3"/>
+    <circle cx="182" cy="178" r="3.3"/>
+    <circle cx="182" cy="196" r="3.3"/>
   </g>
   <g fill="#CB5475">
-    <circle cx="121" cy="116" r="4.2"/>
-    <circle cx="243" cy="116" r="4.2"/>
+    <circle cx="151" cy="122" r="4"/>
+    <circle cx="213" cy="122" r="4"/>
   </g>
   <g fill="#EFA53A">
-    <circle cx="182" cy="96" r="4.2"/>
-    <circle cx="155" cy="222" r="4.2"/>
-    <circle cx="209" cy="222" r="4.2"/>
+    <circle cx="182" cy="96" r="4"/>
   </g>
 
   <text x="392" y="160" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="112" font-weight="700" letter-spacing="1.4">Mehndi Aura</text>
