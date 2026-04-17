@@ -9,39 +9,17 @@
       <stop stop-color="#F1D8CF"/>
       <stop offset="1" stop-color="#E3BFB5"/>
     </linearGradient>
-    <linearGradient id="ink" x1="120" y1="124" x2="252" y2="234" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#CB5475"/>
-      <stop offset="0.45" stop-color="#C96A33"/>
-      <stop offset="1" stop-color="#8A2F24"/>
-    </linearGradient>
+    <clipPath id="wordClip">
+      <circle cx="182" cy="182" r="76"/>
+    </clipPath>
   </defs>
   <rect width="1200" height="360" rx="56" fill="url(#bg)"/>
   <rect x="40" y="40" width="284" height="284" rx="84" fill="#FBF1E3"/>
   <circle cx="182" cy="182" r="94" fill="#FFFDF9" stroke="url(#ring)" stroke-width="6"/>
   <circle cx="182" cy="182" r="76" fill="#FFF8F3"/>
-
-  <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M118 188C129 178 145 172 163 170C170 169 178 169 185 170C178 178 175 186 175 194C165 196 154 199 145 204C135 209 127 216 121 223" stroke-width="4.2"/>
-    <path d="M246 184C238 177 227 173 214 170C206 169 198 169 191 170C198 178 201 186 201 194C210 196 219 199 228 204C235 208 242 214 247 221" stroke-width="4.2"/>
-    <path d="M173 194C172 185 175 179 182 175C189 170 199 172 208 180C216 172 226 170 233 175C240 179 243 185 242 194" stroke-width="3.1"/>
-    <path d="M164 196C175 207 190 212 208 212C222 212 233 208 242 201" stroke-width="3"/>
-    <path d="M178 212C186 219 196 223 208 223C217 223 225 220 232 215" stroke-width="2.8"/>
+  <g clip-path="url(#wordClip)">
+    <image href="/assets/brand/holding-hands-logo-crop-alt.jpeg" x="106" y="106" width="152" height="152" preserveAspectRatio="xMidYMid slice"/>
   </g>
-
-  <g fill="#8A2F24">
-    <circle cx="208" cy="180" r="3"/>
-    <circle cx="208" cy="196" r="3"/>
-    <circle cx="208" cy="212" r="3"/>
-  </g>
-  <g fill="#CB5475">
-    <circle cx="163" cy="170" r="3.2"/>
-    <circle cx="214" cy="170" r="3.2"/>
-  </g>
-  <g fill="#EFA53A">
-    <circle cx="182" cy="175" r="3.2"/>
-    <circle cx="233" cy="175" r="3.2"/>
-  </g>
-
   <text x="392" y="160" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="112" font-weight="700" letter-spacing="1.4">Mehndi Aura</text>
   <text x="398" y="219" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="7">BRIDAL AND CELEBRATION MEHNDI</text>
   <path d="M398 250H1112" stroke="#E9C3B4" stroke-width="4"/>

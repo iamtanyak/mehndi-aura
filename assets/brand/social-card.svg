@@ -9,41 +9,16 @@
       <stop stop-color="#F1D8CF"/>
       <stop offset="1" stop-color="#E3BFB5"/>
     </linearGradient>
-    <linearGradient id="ink" x1="178" y1="192" x2="426" y2="368" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#CB5475"/>
-      <stop offset="0.45" stop-color="#C96A33"/>
-      <stop offset="1" stop-color="#8A2F24"/>
-    </linearGradient>
+    <clipPath id="socialClip">
+      <circle cx="315" cy="315" r="142"/>
+    </clipPath>
   </defs>
   <rect width="1200" height="630" rx="48" fill="url(#bg)"/>
   <circle cx="315" cy="315" r="182" fill="#FFFDF9" stroke="url(#ring)" stroke-width="8"/>
   <circle cx="315" cy="315" r="142" fill="#FFF8F3"/>
-
-  <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M206 322C225 305 251 295 282 291C294 289 308 288 319 290C308 303 303 316 304 329C286 331 268 335 251 342C235 349 222 359 212 371" stroke-width="7.2"/>
-    <path d="M466 315C453 303 435 296 414 292C402 290 389 289 376 290C386 303 391 316 390 330C405 332 420 337 435 345C446 351 456 359 464 370" stroke-width="7.2"/>
-    <path d="M300 328C298 312 303 301 314 294C327 285 345 288 359 302C372 288 390 285 403 294C414 301 419 312 417 328" stroke-width="5.2"/>
-    <path d="M285 331C303 349 328 358 359 358C383 358 402 352 417 340" stroke-width="5"/>
-    <path d="M308 358C321 369 338 375 359 375C374 375 388 371 400 364" stroke-width="4.6"/>
-    <path d="M335 374C342 385 350 396 359 408" stroke-width="4.2"/>
-    <path d="M326 286C337 292 348 303 359 318C370 303 381 292 392 286" stroke-width="4.2"/>
+  <g clip-path="url(#socialClip)">
+    <image href="/assets/brand/holding-hands-logo-crop-alt.jpeg" x="173" y="173" width="284" height="284" preserveAspectRatio="xMidYMid slice"/>
   </g>
-
-  <g fill="#8A2F24">
-    <circle cx="359" cy="302" r="4.8"/>
-    <circle cx="359" cy="330" r="4.8"/>
-    <circle cx="359" cy="358" r="4.8"/>
-    <circle cx="359" cy="374" r="4.8"/>
-  </g>
-  <g fill="#CB5475">
-    <circle cx="282" cy="291" r="4.8"/>
-    <circle cx="414" cy="292" r="4.8"/>
-  </g>
-  <g fill="#EFA53A">
-    <circle cx="314" cy="294" r="4.8"/>
-    <circle cx="403" cy="294" r="4.8"/>
-  </g>
-
   <text x="566" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
   <text x="572" y="325" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL AND CELEBRATION MEHNDI</text>
   <text x="572" y="398" fill="#5A3D3C" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="500">Elegant bridal mehndi, Eid designs, party bookings and celebration henna in the UK.</text>

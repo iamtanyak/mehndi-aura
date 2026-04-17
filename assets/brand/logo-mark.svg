@@ -5,47 +5,18 @@
       <stop offset="0.58" stop-color="#F8E9E1"/>
       <stop offset="1" stop-color="#F2DDD6"/>
     </linearGradient>
-    <linearGradient id="ring" x1="128" y1="100" x2="386" y2="410" gradientUnits="userSpaceOnUse">
+    <linearGradient id="ring" x1="126" y1="100" x2="386" y2="410" gradientUnits="userSpaceOnUse">
       <stop stop-color="#F1D8CF"/>
       <stop offset="1" stop-color="#E3BFB5"/>
     </linearGradient>
-    <linearGradient id="ink" x1="180" y1="194" x2="340" y2="320" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#CB5475"/>
-      <stop offset="0.45" stop-color="#C96A33"/>
-      <stop offset="1" stop-color="#8A2F24"/>
-    </linearGradient>
+    <clipPath id="logoClip">
+      <circle cx="256" cy="256" r="126"/>
+    </clipPath>
   </defs>
   <rect width="512" height="512" rx="128" fill="url(#bg)"/>
   <circle cx="256" cy="256" r="156" fill="#FFFDF9" stroke="url(#ring)" stroke-width="8"/>
   <circle cx="256" cy="256" r="126" fill="#FFF8F3"/>
-
-  <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M126 264C145 247 171 237 202 233C214 231 228 230 239 232C228 245 223 258 224 271C206 273 188 277 171 284C155 291 142 301 132 313" stroke-width="7.5"/>
-    <path d="M386 257C373 245 355 238 334 234C322 232 309 231 296 232C306 245 311 258 310 272C325 274 340 279 355 287C366 293 376 301 384 312" stroke-width="7.5"/>
-
-    <path d="M220 271C218 255 223 244 234 237C247 228 265 231 279 245C292 231 310 228 323 237C334 244 339 255 337 271" stroke-width="5.2"/>
-
-    <path d="M205 274C223 292 248 301 279 301C303 301 322 295 337 283" stroke-width="5"/>
-    <path d="M228 300C241 311 258 317 279 317C294 317 308 313 320 306" stroke-width="4.6"/>
-    <path d="M255 316C262 327 270 338 279 350" stroke-width="4.2"/>
-    <path d="M246 229C257 235 268 246 279 261C290 246 301 235 312 229" stroke-width="4.2"/>
-
-    <path d="M202 233C194 223 182 216 169 214" stroke-width="3.8"/>
-    <path d="M334 234C343 225 355 219 368 217" stroke-width="3.8"/>
-  </g>
-
-  <g fill="#8A2F24">
-    <circle cx="279" cy="245" r="4.8"/>
-    <circle cx="279" cy="273" r="4.8"/>
-    <circle cx="279" cy="301" r="4.8"/>
-    <circle cx="279" cy="317" r="4.8"/>
-  </g>
-  <g fill="#CB5475">
-    <circle cx="202" cy="233" r="4.8"/>
-    <circle cx="334" cy="234" r="4.8"/>
-  </g>
-  <g fill="#EFA53A">
-    <circle cx="234" cy="237" r="4.8"/>
-    <circle cx="323" cy="237" r="4.8"/>
+  <g clip-path="url(#logoClip)">
+    <image href="/assets/brand/holding-hands-logo-crop-alt.jpeg" x="130" y="130" width="252" height="252" preserveAspectRatio="xMidYMid slice"/>
   </g>
 </svg>
