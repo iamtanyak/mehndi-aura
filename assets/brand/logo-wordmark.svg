@@ -1,0 +1,21 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wordAccent" x1="46" y1="38" x2="302" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CB5475"/>
+      <stop offset="0.55" stop-color="#C4542B"/>
+      <stop offset="1" stop-color="#8A2F24"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="56" fill="#FFF8EF"/>
+  <rect x="38" y="38" width="284" height="284" rx="84" fill="#FBF1E3"/>
+  <circle cx="180" cy="180" r="88" fill="#FFF9F2" stroke="#E6C7BF" stroke-width="6"/>
+  <path d="M149 233L165 145H178L196 193L213 145H226L242 233H220L212 181L194 233H182L164 181L156 233H149Z" fill="#8A2F24"/>
+  <path d="M102 180C118 176 132 168 144 156C156 144 164 130 168 114C172 130 180 144 192 156C204 168 218 176 234 180C218 184 204 192 192 204C180 216 172 230 168 246C164 230 156 216 144 204C132 192 118 184 102 180Z" stroke="url(#wordAccent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="180" cy="90" r="8" fill="#CB5475"/>
+  <circle cx="270" cy="180" r="8" fill="#EFA53A"/>
+  <circle cx="180" cy="270" r="8" fill="#2F8D85"/>
+  <circle cx="90" cy="180" r="8" fill="#CB5475"/>
+  <text x="390" y="160" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="112" font-weight="700" letter-spacing="1.8">Mehndi Aura</text>
+  <text x="396" y="218" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="600" letter-spacing="7.5">BRIDAL AND CELEBRATION MEHNDI</text>
+  <path d="M396 250H1110" stroke="#E9C3B4" stroke-width="4"/>
+</svg>

@@ -11,15 +11,22 @@
   <meta name="google-site-verification" content="j69fM4V1n9PQyeb2-kR6kjjtxfDjvgZ0pzIkCvnt3po">
   <meta name="keywords" content="Mehndi Aura, Tanya Kumari, mehndi artist UK, henna artist UK, bridal mehndi, festive mehndi, Eid mehndi, bridal henna artist, henna bookings, mehndi designs, YouTube mehndi">
   <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#8a2f24">
   <link rel="canonical" href="https://mehndiaura.co.uk/">
+  <link rel="icon" href="/assets/brand/logo-mark.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/brand/logo-mark.svg">
+  <link rel="manifest" href="/assets/brand/site.webmanifest">
   <meta property="og:site_name" content="Mehndi Aura">
   <meta property="og:title" content="Mehndi Aura | Bridal, Festive & Eid Mehndi Artist in the UK">
   <meta property="og:description" content="Mehndi Aura is a UK mehndi artist offering elegant bridal mehndi, festive henna, Eid designs, and bespoke bookings for weddings, parties, and celebrations.">
   <meta property="og:url" content="https://mehndiaura.co.uk/">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://mehndiaura.co.uk/assets/brand/social-card.svg">
+  <meta property="og:image:alt" content="Mehndi Aura brand card with logo and bridal, festive and bespoke mehndi text.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Mehndi Aura | Bridal, Festive & Eid Mehndi Artist in the UK">
   <meta name="twitter:description" content="Mehndi Aura is a UK mehndi artist offering elegant bridal mehndi, festive henna, Eid designs, and bespoke bookings for weddings, parties, and celebrations.">
+  <meta name="twitter:image" content="https://mehndiaura.co.uk/assets/brand/social-card.svg">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -28,11 +35,25 @@
           "@type": "Organization",
           "@id": "https://mehndiaura.co.uk/#organization",
           "name": "Mehndi Aura",
+          "alternateName": "Mehndi Aura by Tanya Kumari",
           "url": "https://mehndiaura.co.uk/",
           "description": "Modern bridal, festive, Eid, and bespoke mehndi by a UK-based henna artist with an elegant, refined finish.",
+          "logo": "https://mehndiaura.co.uk/assets/brand/logo-mark.svg",
+          "image": "https://mehndiaura.co.uk/assets/brand/social-card.svg",
           "email": "tanya19.2003@hotmail.com",
           "telephone": "+447442778243",
           "areaServed": "United Kingdom",
+          "slogan": "Bridal and celebration mehndi",
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "Bookings",
+              "telephone": "+447442778243",
+              "email": "tanya19.2003@hotmail.com",
+              "areaServed": "United Kingdom",
+              "availableLanguage": ["en"]
+            }
+          ],
           "sameAs": [
             "https://www.youtube.com/@trinraj",
             "https://tinyurl.com/Mehndi-aura",
@@ -47,6 +68,7 @@
           "name": "Tanya Kumari",
           "jobTitle": "Mehndi Artist",
           "description": "UK-based mehndi artist specialising in bridal mehndi, festive henna, Eid designs, and bespoke celebration bookings.",
+          "image": "https://mehndiaura.co.uk/assets/brand/social-card.svg",
           "worksFor": {
             "@id": "https://mehndiaura.co.uk/#organization"
           },
@@ -61,6 +83,7 @@
           "@id": "https://mehndiaura.co.uk/#website",
           "url": "https://mehndiaura.co.uk/",
           "name": "Mehndi Aura",
+          "image": "https://mehndiaura.co.uk/assets/brand/social-card.svg",
           "publisher": {
             "@id": "https://mehndiaura.co.uk/#organization"
           }
@@ -190,8 +213,22 @@
 
     .brand {
       display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-lockup {
+      display: flex;
       flex-direction: column;
       gap: 2px;
+    }
+
+    .brand-logo {
+      width: 54px;
+      height: 54px;
+      flex: 0 0 54px;
+      border-radius: 18px;
+      box-shadow: 0 12px 26px rgba(96, 44, 36, 0.12);
     }
 
     .brand-mark {
@@ -1715,6 +1752,12 @@
         font-size: 1.55rem;
       }
 
+      .brand-logo {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+      }
+
       .hero p,
       .section-heading p,
       .highlight-card p,
@@ -1996,8 +2039,11 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="#home" aria-label="Mehndi Aura home">
-        <span class="brand-mark">Mehndi Aura</span>
-        <span class="brand-note">Bridal and celebration mehndi</span>
+        <img class="brand-logo" src="assets/brand/logo-mark.svg" alt="Mehndi Aura logo">
+        <span class="brand-lockup">
+          <span class="brand-mark">Mehndi Aura</span>
+          <span class="brand-note">Bridal and celebration mehndi</span>
+        </span>
       </a>
       <nav aria-label="Main navigation">
         <a href="#about">About</a>

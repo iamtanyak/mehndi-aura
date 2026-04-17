@@ -1,0 +1,26 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="40" x2="1010" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7EC"/>
+      <stop offset="0.5" stop-color="#F7E8D9"/>
+      <stop offset="1" stop-color="#F0D7CF"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="168" y1="128" x2="448" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CB5475"/>
+      <stop offset="0.5" stop-color="#C4542B"/>
+      <stop offset="1" stop-color="#8A2F24"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="48" fill="url(#bg)"/>
+  <circle cx="309" cy="315" r="182" fill="#FFF9F2" stroke="#E9C3B4" stroke-width="8"/>
+  <path d="M246 423L278 213H304L338 308L370 213H396L428 423H386L370 317L335 423H313L278 317L262 423H246Z" fill="#8A2F24"/>
+  <path d="M150 315C183 307 213 291 238 266C263 241 279 211 287 178C295 211 311 241 336 266C361 291 391 307 424 315C391 323 361 339 336 364C311 389 295 419 287 452C279 419 263 389 238 364C213 339 183 323 150 315Z" stroke="url(#accent)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="309" cy="130" r="14" fill="#CB5475"/>
+  <circle cx="494" cy="315" r="14" fill="#EFA53A"/>
+  <circle cx="309" cy="500" r="14" fill="#2F8D85"/>
+  <circle cx="124" cy="315" r="14" fill="#CB5475"/>
+  <text x="570" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
+  <text x="575" y="324" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL, FESTIVE AND BESPOKE MEHNDI</text>
+  <text x="575" y="398" fill="#5A3D3C" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="500">Elegant bridal mehndi, Eid designs, party bookings and celebration henna in the UK.</text>
+  <text x="575" y="454" fill="#8A2F24" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="700">mehndiaura.co.uk</text>
+</svg>
