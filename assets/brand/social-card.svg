@@ -1,22 +1,48 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="114" y1="44" x2="1028" y2="616" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFF9F3"/>
-      <stop offset="0.6" stop-color="#F8E9E1"/>
+    <linearGradient id="bg" x1="112" y1="46" x2="1026" y2="614" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F2"/>
+      <stop offset="0.58" stop-color="#F8E9E1"/>
       <stop offset="1" stop-color="#F2DDD6"/>
     </linearGradient>
-    <linearGradient id="ink" x1="172" y1="138" x2="430" y2="490" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#C85A78"/>
-      <stop offset="0.5" stop-color="#C86A33"/>
+    <linearGradient id="ink" x1="168" y1="128" x2="432" y2="494" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CB5475"/>
+      <stop offset="0.46" stop-color="#C96A33"/>
       <stop offset="1" stop-color="#8A2F24"/>
     </linearGradient>
   </defs>
   <rect width="1200" height="630" rx="48" fill="url(#bg)"/>
-  <circle cx="315" cy="315" r="182" fill="#FFFDF9" stroke="#ECD7CF" stroke-width="8"/>
-  <path d="M247 430V202H272L315 281L358 202H383V430" stroke="url(#ink)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M247 430V306L315 376L383 306V430" stroke="#8A2F24" stroke-opacity="0.92" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M315 157C321 171 333 181 347 185C333 189 321 201 315 215C309 201 297 189 283 185C297 181 309 171 315 157Z" fill="#8A2F24"/>
-  <circle cx="315" cy="143" r="7" fill="#EFA53A"/>
+  <circle cx="315" cy="315" r="182" fill="#FFFDF8" stroke="#ECD7CF" stroke-width="8"/>
+
+  <g stroke="url(#ink)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M315 157C324 176 341 190 361 195C341 200 324 217 315 237C306 217 289 200 269 195C289 190 306 176 315 157Z" stroke-width="6.5"/>
+    <path d="M266 203C278 186 294 177 315 177C336 177 352 186 364 203" stroke-width="4.2"/>
+    <path d="M240 234C265 234 289 245 315 271C341 245 365 234 390 234" stroke-width="6.4"/>
+    <path d="M240 234C252 262 252 300 240 338" stroke-width="5.4"/>
+    <path d="M390 234C378 262 378 300 390 338" stroke-width="5.4"/>
+    <path d="M240 338C267 349 291 368 315 403C339 368 363 349 390 338" stroke-width="6.4"/>
+    <path d="M277 290C287 280 300 274 315 274C330 274 343 280 353 290" stroke-width="4.5"/>
+    <path d="M286 320C294 312 304 308 315 308C326 308 336 312 344 320" stroke-width="4.5"/>
+    <path d="M235 197C222 184 205 177 187 177C199 189 205 204 206 220" stroke-width="4.2"/>
+    <path d="M395 197C408 184 425 177 443 177C431 189 425 204 424 220" stroke-width="4.2"/>
+  </g>
+
+  <g fill="#8A2F24">
+    <circle cx="315" cy="234" r="5"/>
+    <circle cx="315" cy="271" r="5"/>
+    <circle cx="315" cy="308" r="5"/>
+    <circle cx="315" cy="345" r="5"/>
+  </g>
+  <g fill="#CB5475">
+    <circle cx="187" cy="177" r="6"/>
+    <circle cx="443" cy="177" r="6"/>
+  </g>
+  <g fill="#EFA53A">
+    <circle cx="315" cy="157" r="6"/>
+    <circle cx="240" cy="338" r="6"/>
+    <circle cx="390" cy="338" r="6"/>
+  </g>
+
   <text x="566" y="258" fill="#341D1B" font-family="'Cormorant Garamond', Georgia, serif" font-size="120" font-weight="700">Mehndi Aura</text>
   <text x="572" y="325" fill="#765352" font-family="'Manrope', Arial, sans-serif" font-size="31" font-weight="600" letter-spacing="8">BRIDAL, FESTIVE AND BESPOKE MEHNDI</text>
   <text x="572" y="398" fill="#5A3D3C" font-family="'Manrope', Arial, sans-serif" font-size="28" font-weight="500">Elegant bridal mehndi, Eid designs, party bookings and celebration henna in the UK.</text>
