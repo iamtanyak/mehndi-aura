@@ -21,12 +21,12 @@
   <meta property="og:description" content="Mehndi Aura is a UK mehndi artist offering elegant bridal mehndi, festive henna, Eid designs, and bespoke bookings for weddings, parties, and celebrations.">
   <meta property="og:url" content="https://mehndiaura.co.uk/">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://mehndiaura.co.uk/assets/brand/social-card.svg">
-  <meta property="og:image:alt" content="Mehndi Aura brand card with logo and bridal, festive and bespoke mehndi text.">
+  <meta property="og:image" content="https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg">
+  <meta property="og:image:alt" content="Original Mehndi Aura hand henna design highlighted in warm outdoor light.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Mehndi Aura | Bridal, Festive & Eid Mehndi Artist in the UK">
   <meta name="twitter:description" content="Mehndi Aura is a UK mehndi artist offering elegant bridal mehndi, festive henna, Eid designs, and bespoke bookings for weddings, parties, and celebrations.">
-  <meta name="twitter:image" content="https://mehndiaura.co.uk/assets/brand/social-card.svg">
+  <meta name="twitter:image" content="https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -39,7 +39,7 @@
           "url": "https://mehndiaura.co.uk/",
           "description": "Modern bridal, festive, Eid, and bespoke mehndi by a UK-based henna artist with an elegant, refined finish.",
           "logo": "https://mehndiaura.co.uk/assets/brand/logo-mark.svg",
-          "image": "https://mehndiaura.co.uk/assets/brand/social-card.svg",
+          "image": "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
           "email": "tanya19.2003@hotmail.com",
           "telephone": "+447442778243",
           "areaServed": "United Kingdom",
@@ -68,7 +68,7 @@
           "name": "Tanya Kumari",
           "jobTitle": "Mehndi Artist",
           "description": "UK-based mehndi artist specialising in bridal mehndi, festive henna, Eid designs, and bespoke celebration bookings.",
-          "image": "https://mehndiaura.co.uk/assets/brand/social-card.svg",
+          "image": "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
           "worksFor": {
             "@id": "https://mehndiaura.co.uk/#organization"
           },
@@ -83,7 +83,7 @@
           "@id": "https://mehndiaura.co.uk/#website",
           "url": "https://mehndiaura.co.uk/",
           "name": "Mehndi Aura",
-          "image": "https://mehndiaura.co.uk/assets/brand/social-card.svg",
+          "image": "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
           "publisher": {
             "@id": "https://mehndiaura.co.uk/#organization"
           }
@@ -729,6 +729,80 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
+    }
+
+    .artist-feature {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .artist-feature-media,
+    .artist-feature-copy {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255, 250, 245, 0.94), rgba(255, 244, 237, 0.8));
+      box-shadow: var(--shadow);
+    }
+
+    .artist-feature-media {
+      position: relative;
+      min-height: 100%;
+    }
+
+    .artist-feature-media img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center 24%;
+      filter: saturate(1.08) contrast(1.06) brightness(1.02);
+    }
+
+    .artist-feature-badge {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(52, 29, 27, 0.78);
+      color: #fff8f1;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .artist-feature-copy {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .artist-feature-copy small {
+      color: var(--accent);
+      font-size: var(--font-label);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .artist-feature-copy h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.9rem, 3vw, 2.5rem);
+      line-height: 1.02;
+    }
+
+    .artist-feature-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: var(--font-body-sm);
     }
 
     .card {
@@ -1862,11 +1936,20 @@
       }
 
       .cards,
+      .artist-feature,
       .packages-grid,
       .faq-grid,
       .gallery-grid,
       .portfolio-grid {
         gap: 12px;
+      }
+
+      .artist-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .artist-feature-copy {
+        padding: 22px 20px;
       }
 
       .card,
@@ -2182,6 +2265,27 @@
             <h3>Style led</h3>
             <p>Looks can stay soft and understated or become richer, fuller, and more statement-led when the occasion calls for it.</p>
           </article>
+        </div>
+
+        <div class="artist-feature">
+          <div class="artist-feature-media">
+            <img src="assets/brand/hand-signature.jpeg" alt="Original Mehndi Aura hand henna design by Tanya">
+            <span class="artist-feature-badge">Original Mehndi Aura work</span>
+          </div>
+          <div class="artist-feature-copy">
+            <small>Signature detail</small>
+            <h3>Real henna artistry should be part of the brand, not hidden behind it.</h3>
+            <p>
+              This featured hand design is now part of the Mehndi Aura brand presentation so visitors
+              can immediately see the level of detailing, stain richness, and floral composition in
+              Tanya’s real work.
+            </p>
+            <p>
+              The floral M logo stays clean and elegant for small spaces like Google, browser tabs,
+              and social icons, while your actual henna design is used where it can be seen properly
+              and appreciated.
+            </p>
+          </div>
         </div>
       </div>
     </section>
