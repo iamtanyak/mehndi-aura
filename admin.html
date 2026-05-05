@@ -236,7 +236,7 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 14px;
       margin-top: 22px;
     }
@@ -301,6 +301,14 @@
       gap: 16px;
     }
 
+    .section-title {
+      margin: 8px 0 -6px;
+    }
+
+    .section-title p {
+      margin: 0;
+    }
+
     .enquiry-card {
       padding: 22px;
     }
@@ -354,6 +362,10 @@
 
     .badge-status-closed {
       background: rgba(117, 88, 86, 0.18);
+    }
+
+    .badge-status-sent {
+      background: rgba(47, 141, 133, 0.18);
     }
 
     .detail strong {
@@ -467,6 +479,14 @@
               <strong id="latest-date">-</strong>
               <p>Latest enquiry</p>
             </div>
+            <div class="summary-card">
+              <strong id="review-count">0</strong>
+              <p>Review link requests</p>
+            </div>
+            <div class="summary-card">
+              <strong id="latest-review-date">-</strong>
+              <p>Latest review request</p>
+            </div>
           </div>
         </article>
 
@@ -479,6 +499,8 @@
           <ul>
             <li>Set `ADMIN_PASSWORD` to change the starter password.</li>
             <li>Use `RESEND_API_KEY` and `RESEND_FROM` on Render for reliable hosted email alerts.</li>
+            <li>Review-link requests are saved here and emailed to `NOTIFY_EMAIL`.</li>
+            <li>Set `GOOGLE_REVIEW_URL` in Render once your Google review link is ready.</li>
             <li>Enquiries are stored in `data/enquiries.db`.</li>
           </ul>
         </aside>
@@ -493,6 +515,16 @@
         </div>
       </section>
 
+      <section class="section-title">
+        <h2>Review link requests</h2>
+        <p>People who asked for your review link will appear here and can be marked as sent.</p>
+      </section>
+      <section class="list" id="review-request-list"></section>
+
+      <section class="section-title">
+        <h2>Booking enquiries</h2>
+        <p>Normal booking requests from the enquiry form.</p>
+      </section>
       <section class="list" id="enquiry-list"></section>
       <p class="footer-note">Protected admin route: <code>/admin</code></p>
     </section>
@@ -508,13 +540,19 @@
     const exportButton = document.getElementById("export-button");
     const logoutButton = document.getElementById("logout-button");
     const enquiryList = document.getElementById("enquiry-list");
+    const reviewRequestList = document.getElementById("review-request-list");
     const statusMessage = document.getElementById("status-message");
     const searchInput = document.getElementById("search-input");
     const totalCount = document.getElementById("total-count");
     const bridalCount = document.getElementById("bridal-count");
     const latestDate = document.getElementById("latest-date");
+    const reviewCount = document.getElementById("review-count");
+    const latestReviewDate = document.getElementById("latest-review-date");
 
     let allEnquiries = [];
+    let allReviewRequests = [];
+    let googleReviewReady = false;
+    let googleReviewUrl = "";
 
     function formatDate(value) {
       if (!value) return "-";
@@ -544,17 +582,74 @@
       logoutButton.classList.remove("hidden");
     }
 
-    function renderSummary(enquiries) {
+    function renderSummary(enquiries, reviewRequests = allReviewRequests) {
       totalCount.textContent = String(enquiries.length);
       bridalCount.textContent = String(
         enquiries.filter((item) => item.eventType.toLowerCase().includes("bridal")).length
       );
       latestDate.textContent = enquiries.length ? formatDate(enquiries[0].createdAt) : "-";
+      reviewCount.textContent = String(reviewRequests.length);
+      latestReviewDate.textContent = reviewRequests.length ? formatDate(reviewRequests[0].createdAt) : "-";
     }
 
     function renderEmpty(message) {
-      renderSummary([]);
       enquiryList.innerHTML = '<article class="panel empty-state"><h2>No enquiries yet</h2><p>' + message + "</p></article>";
+    }
+
+    function renderReviewRequests(reviewRequests) {
+      if (!reviewRequests.length) {
+        reviewRequestList.innerHTML = '<article class="panel empty-state"><h2>No review-link requests yet</h2><p>When someone asks for your review link, their details will appear here.</p></article>';
+        return;
+      }
+
+      reviewRequestList.innerHTML = reviewRequests.map((item) => {
+        const dateLabel = formatDate(item.createdAt);
+        const statusClass = "badge-status-" + String(item.status || "new").toLowerCase();
+        return `
+          <article class="panel enquiry-card">
+            <div class="enquiry-head">
+              <div>
+                <h3>${item.name}</h3>
+                <div class="meta">Reference ${item.id}</div>
+              </div>
+              <div class="meta">Requested ${dateLabel}</div>
+            </div>
+            <div class="badge-row">
+              <span class="badge ${statusClass}">${item.status || "New"}</span>
+              <span class="badge">Google review link: ${googleReviewReady ? "Ready" : "Not set yet"}</span>
+              <span class="badge">Email alert: ${item.notificationStatus || "Pending"}</span>
+            </div>
+            <div class="detail-grid" style="margin-top: 12px;">
+              <span class="detail"><strong>Email:</strong> ${item.email ? `<a href="mailto:${item.email}">${item.email}</a>` : "Not provided"}</span>
+              <span class="detail"><strong>Phone:</strong> ${item.phone ? `<a href="tel:${item.phone}">${item.phone}</a>` : "Not provided"}</span>
+              <span class="detail"><strong>Alert method:</strong> ${item.notificationMethod || "Not recorded"}</span>
+              <span class="detail"><strong>Alert note:</strong> ${item.notificationReason || "No error recorded"}</span>
+            </div>
+            <div class="message-box">${item.message || "No message provided."}</div>
+            ${googleReviewUrl ? `<div class="message-box"><strong>Google review link:</strong> <a href="${googleReviewUrl}" target="_blank" rel="noreferrer">${googleReviewUrl}</a></div>` : ""}
+            <div class="card-actions">
+              ${["New", "Sent", "Closed"].map((status) => `
+                <button
+                  type="button"
+                  class="status-button ${status === item.status ? "is-active" : ""}"
+                  data-review-status-id="${item.id}"
+                  data-review-status-value="${status}"
+                >
+                  ${status}
+                </button>
+              `).join("")}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      reviewRequestList.querySelectorAll("[data-review-status-id]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const reviewRequestId = button.getAttribute("data-review-status-id");
+          const status = button.getAttribute("data-review-status-value");
+          await updateReviewRequestStatus(reviewRequestId, status);
+        });
+      });
     }
 
     function renderEnquiries(enquiries) {
@@ -643,8 +738,23 @@
       });
     }
 
+    function filterReviewRequests(query) {
+      const search = query.trim().toLowerCase();
+      if (!search) return allReviewRequests;
+
+      return allReviewRequests.filter((item) => {
+        return [
+          item.name,
+          item.email,
+          item.phone,
+          item.status,
+          item.message
+        ].some((value) => String(value || "").toLowerCase().includes(search));
+      });
+    }
+
     async function loadEnquiries() {
-      statusMessage.textContent = "Loading enquiries...";
+      statusMessage.textContent = "Loading dashboard...";
 
       try {
         const response = await fetch("/api/admin/enquiries");
@@ -661,9 +771,20 @@
           throw new Error(result.error || "Unable to load enquiries.");
         }
 
+        const reviewResponse = await fetch("/api/admin/review-requests");
+        const reviewResult = await reviewResponse.json();
+
+        if (!reviewResponse.ok) {
+          throw new Error(reviewResult.error || "Unable to load review requests.");
+        }
+
         allEnquiries = result.enquiries || [];
+        allReviewRequests = reviewResult.reviewRequests || [];
+        googleReviewReady = Boolean(reviewResult.googleReviewReady);
+        googleReviewUrl = reviewResult.googleReviewUrl || "";
+        renderReviewRequests(filterReviewRequests(searchInput.value));
         renderEnquiries(filterEnquiries(searchInput.value));
-        statusMessage.textContent = `Loaded ${allEnquiries.length} enquiry${allEnquiries.length === 1 ? "" : "ies"}.`;
+        statusMessage.textContent = `Loaded ${allEnquiries.length} enquiry${allEnquiries.length === 1 ? "" : "ies"} and ${allReviewRequests.length} review request${allReviewRequests.length === 1 ? "" : "s"}.`;
       } catch (error) {
         statusMessage.textContent = error.message || "Unable to load enquiries.";
         renderEmpty("The dashboard could not load data from the backend.");
@@ -691,6 +812,30 @@
         statusMessage.textContent = `${id} updated to ${status}.`;
       } catch (error) {
         statusMessage.textContent = error.message || "Unable to update enquiry status.";
+      }
+    }
+
+    async function updateReviewRequestStatus(id, status) {
+      statusMessage.textContent = `Updating ${id} to ${status}...`;
+
+      try {
+        const response = await fetch("/api/admin/review-requests/status", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ id, status })
+        });
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || "Unable to update review request status.");
+        }
+
+        await loadEnquiries();
+        statusMessage.textContent = `${id} updated to ${status}.`;
+      } catch (error) {
+        statusMessage.textContent = error.message || "Unable to update review request status.";
       }
     }
 
@@ -739,6 +884,7 @@
     });
 
     searchInput.addEventListener("input", () => {
+      renderReviewRequests(filterReviewRequests(searchInput.value));
       renderEnquiries(filterEnquiries(searchInput.value));
     });
 
@@ -752,6 +898,8 @@
       await fetch("/api/admin/logout", { method: "POST" });
       showLogin(false);
       allEnquiries = [];
+      allReviewRequests = [];
+      reviewRequestList.innerHTML = "";
       enquiryList.innerHTML = "";
       statusMessage.textContent = "";
     });

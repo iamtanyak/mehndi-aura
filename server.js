@@ -63,6 +63,7 @@ const SMTP_SECURE = String(process.env.SMTP_SECURE || "true").toLowerCase() !== 
 const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 const RESEND_FROM = process.env.RESEND_FROM || "";
 const CLIENT_AUTO_REPLY_ENABLED = String(process.env.CLIENT_AUTO_REPLY_ENABLED || "false").toLowerCase() === "true";
+const GOOGLE_REVIEW_URL = process.env.GOOGLE_REVIEW_URL || "";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
 const sessions = new Map();
 
@@ -143,6 +144,21 @@ function setupDatabase() {
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN client_reply_method TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN client_reply_reason TEXT;");
   runSqlSafe("ALTER TABLE enquiries ADD COLUMN status TEXT NOT NULL DEFAULT 'New';");
+
+  runSql(`
+    CREATE TABLE IF NOT EXISTS review_requests (
+      id TEXT PRIMARY KEY,
+      created_at TEXT NOT NULL,
+      name TEXT NOT NULL,
+      email TEXT,
+      phone TEXT,
+      message TEXT,
+      status TEXT NOT NULL DEFAULT 'New',
+      notification_status TEXT,
+      notification_method TEXT,
+      notification_reason TEXT
+    );
+  `);
 
   const countOutput = runSql("SELECT COUNT(*) AS count FROM enquiries;", { json: true });
   const countRows = countOutput ? JSON.parse(countOutput) : [];
@@ -228,6 +244,54 @@ function readEnquiries() {
       location,
       message
     FROM enquiries
+    ORDER BY datetime(created_at) DESC;
+  `, { json: true });
+
+  return output ? JSON.parse(output) : [];
+}
+
+function insertReviewRequest(reviewRequest) {
+  runSql(`
+    INSERT INTO review_requests (
+      id,
+      created_at,
+      name,
+      email,
+      phone,
+      message,
+      status,
+      notification_status,
+      notification_method,
+      notification_reason
+    ) VALUES (
+      ${sqlValue(reviewRequest.id)},
+      ${sqlValue(reviewRequest.createdAt)},
+      ${sqlValue(reviewRequest.name)},
+      ${sqlValue(reviewRequest.email || "")},
+      ${sqlValue(reviewRequest.phone || "")},
+      ${sqlValue(reviewRequest.message || "")},
+      ${sqlValue(reviewRequest.status || "New")},
+      ${sqlValue(reviewRequest.notificationStatus || "Pending")},
+      ${sqlValue(reviewRequest.notificationMethod || "")},
+      ${sqlValue(reviewRequest.notificationReason || "")}
+    );
+  `);
+}
+
+function readReviewRequests() {
+  const output = runSql(`
+    SELECT
+      id,
+      created_at AS createdAt,
+      name,
+      email,
+      phone,
+      message,
+      status,
+      notification_status AS notificationStatus,
+      notification_method AS notificationMethod,
+      notification_reason AS notificationReason
+    FROM review_requests
     ORDER BY datetime(created_at) DESC;
   `, { json: true });
 
@@ -345,6 +409,21 @@ function validateEnquiry(payload) {
   }
 
   return { enquiry };
+}
+
+function validateReviewRequest(payload) {
+  const reviewRequest = {
+    name: sanitize(payload.name),
+    email: sanitize(payload.email),
+    phone: sanitize(payload.phone),
+    message: sanitize(payload.message)
+  };
+
+  if (!reviewRequest.name || (!reviewRequest.email && !reviewRequest.phone)) {
+    return { error: "Please add your name and either email or WhatsApp/phone so Tanya can send the review link." };
+  }
+
+  return { reviewRequest };
 }
 
 function parseCookies(request) {
@@ -719,6 +798,52 @@ async function sendNotificationEmail(enquiry) {
   });
 }
 
+async function sendReviewRequestNotification(reviewRequest) {
+  const subject = `Review Link Request: ${reviewRequest.name}`;
+  const body = [
+    "A visitor requested the Mehndi Aura review link.",
+    "",
+    `Reference: ${reviewRequest.id}`,
+    `Created At: ${reviewRequest.createdAt}`,
+    `Name: ${reviewRequest.name}`,
+    `Email: ${reviewRequest.email || "Not provided"}`,
+    `Phone/WhatsApp: ${reviewRequest.phone || "Not provided"}`,
+    `Status: ${reviewRequest.status || "New"}`,
+    `Google Review Link Configured: ${GOOGLE_REVIEW_URL ? "Yes" : "No"}`,
+    "",
+    "Message:",
+    reviewRequest.message || "No message provided.",
+    "",
+    GOOGLE_REVIEW_URL
+      ? `Send this Google review link to the client: ${GOOGLE_REVIEW_URL}`
+      : "Google review link is not configured yet. Set GOOGLE_REVIEW_URL in Render after your Google Business Profile review link is ready."
+  ].join("\n");
+
+  if (!NOTIFY_EMAIL) {
+    logNotification(`Review request notification skipped for ${reviewRequest.id}: NOTIFY_EMAIL is not configured.`);
+    return { delivered: false, reason: "NOTIFY_EMAIL is not configured." };
+  }
+
+  return deliverEmail({
+    to: NOTIFY_EMAIL,
+    subject,
+    body,
+    enquiryId: reviewRequest.id,
+    label: "Review request notification"
+  });
+}
+
+function updateReviewRequestNotification(reviewRequestId, notification) {
+  runSql(`
+    UPDATE review_requests
+    SET
+      notification_status = ${sqlValue(notification.delivered ? "Delivered" : "Failed")},
+      notification_method = ${sqlValue(notification.method || "")},
+      notification_reason = ${sqlValue(notification.reason || "")}
+    WHERE id = ${sqlValue(reviewRequestId)};
+  `);
+}
+
 function updateEnquiryNotification(enquiryId, notification) {
   runSql(`
     UPDATE enquiries
@@ -830,6 +955,52 @@ async function handleCreateEnquiry(request, response) {
   }
 }
 
+async function handleCreateReviewRequest(request, response) {
+  try {
+    const body = await collectRequestBody(request);
+    const payload = JSON.parse(body || "{}");
+    const { reviewRequest, error } = validateReviewRequest(payload);
+
+    if (error) {
+      sendJson(response, 400, { error });
+      return;
+    }
+
+    const savedReviewRequest = {
+      id: "REV-" + Date.now(),
+      createdAt: new Date().toISOString(),
+      status: "New",
+      notificationStatus: "Pending",
+      notificationMethod: "",
+      notificationReason: "",
+      ...reviewRequest
+    };
+
+    insertReviewRequest(savedReviewRequest);
+    const notification = await sendReviewRequestNotification(savedReviewRequest);
+    updateReviewRequestNotification(savedReviewRequest.id, notification);
+    savedReviewRequest.notificationStatus = notification.delivered ? "Delivered" : "Failed";
+    savedReviewRequest.notificationMethod = notification.method || "";
+    savedReviewRequest.notificationReason = notification.reason || "";
+
+    sendJson(response, 201, {
+      message: GOOGLE_REVIEW_URL
+        ? "Thank you. Tanya will send you the review link shortly."
+        : "Thank you. Tanya has received your review-link request and will send the link once it is ready.",
+      reviewRequest: savedReviewRequest,
+      notification,
+      googleReviewReady: Boolean(GOOGLE_REVIEW_URL)
+    });
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      sendJson(response, 400, { error: "The review request data was not valid JSON." });
+      return;
+    }
+
+    sendJson(response, 500, { error: error.message || "Unable to save the review request." });
+  }
+}
+
 function handleListAdminEnquiries(request, response) {
   if (!requireAdmin(request, response)) {
     return;
@@ -840,6 +1011,57 @@ function handleListAdminEnquiries(request, response) {
     sendJson(response, 200, { enquiries });
   } catch (error) {
     sendJson(response, 500, { error: "Unable to load enquiries." });
+  }
+}
+
+function handleListAdminReviewRequests(request, response) {
+  if (!requireAdmin(request, response)) {
+    return;
+  }
+
+  try {
+    const reviewRequests = readReviewRequests();
+    sendJson(response, 200, {
+      reviewRequests,
+      googleReviewReady: Boolean(GOOGLE_REVIEW_URL),
+      googleReviewUrl: GOOGLE_REVIEW_URL
+    });
+  } catch (error) {
+    sendJson(response, 500, { error: "Unable to load review requests." });
+  }
+}
+
+async function handleUpdateReviewRequestStatus(request, response) {
+  if (!requireAdmin(request, response)) {
+    return;
+  }
+
+  try {
+    const body = await collectRequestBody(request);
+    const payload = JSON.parse(body || "{}");
+    const reviewRequestId = sanitize(payload.id);
+    const status = sanitize(payload.status);
+    const allowedStatuses = new Set(["New", "Sent", "Closed"]);
+
+    if (!reviewRequestId || !allowedStatuses.has(status)) {
+      sendJson(response, 400, { error: "A valid review request id and status are required." });
+      return;
+    }
+
+    runSql(`
+      UPDATE review_requests
+      SET status = ${sqlValue(status)}
+      WHERE id = ${sqlValue(reviewRequestId)};
+    `);
+
+    sendJson(response, 200, { message: "Review request status updated." });
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      sendJson(response, 400, { error: "The review request status payload was not valid JSON." });
+      return;
+    }
+
+    sendJson(response, 500, { error: "Unable to update review request status." });
   }
 }
 
@@ -1042,6 +1264,11 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
+  if (request.method === "POST" && url.pathname === "/api/review-requests") {
+    await handleCreateReviewRequest(request, response);
+    return;
+  }
+
   if (request.method === "GET" && url.pathname === "/api/health") {
     sendJson(response, 200, { ok: true, service: "Mehndi Aura API" });
     return;
@@ -1052,8 +1279,18 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
+  if (request.method === "GET" && url.pathname === "/api/admin/review-requests") {
+    handleListAdminReviewRequests(request, response);
+    return;
+  }
+
   if (request.method === "POST" && url.pathname === "/api/admin/enquiries/status") {
     await handleUpdateEnquiryStatus(request, response);
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/admin/review-requests/status") {
+    await handleUpdateReviewRequestStatus(request, response);
     return;
   }
 

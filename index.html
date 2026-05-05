@@ -1388,6 +1388,52 @@
       margin-top: 16px;
     }
 
+    .review-request-form {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(138, 47, 36, 0.1);
+    }
+
+    .review-request-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .review-request-form input,
+    .review-request-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(138, 47, 36, 0.12);
+      border-radius: 16px;
+      background: rgba(255, 251, 246, 0.86);
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .review-request-form textarea {
+      min-height: 74px;
+      resize: vertical;
+    }
+
+    .review-status {
+      min-height: 22px;
+      margin: 0;
+      font-weight: 700;
+      color: var(--muted);
+      font-size: var(--font-body-sm);
+    }
+
+    .review-status[data-state="success"] {
+      color: var(--accent-teal);
+    }
+
+    .review-status[data-state="error"] {
+      color: var(--accent-deep);
+    }
+
     .video-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2175,6 +2221,7 @@
       .split,
       .form-row,
       .link-grid,
+      .review-request-grid,
       .style-list {
         grid-template-columns: 1fr;
       }
@@ -3010,11 +3057,20 @@
             <span>Party booking</span>
           </article>
           <div class="review-note">
-            <p>If I have done your mehndi before, an honest review really helps the next person feel safer before booking.</p>
-            <div class="review-actions">
-              <a class="btn btn-secondary" href="#contact">Ask for the review link</a>
-              <a class="btn btn-primary" href="https://wa.me/447442778243?text=Hi%20Tanya%2C%20please%20send%20me%20the%20Mehndi%20Aura%20review%20link." target="_blank" rel="noreferrer">Request Review Link</a>
-            </div>
+            <p>If I have done your mehndi before, an honest review really helps the next person feel safer before booking. Leave your details below and I will send you the review link.</p>
+            <form class="review-request-form" id="review-request-form">
+              <div class="review-request-grid">
+                <input id="review-name" name="name" type="text" placeholder="Your name" required>
+                <input id="review-email" name="email" type="email" placeholder="Email">
+                <input id="review-phone" name="phone" type="text" placeholder="WhatsApp or phone">
+              </div>
+              <textarea id="review-message" name="message" placeholder="Optional: remind me which booking/design I did for you."></textarea>
+              <div class="review-actions">
+                <button class="btn btn-primary" type="submit" id="review-submit-button">Request Review Link</button>
+                <a class="btn btn-secondary" href="https://wa.me/447442778243?text=Hi%20Tanya%2C%20please%20send%20me%20the%20Mehndi%20Aura%20review%20link." target="_blank" rel="noreferrer">Ask on WhatsApp</a>
+              </div>
+              <p class="review-status" id="review-status" aria-live="polite"></p>
+            </form>
           </div>
         </div>
 
@@ -3195,6 +3251,9 @@
     const enquiryForm = document.getElementById("enquiry-form");
     const formStatus = document.getElementById("form-status");
     const submitButton = document.getElementById("submit-button");
+    const reviewRequestForm = document.getElementById("review-request-form");
+    const reviewStatus = document.getElementById("review-status");
+    const reviewSubmitButton = document.getElementById("review-submit-button");
     const eventTypeField = document.getElementById("eventType");
     const packageField = document.getElementById("packageName");
     const budgetField = document.getElementById("budget");
@@ -3389,6 +3448,50 @@
           formStatus.dataset.state = "error";
         } finally {
           submitButton.disabled = false;
+        }
+      });
+    }
+
+    if (reviewRequestForm && reviewStatus && reviewSubmitButton) {
+      reviewRequestForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(reviewRequestForm);
+        const payload = Object.fromEntries(formData.entries());
+
+        reviewStatus.textContent = "Sending your review-link request...";
+        reviewStatus.dataset.state = "";
+        reviewSubmitButton.disabled = true;
+
+        try {
+          await checkBookingBackend();
+
+          const response = await fetch("/api/review-requests", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const result = await parseJsonResponse(response);
+
+          if (!result.ok || !result.data) {
+            throw new Error(
+              (result.data && result.data.error) ||
+              result.error ||
+              "Something went wrong while sending your review-link request."
+            );
+          }
+
+          reviewRequestForm.reset();
+          reviewStatus.textContent = result.data.message + " Reference: " + result.data.reviewRequest.id;
+          reviewStatus.dataset.state = "success";
+        } catch (error) {
+          reviewStatus.textContent = error.message || "Unable to send your review-link request right now.";
+          reviewStatus.dataset.state = "error";
+        } finally {
+          reviewSubmitButton.disabled = false;
         }
       });
     }
