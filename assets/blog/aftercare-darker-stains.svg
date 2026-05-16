@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600" role="img" aria-labelledby="title desc">
+  <title id="title">Henna Aftercare Tips for Darker Stains</title>
+  <desc id="desc">A soft pink Mehndi Aura poster with henna aftercare steps, benefits and daily care tips for darker natural stains.</desc>
+  <defs>
+    <linearGradient id="page" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff8f2"/>
+      <stop offset="0.42" stop-color="#f8e4e2"/>
+      <stop offset="1" stop-color="#e8b9c4"/>
+    </linearGradient>
+    <linearGradient id="rose" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#cb5475"/>
+      <stop offset="1" stop-color="#8a2f24"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fffaf6"/>
+      <stop offset="1" stop-color="#f7dfdc"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#6a2e2c" flood-opacity="0.16"/>
+    </filter>
+    <pattern id="rain" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M10 2 C18 14 18 22 10 26 C2 22 2 14 10 2Z" fill="#9f6873" opacity="0.16"/>
+      <path d="M32 16 C38 26 38 32 32 35 C26 32 26 26 32 16Z" fill="#9f6873" opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="1600" fill="url(#page)"/>
+  <rect x="0" y="0" width="1200" height="470" fill="url(#rain)" opacity="0.55"/>
+  <circle cx="1050" cy="150" r="190" fill="#fff8f2" opacity="0.45"/>
+  <circle cx="130" cy="1360" r="260" fill="#efa53a" opacity="0.12"/>
+
+  <g transform="translate(740 92)" filter="url(#shadow)">
+    <rect x="0" y="0" width="330" height="360" rx="165" fill="#f2cdd5"/>
+    <path d="M132 48 C198 74 224 146 196 216 C176 268 126 306 78 292 C28 276 6 214 26 160 C48 96 72 62 132 48Z" fill="#f7dedb"/>
+    <path d="M88 106 C128 122 164 168 164 214 C132 218 102 204 84 178 C70 154 72 128 88 106Z" fill="#e7b8c1"/>
+    <path d="M104 118 C142 152 148 196 126 246" fill="none" stroke="#8a2f24" stroke-width="8" stroke-linecap="round"/>
+    <path d="M126 140 C166 160 188 194 184 238" fill="none" stroke="#8a2f24" stroke-width="7" stroke-linecap="round"/>
+    <path d="M92 164 C70 186 66 214 82 242" fill="none" stroke="#8a2f24" stroke-width="6" stroke-linecap="round"/>
+    <g fill="none" stroke="#8a2f24" stroke-width="5" stroke-linecap="round">
+      <path d="M116 118 C128 102 144 102 154 116 C144 130 128 130 116 118Z"/>
+      <path d="M140 168 C154 150 174 150 186 166 C172 184 154 184 140 168Z"/>
+      <path d="M98 210 C112 192 132 192 144 208 C130 226 112 226 98 210Z"/>
+      <path d="M128 248 C142 230 162 230 174 246 C160 264 142 264 128 248Z"/>
+    </g>
+    <circle cx="220" cy="76" r="34" fill="#fff8f2" opacity="0.72"/>
+    <text x="220" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8a2f24" font-weight="700">happy</text>
+    <text x="220" y="94" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#8a2f24" font-weight="700">hands</text>
+  </g>
+
+  <text x="84" y="96" font-family="Arial, sans-serif" font-size="25" letter-spacing="5" fill="#5a2c31" font-weight="700">MEHNDI AURA AFTERCARE</text>
+  <text x="82" y="206" font-family="Georgia, serif" font-size="92" fill="#b66a78" font-weight="700">Do After</text>
+  <text x="82" y="308" font-family="Georgia, serif" font-size="118" fill="#70404a" font-style="italic">Henna Care</text>
+  <rect x="82" y="344" width="520" height="48" rx="24" fill="#f3cdd2"/>
+  <text x="342" y="376" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#70404a" font-weight="700">Nourish today. Love the stain tomorrow.</text>
+
+  <g transform="translate(70 510)">
+    <text x="530" y="0" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#5a2c31" font-weight="700" letter-spacing="2">BENEFITS OF PROPER AFTERCARE</text>
+    <rect y="36" width="1060" height="160" rx="34" fill="#fffaf6" opacity="0.72" stroke="#d9a4ad"/>
+    <g font-family="Arial, sans-serif" fill="#341d1b" text-anchor="middle">
+      <g transform="translate(95 78)">
+        <path d="M0 42 C28 16 50 20 68 46 C40 60 18 58 0 42Z" fill="none" stroke="#8a2f24" stroke-width="4"/>
+        <text x="34" y="92" font-size="18">Deeper, darker</text><text x="34" y="118" font-size="18">stain</text>
+      </g>
+      <g transform="translate(270 78)">
+        <path d="M36 2 C62 40 60 66 36 82 C12 66 10 40 36 2Z" fill="none" stroke="#8a2f24" stroke-width="4"/>
+        <text x="36" y="92" font-size="18">Long-lasting</text><text x="36" y="118" font-size="18">colour</text>
+      </g>
+      <g transform="translate(440 78)">
+        <text x="36" y="58" font-size="50" fill="#8a2f24">✦</text>
+        <text x="36" y="92" font-size="18">Natural</text><text x="36" y="118" font-size="18">glow</text>
+      </g>
+      <g transform="translate(610 78)">
+        <path d="M36 4 L72 18 L68 54 C62 78 48 90 36 96 C24 90 10 78 4 54 L0 18Z" fill="none" stroke="#8a2f24" stroke-width="4"/>
+        <text x="36" y="110" font-size="18">Protects</text><text x="36" y="136" font-size="18">fresh design</text>
+      </g>
+      <g transform="translate(790 78)">
+        <text x="36" y="55" font-size="48" fill="#8a2f24">♡</text>
+        <text x="36" y="92" font-size="18">Calm, cared-for</text><text x="36" y="118" font-size="18">hands</text>
+      </g>
+      <g transform="translate(955 78)">
+        <text x="36" y="55" font-size="50" fill="#8a2f24">☾</text>
+        <text x="36" y="92" font-size="18">Better event</text><text x="36" y="118" font-size="18">photos</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(70 780)">
+    <text x="530" y="0" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#5a2c31" font-weight="700" letter-spacing="2">5 SIMPLE STAIN-SAVING TIPS</text>
+    <g transform="translate(0 54)">
+      <rect width="315" height="230" rx="30" fill="url(#cream)" stroke="#e1b8bd" filter="url(#shadow)"/>
+      <circle cx="48" cy="50" r="24" fill="#c98791"/><text x="48" y="58" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff" font-weight="700">1</text>
+      <text x="92" y="58" font-family="Georgia" font-size="27" fill="#8a2f24" font-weight="700">Keep paste on</text>
+      <text x="34" y="112" font-family="Arial" font-size="21" fill="#341d1b">Let the paste sit as long</text>
+      <text x="34" y="142" font-family="Arial" font-size="21" fill="#341d1b">as advised before gently</text>
+      <text x="34" y="172" font-family="Arial" font-size="21" fill="#341d1b">removing it.</text>
+    </g>
+    <g transform="translate(374 54)">
+      <rect width="315" height="230" rx="30" fill="url(#cream)" stroke="#e1b8bd" filter="url(#shadow)"/>
+      <circle cx="48" cy="50" r="24" fill="#c98791"/><text x="48" y="58" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff" font-weight="700">2</text>
+      <text x="92" y="58" font-family="Georgia" font-size="27" fill="#8a2f24" font-weight="700">Avoid water</text>
+      <text x="34" y="112" font-family="Arial" font-size="21" fill="#341d1b">Do not wash too soon.</text>
+      <text x="34" y="142" font-family="Arial" font-size="21" fill="#341d1b">Scrape dry paste instead</text>
+      <text x="34" y="172" font-family="Arial" font-size="21" fill="#341d1b">of rinsing it away.</text>
+    </g>
+    <g transform="translate(748 54)">
+      <rect width="315" height="230" rx="30" fill="url(#cream)" stroke="#e1b8bd" filter="url(#shadow)"/>
+      <circle cx="48" cy="50" r="24" fill="#c98791"/><text x="48" y="58" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff" font-weight="700">3</text>
+      <text x="92" y="58" font-family="Georgia" font-size="27" fill="#8a2f24" font-weight="700">Stay warm</text>
+      <text x="34" y="112" font-family="Arial" font-size="21" fill="#341d1b">Warm hands help natural</text>
+      <text x="34" y="142" font-family="Arial" font-size="21" fill="#341d1b">henna develop into a</text>
+      <text x="34" y="172" font-family="Arial" font-size="21" fill="#341d1b">richer colour.</text>
+    </g>
+    <g transform="translate(186 330)">
+      <rect width="315" height="230" rx="30" fill="url(#cream)" stroke="#e1b8bd" filter="url(#shadow)"/>
+      <circle cx="48" cy="50" r="24" fill="#c98791"/><text x="48" y="58" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff" font-weight="700">4</text>
+      <text x="92" y="58" font-family="Georgia" font-size="27" fill="#8a2f24" font-weight="700">Skip scrubbing</text>
+      <text x="34" y="112" font-family="Arial" font-size="21" fill="#341d1b">No harsh soap, exfoliation</text>
+      <text x="34" y="142" font-family="Arial" font-size="21" fill="#341d1b">or heavy cleaning while</text>
+      <text x="34" y="172" font-family="Arial" font-size="21" fill="#341d1b">the stain settles.</text>
+    </g>
+    <g transform="translate(560 330)">
+      <rect width="315" height="230" rx="30" fill="url(#cream)" stroke="#e1b8bd" filter="url(#shadow)"/>
+      <circle cx="48" cy="50" r="24" fill="#c98791"/><text x="48" y="58" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff" font-weight="700">5</text>
+      <text x="92" y="58" font-family="Georgia" font-size="27" fill="#8a2f24" font-weight="700">Be patient</text>
+      <text x="34" y="112" font-family="Arial" font-size="21" fill="#341d1b">Orange first is normal.</text>
+      <text x="34" y="142" font-family="Arial" font-size="21" fill="#341d1b">Natural henna deepens</text>
+      <text x="34" y="172" font-family="Arial" font-size="21" fill="#341d1b">over 24–48 hours.</text>
+    </g>
+  </g>
+
+  <g transform="translate(70 1400)">
+    <rect width="500" height="118" rx="30" fill="#fffaf6" opacity="0.76" stroke="#d9a4ad"/>
+    <text x="40" y="42" font-family="Georgia" font-size="27" fill="#8a2f24" font-weight="700">Awareness first ♡</text>
+    <text x="40" y="78" font-family="Arial" font-size="21" fill="#341d1b">Patch test new products. Avoid “black henna”.</text>
+  </g>
+  <g transform="translate(630 1400)">
+    <rect width="500" height="118" rx="30" fill="#fffaf6" opacity="0.76" stroke="#d9a4ad"/>
+    <text x="40" y="42" font-family="Georgia" font-size="27" fill="#8a2f24" font-weight="700">Daily care tips ♡</text>
+    <text x="40" y="78" font-family="Arial" font-size="21" fill="#341d1b">Wear gloves for cleaning. Keep hands gentle.</text>
+  </g>
+  <text x="600" y="1564" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#70404a" font-weight="800">NATURE. PATIENCE. CONSISTENCY. THAT’S THE REAL SECRET.</text>
+</svg>

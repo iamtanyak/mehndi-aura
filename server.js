@@ -45,6 +45,25 @@ const INDEX_PATH = path.join(ROOT, "index.html");
 const ADMIN_PATH = path.join(ROOT, "admin.html");
 const ROBOTS_PATH = path.join(ROOT, "robots.txt");
 const SITEMAP_PATH = path.join(ROOT, "sitemap.xml");
+const LLMS_PATH = path.join(ROOT, "llms.txt");
+const PAGE_PATHS = new Map([
+  ["/", INDEX_PATH],
+  ["/meet-tanya", path.join(ROOT, "meet-tanya.html")],
+  ["/henna-styles", path.join(ROOT, "gallery.html")],
+  ["/gallery", path.join(ROOT, "gallery.html")],
+  ["/our-offerings", path.join(ROOT, "services.html")],
+  ["/services", path.join(ROOT, "services.html")],
+  ["/help-faq", path.join(ROOT, "faq.html")],
+  ["/faq", path.join(ROOT, "faq.html")],
+  ["/get-in-touch", path.join(ROOT, "contact.html")],
+  ["/contact", path.join(ROOT, "contact.html")],
+  ["/henna-journal", path.join(ROOT, "blog.html")],
+  ["/blog", path.join(ROOT, "blog.html")],
+  ["/articles", path.join(ROOT, "articles.html")],
+  ["/blog/top-5-mehndi-designs-2026", path.join(ROOT, "blog-top-5-mehndi-designs-2026.html")],
+  ["/blog/henna-aftercare-tips-darker-stains", path.join(ROOT, "blog-henna-aftercare-tips-darker-stains.html")],
+  ["/blog/why-black-henna-can-hurt-ppd-risks", path.join(ROOT, "blog-why-black-henna-can-hurt-ppd-risks.html")]
+]);
 const DATA_DIR = path.join(ROOT, "data");
 const DB_PATH = path.join(DATA_DIR, "enquiries.db");
 const LEGACY_JSON_PATH = path.join(DATA_DIR, "enquiries.json");
@@ -1227,6 +1246,9 @@ setupDatabase();
 
 const server = http.createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host || "localhost"}`);
+  const pagePath = url.pathname !== "/" && url.pathname.endsWith("/")
+    ? url.pathname.slice(0, -1)
+    : url.pathname;
 
   if ((request.method === "GET" || request.method === "HEAD") && url.pathname.startsWith("/assets/")) {
     const assetPath = path.normalize(path.join(ROOT, url.pathname.slice(1)));
@@ -1239,8 +1261,8 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
-  if (request.method === "GET" && url.pathname === "/") {
-    serveHtml(response, INDEX_PATH);
+  if (request.method === "GET" && PAGE_PATHS.has(pagePath)) {
+    serveHtml(response, PAGE_PATHS.get(pagePath));
     return;
   }
 
@@ -1256,6 +1278,11 @@ const server = http.createServer(async (request, response) => {
 
   if (request.method === "GET" && url.pathname === "/sitemap.xml") {
     serveTextFile(response, SITEMAP_PATH, "application/xml; charset=utf-8");
+    return;
+  }
+
+  if (request.method === "GET" && url.pathname === "/llms.txt") {
+    serveTextFile(response, LLMS_PATH, "text/plain; charset=utf-8");
     return;
   }
 

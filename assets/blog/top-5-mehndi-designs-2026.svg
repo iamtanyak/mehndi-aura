@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Top 5 Mehndi Designs for 2026</title>
+  <desc id="desc">A warm collage of five labelled Mehndi Aura design styles for 2026.</desc>
+  <defs>
+    <clipPath id="round1"><rect x="48" y="72" width="206" height="270" rx="28"/></clipPath>
+    <clipPath id="round2"><rect x="280" y="56" width="206" height="286" rx="28"/></clipPath>
+    <clipPath id="round3"><rect x="512" y="72" width="206" height="270" rx="28"/></clipPath>
+    <clipPath id="round4"><rect x="744" y="56" width="206" height="286" rx="28"/></clipPath>
+    <clipPath id="round5"><rect x="976" y="72" width="176" height="270" rx="28"/></clipPath>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff4e8"/>
+      <stop offset="0.5" stop-color="#f8dfd9"/>
+      <stop offset="1" stop-color="#d76b86"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#8a2f24"/>
+      <stop offset="1" stop-color="#cb5475"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <circle cx="1042" cy="92" r="170" fill="#efa53a" opacity="0.23"/>
+  <circle cx="146" cy="600" r="210" fill="#2f8d85" opacity="0.18"/>
+  <image href="minimal-eid-design.png" x="48" y="72" width="206" height="270" preserveAspectRatio="xMidYMid slice" clip-path="url(#round1)"/>
+  <image href="jewellery-design.png" x="280" y="56" width="206" height="286" preserveAspectRatio="xMidYMid slice" clip-path="url(#round2)"/>
+  <image href="floral-design.png" x="512" y="72" width="206" height="270" preserveAspectRatio="xMidYMid slice" clip-path="url(#round3)"/>
+  <image href="minimal-bow-design.png" x="744" y="56" width="206" height="286" preserveAspectRatio="xMidYMid slice" clip-path="url(#round4)"/>
+  <image href="arabic-design.png" x="976" y="72" width="176" height="270" preserveAspectRatio="xMidYMid slice" clip-path="url(#round5)"/>
+  <rect x="48" y="356" width="206" height="42" rx="18" fill="#fff8ef" opacity="0.94"/>
+  <rect x="280" y="356" width="206" height="42" rx="18" fill="#fff8ef" opacity="0.94"/>
+  <rect x="512" y="356" width="206" height="42" rx="18" fill="#fff8ef" opacity="0.94"/>
+  <rect x="744" y="356" width="206" height="42" rx="18" fill="#fff8ef" opacity="0.94"/>
+  <rect x="976" y="356" width="176" height="42" rx="18" fill="#fff8ef" opacity="0.94"/>
+  <text x="151" y="383" text-anchor="middle" fill="#8a2f24" font-family="Arial, sans-serif" font-size="17" font-weight="800">Minimal Eid</text>
+  <text x="383" y="383" text-anchor="middle" fill="#8a2f24" font-family="Arial, sans-serif" font-size="17" font-weight="800">Jewellery</text>
+  <text x="615" y="383" text-anchor="middle" fill="#8a2f24" font-family="Arial, sans-serif" font-size="17" font-weight="800">Floral</text>
+  <text x="847" y="383" text-anchor="middle" fill="#8a2f24" font-family="Arial, sans-serif" font-size="17" font-weight="800">Minimal Bow</text>
+  <text x="1064" y="383" text-anchor="middle" fill="#8a2f24" font-family="Arial, sans-serif" font-size="17" font-weight="800">Arabic</text>
+  <rect x="48" y="430" width="1104" height="182" rx="34" fill="url(#panel)"/>
+  <text x="86" y="504" fill="#fff8ef" font-family="Georgia, serif" font-size="58" font-weight="700">Top 5 Mehndi Designs for 2026</text>
+  <text x="90" y="558" fill="#ffe7d9" font-family="Arial, sans-serif" font-size="24">Minimal Eid • Jewellery • Floral • Minimal Bow • Arabic</text>
+  <text x="90" y="590" fill="#ffe7d9" font-family="Arial, sans-serif" font-size="18">Mehndi Aura by Tanya</text>
+</svg>
