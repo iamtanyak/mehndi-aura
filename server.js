@@ -333,7 +333,7 @@ function sendJson(response, statusCode, payload, extraHeaders = {}) {
   response.end(JSON.stringify(payload));
 }
 
-function serveHtml(response, filePath) {
+function serveHtml(request, response, filePath) {
   fs.readFile(filePath, "utf8", (error, html) => {
     if (error) {
       sendJson(response, 500, { error: "Unable to load the website." });
@@ -344,11 +344,11 @@ function serveHtml(response, filePath) {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=300, must-revalidate"
     });
-    response.end(html);
+    response.end(request.method === "HEAD" ? undefined : html);
   });
 }
 
-function serveTextFile(response, filePath, contentType) {
+function serveTextFile(request, response, filePath, contentType) {
   fs.readFile(filePath, "utf8", (error, text) => {
     if (error) {
       sendJson(response, 500, { error: "Unable to load the requested file." });
@@ -359,7 +359,7 @@ function serveTextFile(response, filePath, contentType) {
       "Content-Type": contentType,
       "Cache-Control": "public, max-age=3600"
     });
-    response.end(text);
+    response.end(request.method === "HEAD" ? undefined : text);
   });
 }
 
@@ -1276,28 +1276,28 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
-  if (request.method === "GET" && PAGE_PATHS.has(pagePath)) {
-    serveHtml(response, PAGE_PATHS.get(pagePath));
+  if ((request.method === "GET" || request.method === "HEAD") && PAGE_PATHS.has(pagePath)) {
+    serveHtml(request, response, PAGE_PATHS.get(pagePath));
     return;
   }
 
-  if (request.method === "GET" && url.pathname === "/admin") {
-    serveHtml(response, ADMIN_PATH);
+  if ((request.method === "GET" || request.method === "HEAD") && url.pathname === "/admin") {
+    serveHtml(request, response, ADMIN_PATH);
     return;
   }
 
-  if (request.method === "GET" && url.pathname === "/robots.txt") {
-    serveTextFile(response, ROBOTS_PATH, "text/plain; charset=utf-8");
+  if ((request.method === "GET" || request.method === "HEAD") && url.pathname === "/robots.txt") {
+    serveTextFile(request, response, ROBOTS_PATH, "text/plain; charset=utf-8");
     return;
   }
 
-  if (request.method === "GET" && url.pathname === "/sitemap.xml") {
-    serveTextFile(response, SITEMAP_PATH, "application/xml; charset=utf-8");
+  if ((request.method === "GET" || request.method === "HEAD") && url.pathname === "/sitemap.xml") {
+    serveTextFile(request, response, SITEMAP_PATH, "application/xml; charset=utf-8");
     return;
   }
 
-  if (request.method === "GET" && url.pathname === "/llms.txt") {
-    serveTextFile(response, LLMS_PATH, "text/plain; charset=utf-8");
+  if ((request.method === "GET" || request.method === "HEAD") && url.pathname === "/llms.txt") {
+    serveTextFile(request, response, LLMS_PATH, "text/plain; charset=utf-8");
     return;
   }
 
