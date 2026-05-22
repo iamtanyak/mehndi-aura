@@ -1252,6 +1252,19 @@ const server = http.createServer(async (request, response) => {
     ? url.pathname.slice(0, -1)
     : url.pathname;
 
+  if ((request.method === "GET" || request.method === "HEAD")
+    && url.pathname !== "/"
+    && url.pathname.endsWith("/")
+    && PAGE_PATHS.has(pagePath)) {
+    const target = pagePath + url.search;
+    response.writeHead(301, {
+      "Location": target,
+      "Cache-Control": "public, max-age=3600"
+    });
+    response.end();
+    return;
+  }
+
   if ((request.method === "GET" || request.method === "HEAD") && url.pathname.startsWith("/assets/")) {
     const assetPath = path.normalize(path.join(ROOT, url.pathname.slice(1)));
     const assetsRoot = path.join(ROOT, "assets");
