@@ -301,6 +301,7 @@
     }
 
     .hero h1,
+    .section-heading h1,
     .section-heading h2 {
       margin: 18px 0 14px;
       font-family: "Cormorant Garamond", serif;
@@ -648,6 +649,7 @@
       margin-bottom: 30px;
     }
 
+    .section-heading h1,
     .section-heading h2 {
       font-size: var(--font-title-lg);
       max-width: none;
@@ -1450,7 +1452,8 @@
       margin-bottom: 14px;
     }
 
-    .process-panel .section-heading h2 {
+    .process-panel .section-heading h1,
+    .section-heading h2 {
       font-size: clamp(1.7rem, 2.4vw, 2.3rem);
     }
 
@@ -2222,6 +2225,7 @@
         {
           "@type": [
             "Organization",
+            "LocalBusiness",
             "ProfessionalService"
           ],
           "@id": "https://mehndiaura.co.uk/#organization",
@@ -2278,6 +2282,7 @@
           "@id": "https://mehndiaura.co.uk/#tanya",
           "name": "Tanya Kumari",
           "jobTitle": "Henna Artist",
+          "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026.png",
           "worksFor": {
             "@id": "https://mehndiaura.co.uk/#organization"
           },
@@ -2330,6 +2335,65 @@
             "@id": "https://mehndiaura.co.uk/#organization"
           },
           "inLanguage": "en-GB"
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://mehndiaura.co.uk/help-faq#faq",
+          "url": "https://mehndiaura.co.uk/help-faq",
+          "name": "Mehndi Aura Help & FAQ",
+          "isPartOf": {
+            "@id": "https://mehndiaura.co.uk/help-faq#webpage"
+          },
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I book Mehndi Aura for my date?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Send Tanya your date, event type, location and the kind of mehndi design you are thinking of. You can use the form, WhatsApp, phone or email. Tanya will check availability and reply with next steps."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you offer bridal mehndi?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Mehndi Aura offers bridal mehndi for weddings and pre-wedding events, planned around outfit, coverage, timing and any personal details you want included."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do you use natural henna?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Tanya works with natural henna-style paste and does not offer black henna. Natural henna stains orange-brown to deep brown, not instant black."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why do you avoid black henna?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Black henna is often darkened with PPD, a dye linked with allergic reactions and skin injury. Mehndi Aura does not use black henna."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What areas do you cover?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Mehndi Aura is based in the UK. Travel depends on the date, distance and booking size, so clients should send their city or venue when enquiring."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I get a darker mehndi stain?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Keep the paste on for as long as advised, avoid washing too soon, and keep the area warm if you can. Natural henna develops over time, so the first colour is not the final stain."
+              }
+            }
+          ]
         }
       ]
     }
@@ -2363,7 +2427,7 @@
       <div class="shell">
         <div class="section-heading">
           <div>
-            <h2>Help & FAQ</h2>
+            <h1>Help & FAQ</h1>
           </div>
           <p>I have answered these the way I would explain them in a message: honestly, simply, and without pretending every booking is exactly the same.</p>
         </div>

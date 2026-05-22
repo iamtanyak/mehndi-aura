@@ -341,7 +341,8 @@ function serveHtml(response, filePath) {
     }
 
     response.writeHead(200, {
-      "Content-Type": "text/html; charset=utf-8"
+      "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "public, max-age=300, must-revalidate"
     });
     response.end(html);
   });
@@ -355,7 +356,8 @@ function serveTextFile(response, filePath, contentType) {
     }
 
     response.writeHead(200, {
-      "Content-Type": contentType
+      "Content-Type": contentType,
+      "Cache-Control": "public, max-age=3600"
     });
     response.end(text);
   });
@@ -381,7 +383,7 @@ function serveStaticFile(request, response, filePath) {
 
     response.writeHead(200, {
       "Content-Type": getMimeType(filePath),
-      "Cache-Control": "public, max-age=3600"
+      "Cache-Control": "public, max-age=31536000, immutable"
     });
     response.end(request.method === "HEAD" ? undefined : data);
   });
