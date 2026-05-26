@@ -48,6 +48,7 @@ const SITEMAP_PATH = path.join(ROOT, "sitemap.xml");
 const LLMS_PATH = path.join(ROOT, "llms.txt");
 const PAGE_PATHS = new Map([
   ["/", INDEX_PATH],
+  ["/mehndi-artist-london", path.join(ROOT, "mehndi-artist-london.html")],
   ["/meet-tanya", path.join(ROOT, "meet-tanya.html")],
   ["/henna-styles", path.join(ROOT, "gallery.html")],
   ["/gallery", path.join(ROOT, "gallery.html")],
