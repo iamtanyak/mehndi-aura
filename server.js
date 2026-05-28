@@ -98,6 +98,7 @@ const CONTENT_SECURITY_POLICY = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "script-src 'self' 'unsafe-inline'",
   "connect-src 'self' https://wa.me https://www.youtube.com",
+  "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
   "upgrade-insecure-requests"
 ].join("; ");
 
