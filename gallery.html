@@ -10,8 +10,8 @@
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#8a2f24">
   <link rel="canonical" href="https://mehndiaura.co.uk/henna-styles">
-  <link rel="icon" href="/assets/brand/holding-hands-new-logo-crop-2.jpeg" type="image/jpeg">
-  <link rel="apple-touch-icon" href="/assets/brand/holding-hands-new-logo-crop-2.jpeg">
+  <link rel="icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg">
   <link rel="manifest" href="/assets/brand/site.webmanifest">
   <meta property="og:site_name" content="Mehndi Aura">
   <meta property="og:title" content="Henna Styles – Bridal, Arabic & Floral Mehndi UK">
@@ -653,7 +653,7 @@
     .section-heading h2 {
       font-size: var(--font-title-lg);
       max-width: none;
-      white-space: nowrap;
+      white-space: normal;
     }
 
     .section-heading p {
@@ -661,6 +661,28 @@
       margin: 0;
       color: var(--muted);
       font-size: 0.98rem;
+    }
+
+    .page-heading {
+      display: grid;
+      align-items: start;
+      justify-content: start;
+      gap: 14px;
+    }
+
+    .page-heading h1 {
+      white-space: normal;
+      max-width: 15ch;
+    }
+
+    .page-heading p {
+      max-width: 68ch;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .internal-links {
+      margin: -8px 0 24px;
     }
 
     .artist-story {
@@ -892,8 +914,9 @@
     }
 
     .gallery-card img {
-      aspect-ratio: 4 / 5;
+      height: clamp(230px, 18vw, 310px);
       object-fit: cover;
+      object-position: center 58%;
       transition: transform 0.4s ease;
     }
 
@@ -933,9 +956,9 @@
 
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 30px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 34px;
     }
 
     .portfolio-button {
@@ -951,8 +974,9 @@
 
     .portfolio-button img {
       width: 100%;
-      aspect-ratio: 3 / 4;
+      height: clamp(190px, 14vw, 250px);
       object-fit: cover;
+      object-position: center 58%;
       transition: transform 0.35s ease, opacity 0.35s ease;
     }
 
@@ -1011,8 +1035,9 @@
 
     .lightbox-image-wrap img {
       width: 100%;
-      max-height: 82vh;
-      object-fit: contain;
+      height: min(76vh, 760px);
+      object-fit: cover;
+      object-position: center 54%;
       border-radius: 20px;
     }
 
@@ -2225,8 +2250,9 @@
         grid-column: 1 / -1;
       }
 
+      .gallery-card img,
       .portfolio-button img {
-        aspect-ratio: 4 / 5;
+        height: 220px;
       }
 
       .mini-link {
@@ -2269,7 +2295,7 @@
             "Tanya Mehndi Aura"
           ],
           "url": "https://mehndiaura.co.uk/",
-          "logo": "https://mehndiaura.co.uk/assets/brand/holding-hands-new-logo-crop-2.jpeg",
+          "logo": "https://mehndiaura.co.uk/assets/brand/holding-hands-new-logo-optimized.jpg",
           "image": "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
           "email": "tanya19.2003@hotmail.com",
           "telephone": "+447442778243",
@@ -2321,7 +2347,7 @@
           "@id": "https://mehndiaura.co.uk/#tanya",
           "name": "Tanya Kumari",
           "jobTitle": "Henna Artist",
-          "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026.png",
+          "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026-optimized.jpg",
           "worksFor": {
             "@id": "https://mehndiaura.co.uk/#organization"
           },
@@ -2389,7 +2415,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="/" aria-label="Mehndi Aura home">
-        <img class="brand-logo" src="/assets/brand/holding-hands-new-logo-crop-2.jpeg" alt="" aria-hidden="true">
+        <img class="brand-logo" src="/assets/brand/holding-hands-new-logo-optimized.jpg" alt="" aria-hidden="true">
         <span class="brand-lockup">
           <span class="brand-mark">Mehndi Aura</span>
           <span class="brand-note">Bridal and celebration mehndi</span>
@@ -2412,7 +2438,7 @@
   <main id="home">
     <section id="gallery">
       <div class="shell">
-        <div class="section-heading">
+        <div class="section-heading page-heading">
           <div>
             <h1>Henna Styles for Bridal, Eid and Parties</h1>
           </div>
@@ -2421,6 +2447,11 @@
             left the styles together here because most clients do not book by category. They save
             two or three photos, tell me what they like, and we build the final look from there.
           </p>
+        </div>
+        <div class="card-actions-row internal-links" aria-label="Related pages">
+          <a class="mini-link" href="/our-offerings">See Booking Options</a>
+          <a class="mini-link" href="/henna-journal">Aftercare Tips</a>
+          <a class="mini-link" href="/get-in-touch">Ask About a Style</a>
         </div>
         <div class="gallery-filters" aria-label="Filter henna styles">
           <button class="filter-pill is-active" type="button" data-gallery-filter="all">All</button>
@@ -2432,71 +2463,190 @@
         </div>
         <div class="gallery-grid">
           <article class="gallery-card" data-style="floral minimal">
-            <img src="assets/gallery/web/img-32.jpeg" alt="Floral pendant hand henna design" loading="lazy" decoding="async">
+            <img src="assets/gallery/thumbs/minimal-eid-mehndi.jpg" alt="Minimal Eid mehndi with fine floral trails and small decorative details" width="900" height="1200" loading="lazy" decoding="async">
             <div class="gallery-copy">
-              <strong>Signature florals</strong>
-              <span>Soft roses, a pendant-style centre and a little breathing room so the hand still looks graceful.</span>
+              <strong>Minimal Eid</strong>
+              <span>A light, graceful look for Eid when you want the hand to feel decorated but still simple.</span>
               <div class="card-actions-row">
-                <button class="mini-link" type="button" data-enquiry-fill="Simple Elegant Mehndi" data-package-fill="Signature Party" data-message-fill="I loved the Signature florals gallery style.">Enquire About This Style</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Eid or Festival" data-package-fill="Celebration Party" data-message-fill="I loved the Minimal Eid gallery style.">Enquire About This Style</button>
               </div>
             </div>
           </article>
           <article class="gallery-card" data-style="bridal floral arabic">
-            <img src="assets/gallery/web/img-31.jpeg" alt="Statement paisley and floral hand henna design" loading="lazy" decoding="async">
+            <img src="assets/gallery/thumbs/floral-arabic-mehndi.jpg" alt="Floral Arabic mehndi design with flowing hand coverage" width="900" height="1200" loading="lazy" decoding="async">
             <div class="gallery-copy">
-              <strong>Statement occasion</strong>
-              <span>A fuller paisley and floral layout for someone who wants the hand to feel dressed up, but still neat.</span>
+              <strong>Floral Arabic flow</strong>
+              <span>Flowers, curves and open spacing for someone who wants a fuller hand without it feeling too heavy.</span>
               <div class="card-actions-row">
-                <button class="mini-link" type="button" data-enquiry-fill="Party or Occasion Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Statement occasion gallery style.">Enquire About This Style</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Party or Occasion Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Floral Arabic flow gallery style.">Enquire About This Style</button>
               </div>
             </div>
           </article>
           <article class="gallery-card" data-style="eid minimal floral">
-            <img src="assets/gallery/web/img-23.jpeg" alt="Eid hand henna design with lantern details" loading="lazy" decoding="async">
+            <img src="assets/gallery/thumbs/minimal-bow-mehndi.jpg" alt="Minimal bow mehndi design with tiny vines and soft trails" width="900" height="1200" loading="lazy" decoding="async">
             <div class="gallery-copy">
-              <strong>Eid elegance</strong>
-              <span>A lighter festive style with vines and lantern details, the kind of design I would suggest for Eid.</span>
+              <strong>Bow details</strong>
+              <span>A sweet, delicate style with tiny bows and vines for clients who like soft details.</span>
               <div class="card-actions-row">
-                <button class="mini-link" type="button" data-enquiry-fill="Eid or Festival" data-package-fill="Celebration Party" data-message-fill="I loved the Eid elegance gallery style.">Enquire About This Style</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Simple Elegant Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Bow details gallery style.">Enquire About This Style</button>
               </div>
             </div>
           </article>
           <article class="gallery-card" data-style="eid arabic minimal">
-            <img src="assets/gallery/web/img-21.jpeg" alt="Festive jhumki hand henna design" loading="lazy" decoding="async">
+            <img src="assets/gallery/thumbs/minimal-arabic-mehndi.jpg" alt="Minimal Arabic-inspired mehndi design with open spacing" width="900" height="1200" loading="lazy" decoding="async">
             <div class="gallery-copy">
-              <strong>Jhumki festive</strong>
-              <span>Jhumki details and little hanging accents for a festive look that does not make the hand feel crowded.</span>
+              <strong>Arabic hand flow</strong>
+              <span>A clean Arabic-inspired layout with florals, curves and space for the pattern to breathe.</span>
               <div class="card-actions-row">
-                <button class="mini-link" type="button" data-enquiry-fill="Eid or Festival" data-package-fill="Celebration Party" data-message-fill="I loved the Jhumki festive gallery style.">Enquire About This Style</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Arabic Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Arabic hand flow gallery style.">Enquire About This Style</button>
               </div>
             </div>
           </article>
         </div>
         <div class="portfolio-grid">
-          <button class="portfolio-button" type="button" data-style="floral arabic" data-lightbox="assets/gallery/full/img-29.jpeg" data-caption="Flowing floral and paisley work for party bookings with a statement finish."><img src="assets/gallery/web/img-29.jpeg" alt="Flowing floral and paisley henna design for a party booking" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-style="bridal" data-lightbox="assets/gallery/full/img-10.jpeg" data-caption="Bridal palm work with dense ornamental layers."><img src="assets/gallery/web/img-10.jpeg" alt="Dense bridal palm henna with ornamental layers" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-style="bridal floral" data-lightbox="assets/gallery/full/img-27.jpeg" data-caption="Bold floral composition with warm sunlight and rich hand coverage."><img src="assets/gallery/web/img-27.jpeg" alt="Bold floral henna with rich hand coverage" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-28.jpeg" data-caption="Wrist-led festive design with florals, curves, and ornamental balance."><img src="assets/gallery/web/img-28.jpeg" alt="Wrist-led festive henna design with florals and curves" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-11.jpeg" data-caption="Curved paisley and floral composition for premium bookings."><img src="assets/gallery/web/img-11.jpeg" alt="Curved paisley and floral mehndi design for premium bookings" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-08.jpeg" data-caption="Geometric floral hand design with rich composition."><img src="assets/gallery/web/img-08.jpeg" alt="Geometric floral hand henna design with rich detail" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-25.jpeg" data-caption="Outdoor bridal-style stain with rich floral and net detailing."><img src="assets/gallery/web/img-25.jpeg" alt="Outdoor bridal style henna stain with floral and net details" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-05.jpeg" data-caption="Rose and mandala inspired side-hand detail."><img src="assets/gallery/web/img-05.jpeg" alt="Rose and mandala inspired side hand henna detail" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-02.jpeg" data-caption="Floral side-flow design for festive and party bookings."><img src="assets/gallery/web/img-02.jpeg" alt="Floral side-flow henna design for festive and party bookings" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-03.jpeg" data-caption="Elegant hand frame with charm-like hanging details."><img src="assets/gallery/web/img-03.jpeg" alt="Elegant mehndi hand frame with hanging charm details" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-01.jpeg" data-caption="Pendant-inspired motif with delicate dotted trails."><img src="assets/gallery/web/img-01.jpeg" alt="Pendant inspired mehndi motif with delicate dotted trails" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-12.jpeg" data-caption="Wrist-heavy floral border with elegant open center."><img src="assets/gallery/web/img-12.jpeg" alt="Wrist-heavy floral henna border with elegant open centre" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-30.jpeg" data-caption="Three-rose vertical composition with clean placement and soft detailing."><img src="assets/gallery/web/img-30.jpeg" alt="Three rose vertical floral henna design with clean placement" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-26.jpeg" data-caption="Minimal rose cluster with airy dotted trails for a graceful finish."><img src="assets/gallery/web/img-26.jpeg" alt="Minimal rose cluster henna design with airy dotted trails" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-14.jpeg" data-caption="Fine vine design with lantern-inspired details."><img src="assets/gallery/web/img-14.jpeg" alt="Fine vine henna design with lantern inspired details" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-22.jpeg" data-caption="Minimal jhumki motif with clean central festive styling."><img src="assets/gallery/web/img-22.jpeg" alt="Minimal jhumki motif henna design with festive styling" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-09.jpeg" data-caption="Finger-led floral design with clean negative space."><img src="assets/gallery/web/img-09.jpeg" alt="Finger-led floral henna design with clean negative space" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-15.jpeg" data-caption="Light floral trail style for minimal elegant looks."><img src="assets/gallery/web/img-15.jpeg" alt="Light floral trail henna design for minimal elegant looks" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-07.jpeg" data-caption="Minimal circle motif with finger detailing."><img src="assets/gallery/web/img-07.jpeg" alt="Minimal circle motif henna design with finger detailing" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-24.jpeg" data-caption="Eid process shot showing delicate line application in progress."><img src="assets/gallery/web/img-24.jpeg" alt="Eid mehndi process shot showing fine line application" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-13.jpeg" data-caption="Process shot showing fine-line application work."><img src="assets/gallery/web/img-13.jpeg" alt="Henna process photo showing fine line application work" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-04.jpeg" data-caption="Outdoor festive stain with bright celebration styling."><img src="assets/gallery/web/img-04.jpeg" alt="Outdoor festive mehndi stain with bright celebration styling" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-16.jpeg" data-caption="Bright festive outdoor stain for colorful occasions."><img src="assets/gallery/web/img-16.jpeg" alt="Bright festive outdoor henna stain for colourful occasions" loading="lazy" decoding="async"></button>
-          <button class="portfolio-button" type="button" data-lightbox="assets/gallery/full/img-06.jpeg" data-caption="Outdoor mehndi variation with bold stained finish."><img src="assets/gallery/web/img-06.jpeg" alt="Outdoor mehndi design variation with bold stained finish" loading="lazy" decoding="async"></button>
+          <article class="gallery-card" data-style="minimal floral">
+            <img src="assets/gallery/thumbs/minimal-floral-mehndi.jpg" alt="Minimal floral mehndi with soft vines" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Soft floral trail</strong>
+              <span>A gentle floral look with small vines and enough open space to keep the hand light.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/minimal-floral-mehndi.jpg" data-caption="Minimal floral mehndi with soft vines and open spacing.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Simple Elegant Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Soft floral trail style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="minimal floral">
+            <img src="assets/gallery/thumbs/minimal-floral-v-mehndi.jpg" alt="Minimal floral V-shape mehndi design" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Floral V-shape</strong>
+              <span>A neat V-shaped design for someone who wants pretty detail without full-hand coverage.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/minimal-floral-v-mehndi.jpg" data-caption="Minimal floral V-shape design with gentle trails.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Simple Elegant Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Floral V-shape style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="minimal">
+            <img src="assets/gallery/thumbs/minimal-v-shape-mehndi.jpg" alt="Minimal V-shape mehndi design" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Clean V detail</strong>
+              <span>Simple lines and small motifs, lovely for a calm minimal look.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/minimal-v-shape-mehndi.jpg" data-caption="Simple V-shape mehndi with light decorative detail.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Simple Elegant Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Clean V detail style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="minimal floral">
+            <img src="assets/gallery/thumbs/very-minimal-floral-mehndi.jpg" alt="Very minimal floral mehndi design" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Tiny floral touch</strong>
+              <span>A barely-there floral style for clients who want mehndi to feel soft and delicate.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/very-minimal-floral-mehndi.jpg" data-caption="Very minimal floral mehndi for a soft, barely-there look.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Simple Elegant Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Tiny floral touch style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="minimal floral">
+            <img src="assets/gallery/thumbs/bow-trail-mehndi.jpg" alt="Bow trail mehndi with little florals" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Bow trail</strong>
+              <span>Small bows, dots and vines for a sweet, feminine finish.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/bow-trail-mehndi.jpg" data-caption="Bow trail mehndi with little florals and soft movement.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Simple Elegant Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Bow trail style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="arabic">
+            <img src="assets/gallery/thumbs/arabic-henna-side-design-cropped.jpg" alt="Side-flow Arabic henna design" width="553" height="1000" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Side Arabic flow</strong>
+              <span>A longer side-flow design with movement through the fingers and wrist.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/arabic-henna-side-design-cropped.jpg" data-caption="Side-flow Arabic henna for a longer, elegant hand layout.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Arabic Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Side Arabic flow style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="arabic floral">
+            <img src="assets/gallery/thumbs/arabic-floral-henna.jpg" alt="Arabic floral henna design with fuller hand detail" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Arabic floral</strong>
+              <span>Fuller florals with Arabic movement for a dressed-up celebration hand.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/arabic-floral-henna.jpg" data-caption="Arabic floral henna with a fuller decorated hand feel.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Arabic Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Arabic floral style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="arabic bridal">
+            <img src="assets/gallery/thumbs/heavy-arabic-mehndi.jpg" alt="Heavy Arabic mehndi design for a bold celebration look" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Bold Arabic</strong>
+              <span>A richer Arabic style when you want the hand to feel more decorated.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/heavy-arabic-mehndi.jpg" data-caption="Heavier Arabic mehndi for a bolder celebration look.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Arabic Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Bold Arabic style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="floral">
+            <img src="assets/gallery/thumbs/henna-styles-feature.jpg" alt="Feature hand henna design with floral details" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Feature floral</strong>
+              <span>A balanced floral hand with enough detail to feel special but not crowded.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/henna-styles-feature.jpg" data-caption="Feature hand design with floral and flowing details.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Floral Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Feature floral style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="floral">
+            <img src="assets/gallery/thumbs/style-section-floral.jpg" alt="Floral mehndi style study with fine details" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Neat florals</strong>
+              <span>Small flowers and fine details for a tidy, elegant finish.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/style-section-floral.jpg" data-caption="Floral style study with neat spacing and fine details.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Floral Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Neat florals style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="floral">
+            <img src="assets/gallery/thumbs/style-section-detail.jpg" alt="Detailed floral henna section with delicate line work" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Fine detail</strong>
+              <span>Close floral details for anyone who loves careful, delicate line work.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/style-section-detail.jpg" data-caption="Detailed floral henna section with delicate line work.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Floral Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Fine detail style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="arabic">
+            <img src="assets/gallery/thumbs/styles-section-arabic-cropped.jpg" alt="Arabic-style henna section with slim hand flow" width="553" height="1000" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Slim Arabic flow</strong>
+              <span>A slim Arabic layout that keeps the hand long, clean and graceful.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/styles-section-arabic-cropped.jpg" data-caption="Arabic-style section with a slim flowing hand layout.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Arabic Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Slim Arabic flow style.">Enquire</button>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-card" data-style="floral minimal">
+            <img src="assets/gallery/thumbs/styles-section-mehndi.jpg" alt="Soft mehndi style section with floral details" width="900" height="1200" loading="lazy" decoding="async">
+            <div class="gallery-copy">
+              <strong>Soft floral detail</strong>
+              <span>A soft, pretty style with floral movement and clean spacing.</span>
+              <div class="card-actions-row">
+                <button class="mini-link" type="button" data-lightbox="assets/gallery/refresh/styles-section-mehndi.jpg" data-caption="Soft mehndi style section with floral details and clean spacing.">View Larger</button>
+                <button class="mini-link" type="button" data-enquiry-fill="Floral Mehndi" data-package-fill="Celebration Party" data-message-fill="I loved the Soft floral detail style.">Enquire</button>
+              </div>
+            </div>
+          </article>
         </div>
         <p class="gallery-note">Only my own work is shown here. Inspiration photos are always welcome, but I will adapt them in my own style rather than copy another artist exactly.</p>
         <div class="social-section" aria-label="Social media">

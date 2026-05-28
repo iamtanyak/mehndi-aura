@@ -87,6 +87,48 @@ const GOOGLE_REVIEW_URL = process.env.GOOGLE_REVIEW_URL || "";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
 const sessions = new Map();
 
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'self'",
+  "form-action 'self'",
+  "img-src 'self' data: https://i.ytimg.com https://mehndiaura.co.uk",
+  "font-src 'self' https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "script-src 'self' 'unsafe-inline'",
+  "connect-src 'self' https://wa.me https://www.youtube.com",
+  "upgrade-insecure-requests"
+].join("; ");
+
+const BASE_SECURITY_HEADERS = {
+  "Content-Security-Policy": CONTENT_SECURITY_POLICY,
+  "Cross-Origin-Opener-Policy": "same-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "SAMEORIGIN",
+  "X-Permitted-Cross-Domain-Policies": "none"
+};
+
+function isHttpsRequest(request) {
+  return request.headers["x-forwarded-proto"] === "https"
+    || request.headers["x-forwarded-ssl"] === "on";
+}
+
+function getSecurityHeaders(request) {
+  return {
+    ...BASE_SECURITY_HEADERS,
+    ...(isHttpsRequest(request)
+      ? { "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload" }
+      : {})
+  };
+}
+
+function getCookieSecurityAttributes(request) {
+  return `HttpOnly; Path=/; SameSite=Lax${isHttpsRequest(request) ? "; Secure" : ""}`;
+}
+
 function ensureStorage() {
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -329,6 +371,7 @@ function sqlValue(value) {
 function sendJson(response, statusCode, payload, extraHeaders = {}) {
   response.writeHead(statusCode, {
     "Content-Type": "application/json; charset=utf-8",
+    ...BASE_SECURITY_HEADERS,
     ...extraHeaders
   });
   response.end(JSON.stringify(payload));
@@ -343,7 +386,8 @@ function serveHtml(request, response, filePath) {
 
     response.writeHead(200, {
       "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": "public, max-age=300, must-revalidate"
+      "Cache-Control": "public, max-age=300, must-revalidate",
+      ...getSecurityHeaders(request)
     });
     response.end(request.method === "HEAD" ? undefined : html);
   });
@@ -358,7 +402,8 @@ function serveTextFile(request, response, filePath, contentType) {
 
     response.writeHead(200, {
       "Content-Type": contentType,
-      "Cache-Control": "public, max-age=3600"
+      "Cache-Control": "public, max-age=3600",
+      ...getSecurityHeaders(request)
     });
     response.end(request.method === "HEAD" ? undefined : text);
   });
@@ -384,7 +429,8 @@ function serveStaticFile(request, response, filePath) {
 
     response.writeHead(200, {
       "Content-Type": getMimeType(filePath),
-      "Cache-Control": "public, max-age=31536000, immutable"
+      "Cache-Control": "public, max-age=31536000, immutable",
+      ...getSecurityHeaders(request)
     });
     response.end(request.method === "HEAD" ? undefined : data);
   });
@@ -1183,7 +1229,8 @@ function handleExportEnquiries(request, response) {
 
     response.writeHead(200, {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": "attachment; filename=\"henna-enquiries.csv\""
+      "Content-Disposition": "attachment; filename=\"henna-enquiries.csv\"",
+      ...getSecurityHeaders(request)
     });
     response.end(csv);
   } catch (error) {
@@ -1210,7 +1257,7 @@ async function handleAdminLogin(request, response) {
         message: "Admin login successful."
       },
       {
-        "Set-Cookie": `admin_session=${token}; HttpOnly; Path=/; Max-Age=${SESSION_TTL_MS / 1000}; SameSite=Lax`
+        "Set-Cookie": `admin_session=${token}; ${getCookieSecurityAttributes(request)}; Max-Age=${SESSION_TTL_MS / 1000}`
       }
     );
   } catch (error) {
@@ -1233,7 +1280,7 @@ function handleAdminLogout(request, response) {
     response,
     200,
     { message: "Logged out." },
-    { "Set-Cookie": "admin_session=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax" }
+    { "Set-Cookie": `admin_session=; ${getCookieSecurityAttributes(request)}; Max-Age=0` }
   );
 }
 
@@ -1248,6 +1295,10 @@ function handleAdminSession(request, response) {
 setupDatabase();
 
 const server = http.createServer(async (request, response) => {
+  for (const [name, value] of Object.entries(getSecurityHeaders(request))) {
+    response.setHeader(name, value);
+  }
+
   const url = new URL(request.url, `http://${request.headers.host || "localhost"}`);
   const pagePath = url.pathname !== "/" && url.pathname.endsWith("/")
     ? url.pathname.slice(0, -1)
@@ -1260,7 +1311,8 @@ const server = http.createServer(async (request, response) => {
     const target = pagePath + url.search;
     response.writeHead(301, {
       "Location": target,
-      "Cache-Control": "public, max-age=3600"
+      "Cache-Control": "public, max-age=3600",
+      ...getSecurityHeaders(request)
     });
     response.end();
     return;

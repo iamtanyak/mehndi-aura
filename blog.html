@@ -10,8 +10,8 @@
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#8a2f24">
   <link rel="canonical" href="https://mehndiaura.co.uk/henna-journal">
-  <link rel="icon" href="/assets/brand/holding-hands-new-logo-crop-2.jpeg" type="image/jpeg">
-  <link rel="apple-touch-icon" href="/assets/brand/holding-hands-new-logo-crop-2.jpeg">
+  <link rel="icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg">
   <link rel="manifest" href="/assets/brand/site.webmanifest">
   <meta property="og:site_name" content="Mehndi Aura">
   <meta property="og:title" content="Henna Journal – UK Mehndi Tips, Aftercare & Ideas">
@@ -653,7 +653,7 @@
     .section-heading h2 {
       font-size: var(--font-title-lg);
       max-width: none;
-      white-space: nowrap;
+      white-space: normal;
     }
 
     .section-heading p {
@@ -661,6 +661,28 @@
       margin: 0;
       color: var(--muted);
       font-size: 0.98rem;
+    }
+
+    .journal-heading {
+      display: grid;
+      align-items: start;
+      justify-content: start;
+      gap: 14px;
+    }
+
+    .journal-heading h1 {
+      white-space: normal;
+      max-width: 15ch;
+    }
+
+    .journal-heading p {
+      max-width: 68ch;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .internal-links {
+      margin: -8px 0 28px;
     }
 
     .artist-story {
@@ -2236,7 +2258,7 @@
             "Tanya Mehndi Aura"
           ],
           "url": "https://mehndiaura.co.uk/",
-          "logo": "https://mehndiaura.co.uk/assets/brand/holding-hands-new-logo-crop-2.jpeg",
+          "logo": "https://mehndiaura.co.uk/assets/brand/holding-hands-new-logo-optimized.jpg",
           "image": "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
           "email": "tanya19.2003@hotmail.com",
           "telephone": "+447442778243",
@@ -2288,7 +2310,7 @@
           "@id": "https://mehndiaura.co.uk/#tanya",
           "name": "Tanya Kumari",
           "jobTitle": "Henna Artist",
-          "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026.png",
+          "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026-optimized.jpg",
           "worksFor": {
             "@id": "https://mehndiaura.co.uk/#organization"
           },
@@ -2356,7 +2378,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="/" aria-label="Mehndi Aura home">
-        <img class="brand-logo" src="/assets/brand/holding-hands-new-logo-crop-2.jpeg" alt="" aria-hidden="true">
+        <img class="brand-logo" src="/assets/brand/holding-hands-new-logo-optimized.jpg" alt="" aria-hidden="true">
         <span class="brand-lockup">
           <span class="brand-mark">Mehndi Aura</span>
           <span class="brand-note">Bridal and celebration mehndi</span>
@@ -2379,12 +2401,17 @@
   <main id="home">
     <section class="about-section">
       <div class="shell">
-        <div class="section-heading">
+        <div class="section-heading journal-heading">
           <div>
             <span class="eyebrow">Henna notes</span>
-            <h1>Henna Journal: UK Mehndi Tips and Aftercare</h1>
+            <h1>Henna Journal</h1>
           </div>
           <p>This is where I will keep the small things I usually explain in messages: how to prepare, what helps a stain, and how to choose a design without overthinking it.</p>
+        </div>
+        <div class="card-actions-row internal-links" aria-label="Related pages">
+          <a class="mini-link" href="/henna-styles">Browse Henna Styles</a>
+          <a class="mini-link" href="/articles">Read Longer Articles</a>
+          <a class="mini-link" href="/help-faq">Henna Safety FAQ</a>
         </div>
         <div class="cards about-cards">
           <article class="card">
