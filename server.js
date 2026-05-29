@@ -52,6 +52,7 @@ const PAGE_PATHS = new Map([
   ["/meet-tanya", path.join(ROOT, "meet-tanya.html")],
   ["/henna-styles", path.join(ROOT, "gallery.html")],
   ["/gallery", path.join(ROOT, "gallery.html")],
+  ["/eid-henna-designs-2026", path.join(ROOT, "eid-henna-designs-2026.html")],
   ["/our-offerings", path.join(ROOT, "services.html")],
   ["/services", path.join(ROOT, "services.html")],
   ["/help-faq", path.join(ROOT, "faq.html")],
@@ -69,7 +70,9 @@ const SEO_REDIRECTS = new Map([
   ["/henna-artist-london", "/mehndi-artist-london"],
   ["/mehndi-artist-near-me", "/mehndi-artist-london"],
   ["/henna-artist-near-me", "/mehndi-artist-london"],
-  ["/bridal-mehndi-london", "/mehndi-artist-london"]
+  ["/bridal-mehndi-london", "/mehndi-artist-london"],
+  ["/eid-henna-designs", "/eid-henna-designs-2026"],
+  ["/eid-mehndi-designs", "/eid-henna-designs-2026"]
 ]);
 const DATA_DIR = path.join(ROOT, "data");
 const DB_PATH = path.join(DATA_DIR, "enquiries.db");
