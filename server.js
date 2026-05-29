@@ -65,6 +65,12 @@ const PAGE_PATHS = new Map([
   ["/blog/henna-aftercare-tips-darker-stains", path.join(ROOT, "blog-henna-aftercare-tips-darker-stains.html")],
   ["/blog/why-black-henna-can-hurt-ppd-risks", path.join(ROOT, "blog-why-black-henna-can-hurt-ppd-risks.html")]
 ]);
+const SEO_REDIRECTS = new Map([
+  ["/henna-artist-london", "/mehndi-artist-london"],
+  ["/mehndi-artist-near-me", "/mehndi-artist-london"],
+  ["/henna-artist-near-me", "/mehndi-artist-london"],
+  ["/bridal-mehndi-london", "/mehndi-artist-london"]
+]);
 const DATA_DIR = path.join(ROOT, "data");
 const DB_PATH = path.join(DATA_DIR, "enquiries.db");
 const LEGACY_JSON_PATH = path.join(DATA_DIR, "enquiries.json");
@@ -1304,6 +1310,17 @@ const server = http.createServer(async (request, response) => {
   const pagePath = url.pathname !== "/" && url.pathname.endsWith("/")
     ? url.pathname.slice(0, -1)
     : url.pathname;
+
+  if ((request.method === "GET" || request.method === "HEAD") && SEO_REDIRECTS.has(pagePath)) {
+    const target = SEO_REDIRECTS.get(pagePath) + url.search;
+    response.writeHead(301, {
+      "Location": target,
+      "Cache-Control": "public, max-age=3600",
+      ...getSecurityHeaders(request)
+    });
+    response.end();
+    return;
+  }
 
   if ((request.method === "GET" || request.method === "HEAD")
     && url.pathname !== "/"
