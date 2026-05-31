@@ -41,7 +41,7 @@
 
     a { color: inherit; }
     .shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
-    header {
+    .topbar {
       position: sticky;
       top: 0;
       z-index: 10;
@@ -50,7 +50,9 @@
       border-bottom: 1px solid var(--line);
     }
 
-    .topbar {
+    .topbar-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
       min-height: 86px;
       display: flex;
       align-items: center;
@@ -64,14 +66,15 @@
       gap: 12px;
       text-decoration: none;
       font-family: Georgia, serif;
-      font-size: 1.55rem;
-      font-weight: 700;
     }
 
-    .brand img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
-    nav { display: flex; flex-wrap: wrap; gap: 18px; font-weight: 700; color: var(--muted); }
+    .brand-logo { width: 52px; height: 52px; flex: 0 0 52px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(233, 195, 180, 0.9); background: #fff8f3; box-shadow: 0 12px 26px rgba(96, 44, 36, 0.12); }
+    .brand-lockup { display: flex; flex-direction: column; gap: 2px; }
+    .brand-mark { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.03em; }
+    .brand-note { font-family: "Inter", "Segoe UI", sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+    nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 18px; font-weight: 700; color: var(--muted); }
     nav a { text-decoration: none; }
-    nav a:hover { color: var(--rose); }
+    nav a:hover, nav a:focus-visible, nav a[aria-current="page"] { color: var(--rose); }
 
     .hero {
       padding: 72px 0 42px;
@@ -181,7 +184,10 @@
 
     @media (max-width: 860px) {
       .hero-grid, .grid { grid-template-columns: 1fr; }
-      .topbar { align-items: flex-start; flex-direction: column; padding: 18px 0; }
+      .topbar-inner { align-items: flex-start; flex-direction: column; padding: 18px 0; }
+      nav { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; padding-bottom: 4px; scrollbar-width: none; }
+      nav::-webkit-scrollbar { display: none; }
+      nav a { flex: 0 0 auto; white-space: nowrap; }
       nav { gap: 12px; font-size: 0.95rem; }
       .sticky { grid-template-columns: 1fr; }
       footer { padding-bottom: 180px; }
@@ -296,11 +302,14 @@
   </script>
 </head>
 <body>
-  <header>
-    <div class="shell topbar">
+  <header class="topbar">
+    <div class="topbar-inner">
       <a class="brand" href="/" aria-label="Mehndi Aura home">
-        <img src="/assets/brand/holding-hands-new-logo-optimized.jpg" alt="">
-        <span>Mehndi Aura</span>
+        <img class="brand-logo" src="/assets/brand/holding-hands-new-logo-optimized.jpg" alt="" aria-hidden="true">
+        <span class="brand-lockup">
+          <span class="brand-mark">Mehndi Aura</span>
+          <span class="brand-note">Bridal and celebration mehndi</span>
+        </span>
       </a>
       <nav aria-label="Main navigation">
         <a href="/">Home</a>
@@ -308,6 +317,9 @@
         <a href="/henna-styles">Henna Styles</a>
         <a href="/eid-henna-designs-2026">Eid Henna</a>
         <a href="/our-offerings">Our Offerings</a>
+        <a href="/mehndi-artist-london" aria-current="page">Mehndi Artist London</a>
+        <a href="/henna-journal">Henna Journal</a>
+        <a href="/articles">Articles</a>
         <a href="/help-faq">Help & FAQ</a>
         <a href="/get-in-touch">Get in Touch</a>
       </nav>
