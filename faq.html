@@ -198,7 +198,8 @@
     }
 
     nav a:hover,
-    nav a:focus-visible {
+    nav a:focus-visible,
+    nav a[aria-current="page"] {
       color: var(--accent-deep);
     }
 
@@ -216,7 +217,8 @@
     }
 
     nav a:hover::after,
-    nav a:focus-visible::after {
+    nav a:focus-visible::after,
+    nav a[aria-current="page"]::after {
       transform: scaleX(1);
     }
 

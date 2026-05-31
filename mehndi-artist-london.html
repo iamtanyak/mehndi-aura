@@ -72,9 +72,11 @@
     .brand-lockup { display: flex; flex-direction: column; gap: 2px; }
     .brand-mark { font-size: 1.8rem; font-weight: 700; letter-spacing: 0.03em; }
     .brand-note { font-family: "Inter", "Segoe UI", sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-    nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 18px; font-weight: 700; color: var(--muted); }
-    nav a { text-decoration: none; }
+    nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 18px; font-weight: 600; color: var(--muted); }
+    nav a { text-decoration: none; position: relative; letter-spacing: 0.01em; transition: color 0.25s ease; }
     nav a:hover, nav a:focus-visible, nav a[aria-current="page"] { color: var(--rose); }
+    nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: linear-gradient(90deg, transparent, var(--rose), transparent); transform: scaleX(0); transform-origin: center; transition: transform 0.25s ease; }
+    nav a:hover::after, nav a:focus-visible::after, nav a[aria-current="page"]::after { transform: scaleX(1); }
 
     .hero {
       padding: 72px 0 42px;

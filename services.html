@@ -198,7 +198,8 @@
     }
 
     nav a:hover,
-    nav a:focus-visible {
+    nav a:focus-visible,
+    nav a[aria-current="page"] {
       color: var(--accent-deep);
     }
 
@@ -216,7 +217,8 @@
     }
 
     nav a:hover::after,
-    nav a:focus-visible::after {
+    nav a:focus-visible::after,
+    nav a[aria-current="page"]::after {
       transform: scaleX(1);
     }
 
@@ -2416,6 +2418,7 @@
         <a href="/henna-styles">Henna Styles</a>
         <a href="/eid-henna-designs-2026">Eid Henna</a>
         <a href="/our-offerings" aria-current="page">Our Offerings</a>
+        <a href="/mehndi-artist-london">Mehndi Artist London</a>
         <a href="/henna-journal">Henna Journal</a>
         <a href="/articles">Articles</a>
         <a href="/help-faq">Help & FAQ</a>
