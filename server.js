@@ -5,6 +5,7 @@ const path = require("path");
 const crypto = require("crypto");
 const net = require("net");
 const tls = require("tls");
+const zlib = require("zlib");
 const { spawnSync } = require("child_process");
 const { URL } = require("url");
 
@@ -394,12 +395,11 @@ function serveHtml(request, response, filePath) {
       return;
     }
 
-    response.writeHead(200, {
+    sendBody(request, response, 200, {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=300, must-revalidate",
       ...getSecurityHeaders(request)
-    });
-    response.end(request.method === "HEAD" ? undefined : html);
+    }, html);
   });
 }
 
@@ -410,12 +410,11 @@ function serveTextFile(request, response, filePath, contentType) {
       return;
     }
 
-    response.writeHead(200, {
+    sendBody(request, response, 200, {
       "Content-Type": contentType,
       "Cache-Control": "public, max-age=3600",
       ...getSecurityHeaders(request)
-    });
-    response.end(request.method === "HEAD" ? undefined : text);
+    }, text);
   });
 }
 
@@ -437,13 +436,44 @@ function serveStaticFile(request, response, filePath) {
       return;
     }
 
-    response.writeHead(200, {
-      "Content-Type": getMimeType(filePath),
+    const contentType = getMimeType(filePath);
+    sendBody(request, response, 200, {
+      "Content-Type": contentType,
       "Cache-Control": "public, max-age=31536000, immutable",
       ...getSecurityHeaders(request)
-    });
-    response.end(request.method === "HEAD" ? undefined : data);
+    }, data);
   });
+}
+
+function isCompressibleContent(contentType) {
+  return contentType.startsWith("text/")
+    || contentType.includes("application/javascript")
+    || contentType.includes("application/json")
+    || contentType.includes("application/xml")
+    || contentType.includes("image/svg+xml");
+}
+
+function sendBody(request, response, statusCode, headers, body) {
+  const contentType = headers["Content-Type"] || "";
+  let payload = Buffer.isBuffer(body) ? body : Buffer.from(String(body), "utf8");
+  const accepts = String(request.headers["accept-encoding"] || "");
+  const shouldCompress = request.method !== "HEAD"
+    && payload.length > 1024
+    && isCompressibleContent(contentType);
+
+  if (shouldCompress && accepts.includes("br")) {
+    payload = zlib.brotliCompressSync(payload);
+    headers["Content-Encoding"] = "br";
+    headers["Vary"] = "Accept-Encoding";
+  } else if (shouldCompress && accepts.includes("gzip")) {
+    payload = zlib.gzipSync(payload);
+    headers["Content-Encoding"] = "gzip";
+    headers["Vary"] = "Accept-Encoding";
+  }
+
+  headers["Content-Length"] = String(payload.length);
+  response.writeHead(statusCode, headers);
+  response.end(request.method === "HEAD" ? undefined : payload);
 }
 
 function collectRequestBody(request) {

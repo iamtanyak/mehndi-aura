@@ -309,7 +309,7 @@
       font-family: "Cormorant Garamond", serif;
       font-weight: 700;
       line-height: var(--line-tight);
-      letter-spacing: -0.015em;
+      letter-spacing: 0;
     }
 
     .hero h1 {
@@ -710,13 +710,54 @@
       box-shadow: 0 14px 32px rgba(52, 25, 17, 0.18);
     }
 
-    .home-video-frame {
+    .home-video-thumb {
+      position: relative;
+      display: block;
       width: 100%;
       height: clamp(300px, 34vw, 430px);
-      border: 0;
       border-radius: 18px;
       background: rgba(52, 29, 27, 0.24);
+      overflow: hidden;
+      color: #fff8ef;
+      text-decoration: none;
+    }
+
+    .home-video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
+      transition: transform 0.25s ease;
+    }
+
+    .home-video-thumb::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(52, 29, 27, 0.06), rgba(52, 29, 27, 0.34));
+      pointer-events: none;
+    }
+
+    .home-video-thumb::after {
+      content: "Watch";
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      min-height: 42px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: rgba(255, 248, 239, 0.92);
+      color: var(--accent-deep);
+      font-weight: 800;
+      box-shadow: 0 12px 24px rgba(52, 25, 17, 0.22);
+    }
+
+    .home-video-thumb:hover img,
+    .home-video-thumb:focus-visible img {
+      transform: scale(1.04);
     }
 
     .home-video-card strong {
@@ -813,7 +854,7 @@
       font-family: "Cormorant Garamond", serif;
       font-size: clamp(2.4rem, 4vw, 4.4rem);
       line-height: 0.95;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
     }
 
     .about-lede {
@@ -2618,17 +2659,23 @@
           </div>
           <div class="home-video-grid">
             <article class="home-video-card">
-              <iframe class="home-video-frame" src="https://www.youtube.com/embed/N5wZzuB-8Jk" title="Mehndi Aura henna short video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <a class="home-video-thumb" href="https://www.youtube.com/shorts/N5wZzuB-8Jk" target="_blank" rel="noreferrer" aria-label="Watch Mehndi Aura fresh henna clip on YouTube">
+                <img src="https://i.ytimg.com/vi/N5wZzuB-8Jk/hq2.jpg" alt="YouTube thumbnail for a fresh Mehndi Aura henna clip" width="480" height="640" loading="lazy" decoding="async">
+              </a>
               <strong>Fresh henna clip</strong>
               <span>A short close-up of a recent design and the small details that make it feel finished.</span>
             </article>
             <article class="home-video-card">
-              <iframe class="home-video-frame" src="https://www.youtube.com/embed/lEsy4gd1-ZA" title="Mehndi Aura henna process short video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <a class="home-video-thumb" href="https://www.youtube.com/shorts/lEsy4gd1-ZA" target="_blank" rel="noreferrer" aria-label="Watch Mehndi Aura practice and process clip on YouTube">
+                <img src="https://i.ytimg.com/vi/lEsy4gd1-ZA/hq2.jpg" alt="YouTube thumbnail for a Mehndi Aura henna process clip" width="480" height="640" loading="lazy" decoding="async">
+              </a>
               <strong>Practice and process</strong>
               <span>A quick look at line work, spacing and how a simple detail comes together.</span>
             </article>
             <article class="home-video-card">
-              <iframe class="home-video-frame" src="https://www.youtube.com/embed/pJotkJTUtU4" title="Mehndi Aura featured henna short video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <a class="home-video-thumb" href="https://www.youtube.com/shorts/pJotkJTUtU4" target="_blank" rel="noreferrer" aria-label="Watch Mehndi Aura featured henna highlight on YouTube">
+                <img src="https://i.ytimg.com/vi/pJotkJTUtU4/hq2.jpg" alt="YouTube thumbnail for a featured Mehndi Aura henna highlight" width="480" height="640" loading="lazy" decoding="async">
+              </a>
               <strong>Featured highlight</strong>
               <span>A little video for anyone who wants to see the design style before booking.</span>
             </article>
@@ -2685,7 +2732,7 @@
           <div class="video-grid">
             <article class="video-card">
               <a class="video-thumb" href="https://www.youtube.com/shorts/h7flvYJ3sr0" target="_blank" rel="noreferrer" aria-label="Watch easy and detailed henna design on YouTube">
-                <img src="https://i.ytimg.com/vi/h7flvYJ3sr0/hq2.jpg" alt="YouTube thumbnail for easy and detailed henna design">
+                <img src="https://i.ytimg.com/vi/h7flvYJ3sr0/hq2.jpg" alt="YouTube thumbnail for easy and detailed henna design" width="480" height="640" loading="lazy" decoding="async">
               </a>
               <div class="video-copy">
                 <strong>Cute little-hand henna</strong>
@@ -2694,7 +2741,7 @@
             </article>
             <article class="video-card">
               <a class="video-thumb" href="https://www.youtube.com/shorts/OT8n7AmrJUU" target="_blank" rel="noreferrer" aria-label="Watch beginner finger and wrist henna on YouTube">
-                <img src="https://i.ytimg.com/vi/OT8n7AmrJUU/hq2.jpg" alt="YouTube thumbnail for beginner finger and wrist henna">
+                <img src="https://i.ytimg.com/vi/OT8n7AmrJUU/hq2.jpg" alt="YouTube thumbnail for beginner finger and wrist henna" width="480" height="640" loading="lazy" decoding="async">
               </a>
               <div class="video-copy">
                 <strong>Minimal finger and wrist art</strong>
