@@ -2221,185 +2221,224 @@
     }
   </style>
   <script type="application/ld+json" data-mehndi-aura-schema>
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": [
+        "Organization",
+        "LocalBusiness",
+        "ProfessionalService"
+      ],
+      "@id": "https://mehndiaura.co.uk/#organization",
+      "name": "Mehndi Aura",
+      "alternateName": [
+        "Mehndi Aura by Tanya",
+        "Mehndi Aura Henna Artist",
+        "Tanya Mehndi Aura"
+      ],
+      "url": "https://mehndiaura.co.uk/",
+      "logo": "https://mehndiaura.co.uk/assets/brand/holding-hands-new-logo-optimized.jpg",
+      "image": [
+        "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
+        "https://mehndiaura.co.uk/assets/brand/tanya-henna-design-2026-optimized.jpg"
+      ],
+      "email": "tanya19.2003@hotmail.com",
+      "telephone": "+447442778243",
+      "priceRange": "££",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "GB"
+      },
+      "areaServed": [
         {
-          "@type": [
-            "Organization",
-            "LocalBusiness",
-            "ProfessionalService"
-          ],
-          "@id": "https://mehndiaura.co.uk/#organization",
-          "name": "Mehndi Aura",
-          "alternateName": [
-            "Mehndi Aura by Tanya",
-            "Mehndi Aura Henna Artist",
-            "Tanya Mehndi Aura"
-          ],
-          "url": "https://mehndiaura.co.uk/",
-          "logo": "https://mehndiaura.co.uk/assets/brand/holding-hands-new-logo-optimized.jpg",
-          "image": "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
-          "email": "tanya19.2003@hotmail.com",
-          "telephone": "+447442778243",
-          "priceRange": "££",
-          "areaServed": [
-            {
-              "@type": "City",
-              "name": "London"
-            },
-            {
-              "@type": "Country",
-              "name": "United Kingdom"
+          "@type": "City",
+          "name": "London"
+        },
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        }
+      ],
+      "description": "Mehndi Aura is Tanya Kumari’s UK henna artist brand for bridal mehndi, Eid henna, party henna and custom natural henna-style designs, with London-area and wider UK enquiries welcome by appointment.",
+      "knowsAbout": [
+        "bridal mehndi",
+        "henna artist London",
+        "mehndi artist near me",
+        "Eid henna",
+        "party henna",
+        "Arabic henna",
+        "floral mehndi",
+        "natural henna",
+        "henna aftercare",
+        "black henna safety"
+      ],
+      "founder": {
+        "@id": "https://mehndiaura.co.uk/#tanya"
+      },
+      "sameAs": [
+        "https://www.youtube.com/channel/UCHW-ZQ90bZnqioTn4R8S2vQ",
+        "https://tinyurl.com/Mehndi-aura",
+        "http://www.tiktok.com/@mendi_aura",
+        "https://uk.pinterest.com/tanyak172003/mehndi-magic/",
+        "https://www.facebook.com/share/18UpCX5bVY/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Booking enquiries",
+        "telephone": "+447442778243",
+        "email": "tanya19.2003@hotmail.com",
+        "areaServed": "GB",
+        "availableLanguage": [
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://mehndiaura.co.uk/#tanya",
+      "name": "Tanya Kumari",
+      "jobTitle": "Henna Artist",
+      "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026-optimized.jpg",
+      "worksFor": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "description": "Tanya Kumari is the self-taught UK henna artist behind Mehndi Aura, creating careful bridal, Eid, party and custom mehndi designs.",
+      "sameAs": [
+        "https://www.youtube.com/channel/UCHW-ZQ90bZnqioTn4R8S2vQ",
+        "https://tinyurl.com/Mehndi-aura",
+        "http://www.tiktok.com/@mendi_aura"
+      ],
+      "knowsAbout": [
+        "bridal mehndi",
+        "Eid henna",
+        "natural henna",
+        "floral henna",
+        "Arabic mehndi",
+        "henna aftercare"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mehndiaura.co.uk/#website",
+      "url": "https://mehndiaura.co.uk/",
+      "name": "Mehndi Aura",
+      "alternateName": "Mehndi Aura by Tanya",
+      "publisher": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://mehndiaura.co.uk/#henna-service",
+      "name": "Bridal, Eid and Party Mehndi by Tanya",
+      "serviceType": "Henna artist and mehndi design service",
+      "provider": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "London"
+        },
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        }
+      ],
+      "description": "Personal henna designs for brides, Eid, parties, family events and custom celebrations using natural henna-style work.",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Mehndi Aura henna packages",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Glow Visit",
+            "price": "60",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/LimitedAvailability",
+            "url": "https://mehndiaura.co.uk/our-offerings",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Party and Eid henna",
+              "serviceType": "Party henna and Eid mehndi"
             }
-          ],
-          "description": "Mehndi Aura is Tanya Kumari's UK henna artist brand at mehndiaura.co.uk, offering bridal mehndi, Eid henna, party henna and custom natural henna designs.",
-          "knowsAbout": [
-            "bridal mehndi",
-            "henna art",
-            "natural henna",
-            "Eid mehndi",
-            "party henna",
-            "Arabic henna",
-            "floral mehndi",
-            "henna aftercare"
-          ],
-          "founder": {
-            "@id": "https://mehndiaura.co.uk/#tanya"
           },
-          "sameAs": [
-            "https://www.youtube.com/channel/UCHW-ZQ90bZnqioTn4R8S2vQ",
-            "https://tinyurl.com/Mehndi-aura",
-            "http://www.tiktok.com/@mendi_aura",
-            "https://pin.it/7edapnQWK",
-            "https://www.facebook.com/share/18UpCX5bVY/"
-          ],
-          "contactPoint": {
-            "@type": "ContactPoint",
-            "contactType": "Booking enquiries",
-            "telephone": "+447442778243",
-            "email": "tanya19.2003@hotmail.com",
-            "areaServed": "GB",
-            "availableLanguage": [
-              "en"
-            ]
-          }
-        },
-        {
-          "@type": "Person",
-          "@id": "https://mehndiaura.co.uk/#tanya",
-          "name": "Tanya Kumari",
-          "jobTitle": "Henna Artist",
-          "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026-optimized.jpg",
-          "worksFor": {
-            "@id": "https://mehndiaura.co.uk/#organization"
-          },
-          "description": "Tanya Kumari is the self-taught UK henna artist behind Mehndi Aura, creating bridal, Eid, party and custom mehndi designs.",
-          "sameAs": [
-            "https://www.youtube.com/channel/UCHW-ZQ90bZnqioTn4R8S2vQ",
-            "https://tinyurl.com/Mehndi-aura",
-            "http://www.tiktok.com/@mendi_aura"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://mehndiaura.co.uk/#website",
-          "url": "https://mehndiaura.co.uk/",
-          "name": "Mehndi Aura",
-          "alternateName": "Mehndi Aura by Tanya",
-          "publisher": {
-            "@id": "https://mehndiaura.co.uk/#organization"
-          },
-          "inLanguage": "en-GB"
-        },
-        {
-          "@type": "Service",
-          "@id": "https://mehndiaura.co.uk/#henna-service",
-          "name": "Bridal, Eid and Party Mehndi by Tanya",
-          "serviceType": "Henna artist and mehndi design service",
-          "provider": {
-            "@id": "https://mehndiaura.co.uk/#organization"
-          },
-          "areaServed": [
-            {
-              "@type": "City",
-              "name": "London"
-            },
-            {
-              "@type": "Country",
-              "name": "United Kingdom"
+          {
+            "@type": "Offer",
+            "name": "Signature Bride",
+            "price": "180",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/LimitedAvailability",
+            "url": "https://mehndiaura.co.uk/our-offerings",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Bridal mehndi",
+              "serviceType": "Bridal henna and bridal mehndi"
             }
-          ],
-          "description": "Personal henna designs for brides, Eid, parties, family events and custom celebrations using natural henna-style work.",
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Mehndi Aura henna packages",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "name": "Glow Visit",
-                "price": "60",
-                "priceCurrency": "GBP",
-                "availability": "https://schema.org/LimitedAvailability",
-                "url": "https://mehndiaura.co.uk/our-offerings",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Party and Eid henna",
-                  "serviceType": "Party henna and Eid mehndi"
-                }
-              },
-              {
-                "@type": "Offer",
-                "name": "Signature Bride",
-                "price": "180",
-                "priceCurrency": "GBP",
-                "availability": "https://schema.org/LimitedAvailability",
-                "url": "https://mehndiaura.co.uk/our-offerings",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Bridal mehndi",
-                  "serviceType": "Bridal henna and bridal mehndi"
-                }
-              },
-              {
-                "@type": "Offer",
-                "name": "Family & Event Table",
-                "priceSpecification": {
-                  "@type": "PriceSpecification",
-                  "priceCurrency": "GBP",
-                  "description": "Custom quote based on travel, guest count, timing and design detail."
-                },
-                "availability": "https://schema.org/LimitedAvailability",
-                "url": "https://mehndiaura.co.uk/our-offerings",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Group henna and event mehndi",
-                  "serviceType": "Wedding guest henna, sangeet mehndi and event henna"
-                }
-              }
-            ]
+          },
+          {
+            "@type": "Offer",
+            "name": "Family & Event Table",
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "priceCurrency": "GBP",
+              "description": "Custom quote based on travel, guest count, timing and design detail."
+            },
+            "availability": "https://schema.org/LimitedAvailability",
+            "url": "https://mehndiaura.co.uk/our-offerings",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Group henna and event mehndi",
+              "serviceType": "Wedding guest henna, sangeet mehndi and event henna"
+            }
           }
+        ]
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://mehndiaura.co.uk/our-offerings#webpage",
+      "url": "https://mehndiaura.co.uk/our-offerings",
+      "name": "Henna Services UK – Bridal Mehndi, Eid & Parties",
+      "headline": "Henna Services UK – Bridal Mehndi, Eid & Parties",
+      "description": "Explore Mehndi Aura henna services for UK and London-area bridal mehndi, Eid designs, party henna and custom bookings.",
+      "isPartOf": {
+        "@id": "https://mehndiaura.co.uk/#website"
+      },
+      "about": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "publisher": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "inLanguage": "en-GB",
+      "mainEntity": {
+        "@id": "https://mehndiaura.co.uk/#henna-service"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mehndiaura.co.uk/our-offerings#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://mehndiaura.co.uk/"
         },
         {
-          "@type": "WebPage",
-          "@id": "https://mehndiaura.co.uk/our-offerings#webpage",
-          "url": "https://mehndiaura.co.uk/our-offerings",
-          "name": "Henna Services UK – Bridal Mehndi, Eid & Parties",
-          "headline": "Henna Services UK – Bridal Mehndi, Eid & Parties",
-          "description": "Explore Mehndi Aura henna services for UK and London-area bridal mehndi, Eid designs, party henna and custom bookings.",
-          "isPartOf": {
-            "@id": "https://mehndiaura.co.uk/#website"
-          },
-          "about": {
-            "@id": "https://mehndiaura.co.uk/#organization"
-          },
-          "publisher": {
-            "@id": "https://mehndiaura.co.uk/#organization"
-          },
-          "inLanguage": "en-GB"
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Our Offerings",
+          "item": "https://mehndiaura.co.uk/our-offerings"
         }
       ]
     }
+  ]
+}
   </script>
 </head>
 <body class="services-page">

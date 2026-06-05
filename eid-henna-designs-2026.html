@@ -26,55 +26,326 @@
     @media(max-width:920px){.topbar-inner{display:grid;gap:12px}.topbar nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.topbar nav::-webkit-scrollbar{display:none}.topbar nav a{white-space:nowrap;flex:0 0 auto}.brand-mark{font-size:1.55rem}.brand-logo{width:48px;height:48px;flex-basis:48px}.top,.hero,.note-band{grid-template-columns:1fr;display:grid}.gallery{grid-template-columns:1fr 1fr}.hero-copy{padding:28px}.hero-image{height:min(500px,82vw)}.card img,.card.featured img{height:min(420px,72vw)}.hero::before{right:28px;top:4px}.hero::after{right:18px;top:80px}main::before{left:-92px;top:320px}main::after{right:-78px;top:860px}}@media(max-width:600px){.gallery{grid-template-columns:1fr}.nav{gap:10px}.hero-actions,.intro-links{display:grid}.btn{width:100%}.hero-copy{padding:24px}.hero-image{height:390px}.card img,.card.featured img{height:360px}.floating-note{left:16px;right:16px;bottom:16px}.hero::before,.hero::after{display:none}main::before,main::after{opacity:.45}}
   </style>
   <script type="application/ld+json" data-mehndi-aura-schema>
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": [
+        "Organization",
+        "LocalBusiness",
+        "ProfessionalService"
+      ],
+      "@id": "https://mehndiaura.co.uk/#organization",
+      "name": "Mehndi Aura",
+      "alternateName": [
+        "Mehndi Aura by Tanya",
+        "Mehndi Aura Henna Artist",
+        "Tanya Mehndi Aura"
+      ],
+      "url": "https://mehndiaura.co.uk/",
+      "logo": "https://mehndiaura.co.uk/assets/brand/holding-hands-new-logo-optimized.jpg",
+      "image": [
+        "https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg",
+        "https://mehndiaura.co.uk/assets/brand/tanya-henna-design-2026-optimized.jpg"
+      ],
+      "email": "tanya19.2003@hotmail.com",
+      "telephone": "+447442778243",
+      "priceRange": "££",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "GB"
+      },
+      "areaServed": [
         {
-          "@type": "CollectionPage",
-          "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#webpage",
-          "url": "https://mehndiaura.co.uk/eid-henna-designs-2026",
-          "name": "Eid Henna Designs 2026 – Mehndi Aura by Tanya",
-          "headline": "Eid Henna Designs 2026",
-          "description": "Eid henna design ideas by Tanya at Mehndi Aura, including bow, floral, minimal and Arabic-inspired mehndi styles.",
-          "isPartOf": {
-            "@id": "https://mehndiaura.co.uk/#website"
-          },
-          "about": {
-            "@id": "https://mehndiaura.co.uk/#organization"
-          },
-          "inLanguage": "en-GB"
+          "@type": "City",
+          "name": "London"
         },
         {
-          "@type": "Organization",
-          "@id": "https://mehndiaura.co.uk/#organization",
-          "name": "Mehndi Aura",
-          "alternateName": "Mehndi Aura by Tanya",
-          "url": "https://mehndiaura.co.uk/",
-          "telephone": "+447442778243",
-          "areaServed": [
-            {"@type":"City","name":"London"},
-            {"@type":"Country","name":"United Kingdom"}
-          ],
-          "sameAs": [
-            "https://www.youtube.com/channel/UCHW-ZQ90bZnqioTn4R8S2vQ",
-            "https://tinyurl.com/Mehndi-aura",
-            "http://www.tiktok.com/@mendi_aura",
-            "https://uk.pinterest.com/tanyak172003/mehndi-magic/",
-            "https://www.facebook.com/share/18UpCX5bVY/"
-          ]
+          "@type": "Country",
+          "name": "United Kingdom"
+        }
+      ],
+      "description": "Mehndi Aura is Tanya Kumari’s UK henna artist brand for bridal mehndi, Eid henna, party henna and custom natural henna-style designs, with London-area and wider UK enquiries welcome by appointment.",
+      "knowsAbout": [
+        "bridal mehndi",
+        "henna artist London",
+        "mehndi artist near me",
+        "Eid henna",
+        "party henna",
+        "Arabic henna",
+        "floral mehndi",
+        "natural henna",
+        "henna aftercare",
+        "black henna safety"
+      ],
+      "founder": {
+        "@id": "https://mehndiaura.co.uk/#tanya"
+      },
+      "sameAs": [
+        "https://www.youtube.com/channel/UCHW-ZQ90bZnqioTn4R8S2vQ",
+        "https://tinyurl.com/Mehndi-aura",
+        "http://www.tiktok.com/@mendi_aura",
+        "https://uk.pinterest.com/tanyak172003/mehndi-magic/",
+        "https://www.facebook.com/share/18UpCX5bVY/"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Booking enquiries",
+        "telephone": "+447442778243",
+        "email": "tanya19.2003@hotmail.com",
+        "areaServed": "GB",
+        "availableLanguage": [
+          "en"
+        ]
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://mehndiaura.co.uk/#tanya",
+      "name": "Tanya Kumari",
+      "jobTitle": "Henna Artist",
+      "image": "https://mehndiaura.co.uk/assets/brand/tanya-profile-2026-optimized.jpg",
+      "worksFor": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "description": "Tanya Kumari is the self-taught UK henna artist behind Mehndi Aura, creating careful bridal, Eid, party and custom mehndi designs.",
+      "sameAs": [
+        "https://www.youtube.com/channel/UCHW-ZQ90bZnqioTn4R8S2vQ",
+        "https://tinyurl.com/Mehndi-aura",
+        "http://www.tiktok.com/@mendi_aura"
+      ],
+      "knowsAbout": [
+        "bridal mehndi",
+        "Eid henna",
+        "natural henna",
+        "floral henna",
+        "Arabic mehndi",
+        "henna aftercare"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mehndiaura.co.uk/#website",
+      "url": "https://mehndiaura.co.uk/",
+      "name": "Mehndi Aura",
+      "alternateName": "Mehndi Aura by Tanya",
+      "publisher": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "Service",
+      "@id": "https://mehndiaura.co.uk/#henna-service",
+      "name": "Bridal, Eid and Party Mehndi by Tanya",
+      "serviceType": "Henna artist and mehndi design service",
+      "provider": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "London"
         },
         {
-          "@type": "WebSite",
-          "@id": "https://mehndiaura.co.uk/#website",
-          "url": "https://mehndiaura.co.uk/",
-          "name": "Mehndi Aura",
-          "publisher": {
-            "@id": "https://mehndiaura.co.uk/#organization"
-          },
-          "inLanguage": "en-GB"
+          "@type": "Country",
+          "name": "United Kingdom"
+        }
+      ],
+      "description": "Personal henna designs for brides, Eid, parties, family events and custom celebrations using natural henna-style work."
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#webpage",
+      "url": "https://mehndiaura.co.uk/eid-henna-designs-2026",
+      "name": "Eid Henna Designs 2026 – Mehndi Aura by Tanya",
+      "headline": "Eid Henna Designs 2026 – Mehndi Aura by Tanya",
+      "description": "Browse Eid henna designs for 2026 by Mehndi Aura, including bow, floral, minimal and Arabic-inspired henna for London and UK bookings.",
+      "isPartOf": {
+        "@id": "https://mehndiaura.co.uk/#website"
+      },
+      "about": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "publisher": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "inLanguage": "en-GB",
+      "primaryImageOfPage": {
+        "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-1"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://mehndiaura.co.uk/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Eid Henna Designs 2026",
+          "item": "https://mehndiaura.co.uk/eid-henna-designs-2026"
+        }
+      ]
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-1-2026.jpg",
+      "url": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-1-2026.jpg",
+      "caption": "Minimal Eid henna design with soft vines and small hand details",
+      "creator": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "creditText": "Mehndi Aura by Tanya",
+      "inLanguage": "en-GB",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-1"
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/bow-eid-henna-2026.jpg",
+      "url": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/bow-eid-henna-2026.jpg",
+      "caption": "Bow Eid henna design with delicate leafy trails",
+      "creator": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "creditText": "Mehndi Aura by Tanya",
+      "inLanguage": "en-GB",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-2"
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-2-2026.jpg",
+      "url": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-2-2026.jpg",
+      "caption": "Eid henna design with simple floral details",
+      "creator": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "creditText": "Mehndi Aura by Tanya",
+      "inLanguage": "en-GB",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-3"
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-3-2026.jpg",
+      "url": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-3-2026.jpg",
+      "caption": "Minimal Eid henna design with fine dots and vines",
+      "creator": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "creditText": "Mehndi Aura by Tanya",
+      "inLanguage": "en-GB",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-4"
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-4-2026.jpg",
+      "url": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-4-2026.jpg",
+      "caption": "Arabic-inspired Eid henna design with floral movement",
+      "creator": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "creditText": "Mehndi Aura by Tanya",
+      "inLanguage": "en-GB",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-5"
+    },
+    {
+      "@type": "ImageObject",
+      "contentUrl": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-1-2026.jpg",
+      "url": "https://mehndiaura.co.uk/assets/eid-henna-designs-2026/eid-design-1-2026.jpg",
+      "caption": "Minimal Eid henna design with delicate hand coverage",
+      "creator": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "creditText": "Mehndi Aura by Tanya",
+      "inLanguage": "en-GB",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-6"
+    },
+    {
+      "@type": "ImageGallery",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-gallery",
+      "name": "Mehndi Aura Eid Henna Designs 2026 Gallery",
+      "url": "https://mehndiaura.co.uk/eid-henna-designs-2026",
+      "creator": {
+        "@id": "https://mehndiaura.co.uk/#organization"
+      },
+      "image": [
+        {
+          "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-1"
+        },
+        {
+          "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-2"
+        },
+        {
+          "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-3"
+        },
+        {
+          "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-4"
+        },
+        {
+          "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-5"
+        },
+        {
+          "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-6"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#gallery-list",
+      "name": "Mehndi Aura Eid Henna Designs 2026 Gallery",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-1"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-2"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-3"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-4"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-5"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@id": "https://mehndiaura.co.uk/eid-henna-designs-2026#image-6"
+          }
         }
       ]
     }
+  ]
+}
   </script>
 </head>
 <body>
