@@ -13,6 +13,9 @@
   <link rel="icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg" type="image/jpeg">
   <link rel="apple-touch-icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg">
   <link rel="manifest" href="/assets/brand/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
   <meta property="og:site_name" content="Mehndi Aura">
   <meta property="og:title" content="Bridal & Party Henna (Mehndi Aura) – Custom Designs by Tanya">
   <meta property="og:description" content="Book Tanya at Mehndi Aura for London-area and UK bridal mehndi, Eid henna, party designs and natural henna-style art.">
@@ -24,8 +27,6 @@
   <meta name="twitter:description" content="Book Tanya at Mehndi Aura for London-area and UK bridal mehndi, Eid henna, party designs and natural henna-style art.">
   <meta name="twitter:image" content="https://mehndiaura.co.uk/assets/brand/hand-signature.jpeg">
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap");
-
     :root {
       --bg: #fbf1e3;
       --surface: rgba(255, 250, 244, 0.82);
@@ -518,6 +519,14 @@
 
     section {
       padding: var(--section-space) 0;
+    }
+
+    .highlight-band,
+    .home-video-highlights,
+    .home-follow-section,
+    footer {
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 760px;
     }
 
     .highlight-band {
@@ -2786,279 +2795,18 @@
   </div>
 
   <script>
-    const enquiryForm = document.getElementById("enquiry-form");
-    const formStatus = document.getElementById("form-status");
-    const submitButton = document.getElementById("submit-button");
-    const reviewRequestForm = document.getElementById("review-request-form");
-    const reviewStatus = document.getElementById("review-status");
-    const reviewSubmitButton = document.getElementById("review-submit-button");
-    const eventTypeField = document.getElementById("eventType");
-    const packageField = document.getElementById("packageName");
-    const budgetField = document.getElementById("budget");
-    const messageField = document.getElementById("message");
-    const contactSection = document.getElementById("contact");
-    const lightbox = document.getElementById("gallery-lightbox");
-    const lightboxImage = document.getElementById("lightbox-image");
-    const lightboxCaption = document.getElementById("lightbox-caption");
-    const lightboxClose = document.getElementById("lightbox-close");
-    const copySiteLinkButton = document.getElementById("copy-site-link");
     const copySiteLinkFooterButton = document.getElementById("copy-site-link-footer");
-    const isLocalHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
-    function setStatusMessage(target, state, message) {
-      if (!target) return;
-      target.dataset.state = state;
-      target.textContent = message;
-    }
-
-    function getBookingHelpMessage() {
-      if (window.location.protocol === "file:") {
-        return "This booking form will not work from a local file. Run npm start and open http://localhost:3000.";
-      }
-
-      if (isLocalHost) {
-        return "The booking backend is not available yet. Please run npm start and open http://localhost:3000.";
-      }
-
-      return "The booking service is temporarily unavailable. Please try again in a moment or contact Mehndi Aura directly by WhatsApp, phone, or email.";
-    }
-
-    async function parseJsonResponse(response) {
-      const contentType = response.headers.get("content-type") || "";
-      const text = await response.text();
-
-      if (!text) {
-        return {
-          ok: response.ok,
-          status: response.status,
-          data: null,
-          error: response.ok
-            ? "The server returned an empty response."
-            : getBookingHelpMessage()
-        };
-      }
-
-      if (!contentType.includes("application/json")) {
-        return {
-          ok: false,
-          status: response.status,
-          data: null,
-          error: getBookingHelpMessage()
-        };
-      }
-
-      try {
-        return {
-          ok: response.ok,
-          status: response.status,
-          data: JSON.parse(text),
-          error: null
-        };
-      } catch (error) {
-        return {
-          ok: false,
-          status: response.status,
-          data: null,
-          error: getBookingHelpMessage()
-        };
-      }
-    }
-
-    async function checkBookingBackend() {
-      if (window.location.protocol === "file:") {
-        throw new Error(getBookingHelpMessage());
-      }
-
-      const healthResponse = await fetch("/api/health", { method: "GET" });
-      if (!healthResponse.ok) {
-        const healthResult = await parseJsonResponse(healthResponse);
-        throw new Error(healthResult.error || getBookingHelpMessage());
-      }
-    }
-
-    async function copyWebsiteLink() {
-      const websiteLink = "https://mehndiaura.co.uk";
-
-      try {
-        await navigator.clipboard.writeText(websiteLink);
-        setStatusMessage(formStatus || reviewStatus, "success", "Website link copied successfully.");
-      } catch (error) {
-        setStatusMessage(formStatus || reviewStatus, "error", "Unable to copy the website link automatically. Use mehndiaura.co.uk.");
-      }
-    }
-
-    function applyEnquiryValues(source) {
-        const eventType = source.eventType || source.getAttribute?.("data-enquiry-fill");
-        const packageName = source.packageName || source.getAttribute?.("data-package-fill");
-        const budget = source.budget || source.getAttribute?.("data-budget-fill");
-        const message = source.message || source.getAttribute?.("data-message-fill");
-
-        if (eventTypeField && eventType) {
-          eventTypeField.value = eventType;
-        }
-
-        if (packageField && packageName) {
-          packageField.value = packageName;
-        }
-
-        if (budgetField && budget) {
-          budgetField.value = budget;
-        }
-
-        if (messageField && message) {
-          messageField.value = message;
-        }
-
-        return Boolean(eventType || packageName || budget || message);
-    }
-
-    const pendingEnquiry = sessionStorage.getItem("mehndiAuraPendingEnquiry");
-    if (pendingEnquiry) {
-      sessionStorage.removeItem("mehndiAuraPendingEnquiry");
-      try {
-        applyEnquiryValues(JSON.parse(pendingEnquiry));
-      } catch (error) {}
-    }
-
-    document.querySelectorAll("[data-enquiry-fill]").forEach((element) => {
-      element.addEventListener("click", () => {
-        const handled = applyEnquiryValues(element);
-
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-          return;
-        }
-
-        if (handled) {
-          sessionStorage.setItem("mehndiAuraPendingEnquiry", JSON.stringify({
-            eventType: element.getAttribute("data-enquiry-fill") || "",
-            packageName: element.getAttribute("data-package-fill") || "",
-            budget: element.getAttribute("data-budget-fill") || "",
-            message: element.getAttribute("data-message-fill") || ""
-          }));
-          window.location.href = "/get-in-touch";
-        }
-      });
-    });
-
-    [copySiteLinkButton, copySiteLinkFooterButton].forEach((button) => {
-      if (!button) return;
-      button.addEventListener("click", copyWebsiteLink);
-    });
-
-    document.querySelectorAll("[data-lightbox]").forEach((button) => {
-      button.addEventListener("click", () => {
-        if (!lightbox || !lightboxImage || !lightboxCaption) {
-          return;
-        }
-
-        lightboxImage.src = button.getAttribute("data-lightbox");
-        lightboxCaption.textContent = button.getAttribute("data-caption") || "A closer look at Mehndi Aura's henna work.";
-        lightbox.classList.add("is-open");
-        lightbox.setAttribute("aria-hidden", "false");
-      });
-    });
-
-    if (lightbox && lightboxClose) {
-      lightboxClose.addEventListener("click", () => {
-        lightbox.classList.remove("is-open");
-        lightbox.setAttribute("aria-hidden", "true");
-        if (lightboxImage) {
-          lightboxImage.src = "";
-        }
-      });
-
-      lightbox.addEventListener("click", (event) => {
-        if (event.target === lightbox) {
-          lightboxClose.click();
-        }
-      });
-    }
-
-    if (enquiryForm && formStatus && submitButton) {
-      enquiryForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const formData = new FormData(enquiryForm);
-        const payload = Object.fromEntries(formData.entries());
-
-        formStatus.textContent = "Sending your enquiry...";
-        formStatus.dataset.state = "";
-        submitButton.disabled = true;
-
+    if (copySiteLinkFooterButton) {
+      copySiteLinkFooterButton.addEventListener("click", async () => {
         try {
-          await checkBookingBackend();
-
-          const response = await fetch("/api/enquiries", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          });
-
-          const result = await parseJsonResponse(response);
-
-          if (!result.ok || !result.data) {
-            throw new Error(
-              (result.data && result.data.error) ||
-              result.error ||
-              "Something went wrong while sending your enquiry."
-            );
-          }
-
-          enquiryForm.reset();
-          formStatus.textContent = result.data.message + " Reference: " + result.data.enquiry.id;
-          formStatus.dataset.state = "success";
+          await navigator.clipboard.writeText("https://mehndiaura.co.uk");
+          copySiteLinkFooterButton.textContent = "Website Link Copied";
+          window.setTimeout(() => {
+            copySiteLinkFooterButton.textContent = "Copy Website Link";
+          }, 2200);
         } catch (error) {
-          formStatus.textContent = error.message || "Unable to send your enquiry right now.";
-          formStatus.dataset.state = "error";
-        } finally {
-          submitButton.disabled = false;
-        }
-      });
-    }
-
-    if (reviewRequestForm && reviewStatus && reviewSubmitButton) {
-      reviewRequestForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const formData = new FormData(reviewRequestForm);
-        const payload = Object.fromEntries(formData.entries());
-
-        reviewStatus.textContent = "Sending your review-link request...";
-        reviewStatus.dataset.state = "";
-        reviewSubmitButton.disabled = true;
-
-        try {
-          await checkBookingBackend();
-
-          const response = await fetch("/api/review-requests", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-          });
-
-          const result = await parseJsonResponse(response);
-
-          if (!result.ok || !result.data) {
-            throw new Error(
-              (result.data && result.data.error) ||
-              result.error ||
-              "Something went wrong while sending your review-link request."
-            );
-          }
-
-          reviewRequestForm.reset();
-          reviewStatus.textContent = result.data.message + " Reference: " + result.data.reviewRequest.id;
-          reviewStatus.dataset.state = "success";
-        } catch (error) {
-          reviewStatus.textContent = error.message || "Unable to send your review-link request right now.";
-          reviewStatus.dataset.state = "error";
-        } finally {
-          reviewSubmitButton.disabled = false;
+          copySiteLinkFooterButton.textContent = "Use mehndiaura.co.uk";
         }
       });
     }
