@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg1" x1="80" y1="48" x2="432" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9F3"/>
+      <stop offset="0.62" stop-color="#F8E9E1"/>
+      <stop offset="1" stop-color="#F2DDD6"/>
+    </linearGradient>
+    <linearGradient id="ink1" x1="185" y1="150" x2="326" y2="365" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C85A78"/>
+      <stop offset="0.48" stop-color="#C86A33"/>
+      <stop offset="1" stop-color="#8A2F24"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#bg1)"/>
+  <circle cx="256" cy="256" r="162" fill="#FFFDF9" stroke="#ECD7CF" stroke-width="6"/>
+  <path d="M184 350V162H210L256 249L302 162H328V350" stroke="url(#ink1)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M184 350V220L256 304L328 220V350" stroke="#8A2F24" stroke-opacity="0.9" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 124C263 139 276 149 291 153C276 157 263 168 256 183C249 168 236 157 221 153C236 149 249 139 256 124Z" fill="#8A2F24"/>
+  <circle cx="256" cy="109" r="6" fill="#EFA53A"/>
+</svg>
