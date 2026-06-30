@@ -10,9 +10,9 @@
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#8a2f24">
   <link rel="canonical" href="https://mehndiaura.co.uk/">
-  <link rel="icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg" type="image/jpeg">
-  <link rel="apple-touch-icon" href="/assets/brand/holding-hands-new-logo-optimized.jpg">
-  <link rel="manifest" href="/assets/brand/site.webmanifest">
+  <link rel="icon" href="assets/brand/holding-hands-new-logo-optimized.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="assets/brand/holding-hands-new-logo-optimized.jpg">
+  <link rel="manifest" href="assets/brand/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
@@ -1042,24 +1042,32 @@
     }
 
     .recent-work-section {
-      padding: var(--section-space-sm) 0;
-      background: linear-gradient(180deg, rgba(255, 248, 239, 0.72), rgba(255, 241, 233, 0.58));
+      padding: clamp(48px, 7vw, 86px) 0;
+      background: #fff8ef;
       border-block: 1px solid rgba(138, 47, 36, 0.08);
     }
 
+    .recent-work-panel {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.45fr);
+      align-items: start;
+      gap: clamp(28px, 4vw, 54px);
+    }
+
     .recent-work-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 28px;
-      margin-bottom: 24px;
+      position: static;
     }
 
     .recent-work-head .section-heading {
-      max-width: 680px;
+      display: grid;
+      align-items: start;
+      justify-content: start;
+      gap: 14px;
+      margin-bottom: 0;
     }
 
     .recent-work-head .eyebrow {
+      width: fit-content;
       padding: 0;
       border: 0;
       border-radius: 0;
@@ -1074,47 +1082,91 @@
 
     .recent-work-head .section-heading h2 {
       max-width: none;
+      font-size: clamp(2.6rem, 5vw, 4.9rem);
     }
 
     .recent-work-head .section-heading p {
-      margin-bottom: 0;
+      max-width: 33rem;
+      margin: 0;
+    }
+
+    .recent-work-head .btn {
+      width: fit-content;
+    }
+
+    .recent-category-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 4px 0 8px;
+    }
+
+    .recent-category-row span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 248, 240, 0.9);
+      border: 1px solid rgba(138, 47, 36, 0.11);
+      color: var(--accent-deep);
+      font-size: 0.86rem;
+      font-weight: 800;
     }
 
     .recent-work-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
     }
 
     .recent-work-card {
       position: relative;
       overflow: hidden;
-      border-radius: 20px;
-      background: rgba(255, 250, 244, 0.94);
+      border-radius: 22px;
+      background: #fffaf4;
       border: 1px solid rgba(122, 52, 27, 0.08);
-      box-shadow: 0 14px 34px rgba(96, 44, 36, 0.1);
+      box-shadow: 0 16px 38px rgba(96, 44, 36, 0.08);
     }
 
     .recent-work-card img {
       width: 100%;
-      aspect-ratio: 4 / 4.7;
+      height: 260px;
       object-fit: cover;
       object-position: center 58%;
       transition: transform 0.35s ease;
     }
 
     .recent-work-card:nth-child(1) img {
-      object-position: center 63%;
+      object-position: center 66%;
     }
 
-    .recent-work-card:nth-child(2) img,
-    .recent-work-card:nth-child(3) img,
-    .recent-work-card:nth-child(5) img {
-      object-position: center 68%;
+    .recent-work-card:nth-child(2) img {
+      object-position: center 61%;
+    }
+
+    .recent-work-card:nth-child(3) img {
+      object-position: center 56%;
     }
 
     .recent-work-card:nth-child(4) img {
-      object-position: center 58%;
+      object-position: center 56%;
+    }
+
+    .recent-work-card:nth-child(5) img {
+      object-position: center 64%;
+    }
+
+    .recent-work-card.featured {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(220px, 0.72fr);
+      align-items: stretch;
+    }
+
+    .recent-work-card.featured img {
+      height: 360px;
+      object-position: center 60%;
     }
 
     .recent-work-card:hover img,
@@ -1123,26 +1175,36 @@
     }
 
     .recent-work-label {
-      padding: 16px 16px 18px;
-      min-height: 128px;
+      padding: 18px;
+      min-height: 130px;
       color: var(--ink);
     }
 
     .recent-work-label strong {
       display: block;
       font-family: "Cormorant Garamond", serif;
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       line-height: 1.05;
       color: var(--accent-deep);
     }
 
     .recent-work-label span {
       display: block;
-      margin-top: 7px;
+      margin-top: 6px;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       line-height: 1.35;
       font-weight: 600;
+    }
+
+    .recent-work-tag {
+      display: inline-flex;
+      margin-bottom: 8px;
+      color: var(--accent-deep);
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
     .portfolio-grid {
@@ -1644,36 +1706,37 @@
     }
 
     .sticky-bar {
-      position: sticky;
-      bottom: 14px;
+      position: fixed;
+      right: 22px;
+      bottom: 18px;
       z-index: 8;
-      padding: 0 16px 20px;
+      padding: 0;
     }
 
     .sticky-inner {
-      width: min(100%, 820px);
-      margin: 0 auto;
+      width: min(410px, calc(100vw - 32px));
+      margin: 0;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      padding: 14px;
-      border-radius: 24px;
-      background: rgba(52, 25, 17, 0.82);
+      gap: 8px;
+      padding: 8px;
+      border-radius: 18px;
+      background: rgba(52, 25, 17, 0.88);
       backdrop-filter: blur(14px);
-      box-shadow: 0 18px 40px rgba(52, 25, 17, 0.22);
+      box-shadow: 0 14px 34px rgba(52, 25, 17, 0.2);
     }
 
     .sticky-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      padding: 0 14px;
-      border-radius: 18px;
+      min-height: 40px;
+      padding: 0 10px;
+      border-radius: 12px;
       background: rgba(255, 248, 240, 0.1);
       color: #fff8ef;
       font-weight: 700;
-      font-size: 0.94rem;
+      font-size: 0.82rem;
       text-align: center;
     }
 
@@ -2112,8 +2175,20 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .recent-work-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .recent-work-head {
+        position: static;
+      }
+
       .recent-work-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .recent-work-card img {
+        height: 220px;
       }
 
       .style-list {
@@ -2233,7 +2308,6 @@
 
       .hero-points,
       .gallery-grid,
-      .recent-work-grid,
       .social-grid,
       .portfolio-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2417,17 +2491,21 @@
         grid-template-columns: 1fr;
       }
 
+      .recent-work-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .sticky-inner {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px;
-        padding: 10px;
-        border-radius: 18px;
+        padding: 8px;
+        border-radius: 16px;
       }
 
       .sticky-link {
-        min-height: 42px;
-        padding: 0 10px;
-        font-size: 0.82rem;
+        min-height: 38px;
+        padding: 0 8px;
+        font-size: 0.78rem;
         border-radius: 14px;
       }
     }
@@ -2439,7 +2517,6 @@
 
       .hero-actions,
       .gallery-grid,
-      .recent-work-grid,
       .social-grid,
       .portfolio-grid,
       .stat-row,
@@ -2457,9 +2534,16 @@
         aspect-ratio: 4 / 5;
       }
 
-      .recent-work-card img {
-        aspect-ratio: 5 / 4;
-        object-position: center 58%;
+      .recent-work-panel {
+        padding: 22px 18px;
+        border-radius: 24px;
+      }
+
+      .recent-work-card img,
+      .recent-work-card:nth-child(1) img {
+        height: 210px;
+        aspect-ratio: auto;
+        object-position: center 54%;
       }
 
       .recent-work-label {
@@ -2717,7 +2801,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="/" aria-label="Mehndi Aura home">
-        <img class="brand-logo" src="/assets/brand/holding-hands-new-logo-optimized.jpg" alt="" aria-hidden="true">
+        <img class="brand-logo" src="assets/brand/holding-hands-new-logo-optimized.jpg" alt="" aria-hidden="true">
         <span class="brand-lockup">
           <span class="brand-mark">Mehndi Aura</span>
           <span class="brand-note">Bridal and celebration mehndi</span>
@@ -2782,50 +2866,62 @@
     </section>
 
     <section class="recent-work-section" aria-labelledby="recent-work-title">
-      <div class="shell">
+      <div class="shell recent-work-panel">
         <div class="recent-work-head">
           <div class="section-heading">
             <span class="eyebrow">Recent mehndi work</span>
             <h2 id="recent-work-title">Recent Mehndi Work</h2>
-            <p>A quick look at the styles clients often ask for: Eid, party, minimal, floral and Arabic mehndi.</p>
+            <p>A curated look at the styles clients often ask for, from light Eid hands to fuller floral and Arabic mehndi.</p>
+            <div class="recent-category-row" aria-label="Popular mehndi categories">
+              <span>Eid</span>
+              <span>Party</span>
+              <span>Minimal</span>
+              <span>Floral</span>
+              <span>Arabic</span>
+            </div>
+            <a class="btn btn-secondary" href="/henna-styles">View Full Gallery</a>
           </div>
-          <a class="btn btn-secondary" href="/henna-styles">View Full Gallery</a>
         </div>
 
         <div class="recent-work-grid" aria-label="Recent Mehndi Aura design categories">
           <article class="recent-work-card">
-            <img src="/assets/gallery/refresh/minimal-eid-mehndi.jpg" alt="Minimal Eid henna design by Mehndi Aura for London-area bookings" width="900" height="1200" loading="lazy" decoding="async">
+            <img src="assets/gallery/refresh/minimal-eid-mehndi.jpg" alt="Minimal Eid henna design by Mehndi Aura for London-area bookings" width="900" height="1200" loading="lazy" decoding="async">
             <div class="recent-work-label">
-              <strong>Eid</strong>
-              <span>Light festive details for hands, wrists and fingers.</span>
+              <span class="recent-work-tag">Eid</span>
+              <strong>Light festive hands</strong>
+              <span>Moon, vine and finger details.</span>
             </div>
           </article>
           <article class="recent-work-card">
-            <img src="/assets/gallery/refresh/henna-styles-feature.jpg" alt="Party mehndi design by Mehndi Aura with floral hand details in London" width="900" height="1200" loading="lazy" decoding="async">
+            <img src="assets/gallery/refresh/minimal-bow-mehndi.jpg" alt="Minimal bow party mehndi design by Mehndi Aura in London" width="900" height="1200" loading="lazy" decoding="async">
             <div class="recent-work-label">
-              <strong>Party</strong>
-              <span>Pretty designs for family events, birthdays and celebrations.</span>
+              <span class="recent-work-tag">Party</span>
+              <strong>Soft bow detail</strong>
+              <span>Pretty, playful and easy to wear.</span>
             </div>
           </article>
           <article class="recent-work-card">
-            <img src="/assets/gallery/refresh/very-minimal-floral-mehndi.jpg" alt="Very minimal floral henna design by Mehndi Aura for a soft hand look" width="900" height="1200" loading="lazy" decoding="async">
+            <img src="assets/gallery/refresh/very-minimal-floral-mehndi.jpg" alt="Very minimal floral henna design by Mehndi Aura for a soft hand look" width="900" height="1200" loading="lazy" decoding="async">
             <div class="recent-work-label">
-              <strong>Minimal</strong>
-              <span>Clean spacing, tiny details and easy-to-wear patterns.</span>
+              <span class="recent-work-tag">Minimal</span>
+              <strong>Tiny floral accents</strong>
+              <span>Clean spacing and delicate lines.</span>
             </div>
           </article>
           <article class="recent-work-card">
-            <img src="/assets/gallery/refresh/floral-arabic-mehndi.jpg" alt="Floral bridal mehndi design by Mehndi Aura in London" width="900" height="1200" loading="lazy" decoding="async">
+            <img src="assets/gallery/refresh/arabic-floral-henna.jpg" alt="Floral Arabic mehndi design by Mehndi Aura in London" width="900" height="1200" loading="lazy" decoding="async">
             <div class="recent-work-label">
-              <strong>Floral</strong>
-              <span>Soft flowers, leafy trails and feminine movement.</span>
+              <span class="recent-work-tag">Floral</span>
+              <strong>Floral hand flow</strong>
+              <span>Soft flowers with leafy movement.</span>
             </div>
           </article>
           <article class="recent-work-card">
-            <img src="/assets/gallery/refresh/arabic-henna-design.jpg" alt="Arabic mehndi design by Mehndi Aura with flowing floral details" width="553" height="1200" loading="lazy" decoding="async">
+            <img src="assets/gallery/refresh/heavy-arabic-mehndi.jpg" alt="Arabic mehndi design by Mehndi Aura with detailed floral hand coverage" width="900" height="1200" loading="lazy" decoding="async">
             <div class="recent-work-label">
-              <strong>Arabic</strong>
-              <span>Flowing coverage for bolder party and bridal-inspired looks.</span>
+              <span class="recent-work-tag">Arabic</span>
+              <strong>Fuller Arabic detail</strong>
+              <span>More coverage for a stronger finish.</span>
             </div>
           </article>
         </div>

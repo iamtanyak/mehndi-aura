@@ -768,7 +768,21 @@
     }
 
     .about-cards .card {
-      padding: 24px;
+      padding: 22px;
+    }
+
+    .blog-page .about-cards {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .blog-page .about-cards .card h3 {
+      font-size: clamp(1.18rem, 1.5vw, 1.45rem);
+    }
+
+    .blog-page .about-cards .card p {
+      font-size: 0.88rem;
+      line-height: 1.55;
     }
 
     .cards {
@@ -1421,36 +1435,37 @@
     }
 
     .sticky-bar {
-      position: sticky;
-      bottom: 14px;
+      position: fixed;
+      right: 22px;
+      bottom: 18px;
       z-index: 8;
-      padding: 0 16px 20px;
+      padding: 0;
     }
 
     .sticky-inner {
-      width: min(100%, 820px);
-      margin: 0 auto;
+      width: min(410px, calc(100vw - 32px));
+      margin: 0;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      padding: 14px;
-      border-radius: 24px;
-      background: rgba(52, 25, 17, 0.82);
+      gap: 8px;
+      padding: 8px;
+      border-radius: 18px;
+      background: rgba(52, 25, 17, 0.88);
       backdrop-filter: blur(14px);
-      box-shadow: 0 18px 40px rgba(52, 25, 17, 0.22);
+      box-shadow: 0 14px 34px rgba(52, 25, 17, 0.2);
     }
 
     .sticky-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      padding: 0 14px;
-      border-radius: 18px;
+      min-height: 40px;
+      padding: 0 10px;
+      border-radius: 12px;
       background: rgba(255, 248, 240, 0.1);
       color: #fff8ef;
       font-weight: 700;
-      font-size: 0.94rem;
+      font-size: 0.82rem;
       text-align: center;
     }
 
@@ -1888,6 +1903,10 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .blog-page .about-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .style-list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
@@ -1995,6 +2014,10 @@
       .link-grid,
       .review-request-grid,
       .style-list {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-page .about-cards {
         grid-template-columns: 1fr;
       }
 
@@ -2184,14 +2207,14 @@
       .sticky-inner {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px;
-        padding: 10px;
-        border-radius: 18px;
+        padding: 8px;
+        border-radius: 16px;
       }
 
       .sticky-link {
-        min-height: 42px;
-        padding: 0 10px;
-        font-size: 0.82rem;
+        min-height: 38px;
+        padding: 0 8px;
+        font-size: 0.78rem;
         border-radius: 14px;
       }
     }
@@ -2430,6 +2453,12 @@
           "position": 3,
           "url": "https://mehndiaura.co.uk/blog/why-black-henna-can-hurt-ppd-risks",
           "name": "Why Black Henna Can Hurt: PPD Risks"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "url": "https://mehndiaura.co.uk/blog/choosing-henna-design-that-feels-like-you",
+          "name": "Choosing a Henna Design That Feels Like You"
         }
       ]
     }
@@ -2495,6 +2524,12 @@
             <h3>Why Black Henna Can Hurt</h3>
             <p>A clear, careful guide to PPD risks, why natural henna is not instant black, and what to ask before anything touches your skin.</p>
             <div class="card-actions-row"><a class="mini-link" href="/blog/why-black-henna-can-hurt-ppd-risks">Read Post</a></div>
+          </article>
+          <article class="card">
+            <span class="card-number">Design Help</span>
+            <h3>Choosing a Henna Design That Feels Like You</h3>
+            <p>A gentle guide to using Pinterest saves, personal details and outfit ideas without feeling pressured to choose the perfect pattern straight away.</p>
+            <div class="card-actions-row"><a class="mini-link" href="/blog/choosing-henna-design-that-feels-like-you">Read Post</a></div>
           </article>
         </div>
       </div>

@@ -4,7 +4,7 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://mehndiaura.co.uk/</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -97,7 +97,7 @@
   </url>
   <url>
     <loc>https://mehndiaura.co.uk/henna-journal</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -112,7 +112,7 @@
   </url>
   <url>
     <loc>https://mehndiaura.co.uk/blog/top-5-mehndi-designs-2026</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -136,7 +136,7 @@
   </url>
   <url>
     <loc>https://mehndiaura.co.uk/blog/henna-aftercare-tips-darker-stains</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
@@ -145,11 +145,20 @@
   </url>
   <url>
     <loc>https://mehndiaura.co.uk/blog/why-black-henna-can-hurt-ppd-risks</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image>
       <image:loc>https://mehndiaura.co.uk/assets/blog/black-henna-safety-editorial-optimized.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://mehndiaura.co.uk/blog/choosing-henna-design-that-feels-like-you</loc>
+    <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://mehndiaura.co.uk/assets/gallery/web/henna%20styles.jpg</image:loc>
     </image:image>
   </url>
   <url>

@@ -64,7 +64,7 @@ const PAGE_PATHS = new Map([
   ["/blog", path.join(ROOT, "blog.html")],
   ["/articles", path.join(ROOT, "articles.html")],
   ["/blog/top-5-mehndi-designs-2026", path.join(ROOT, "blog-top-5-mehndi-designs-2026.html")],
-  ["/blog/draft-choosing-henna-design-that-feels-like-you", path.join(ROOT, "blog-draft-choosing-henna-design-that-feels-like-you.html")],
+  ["/blog/choosing-henna-design-that-feels-like-you", path.join(ROOT, "blog-draft-choosing-henna-design-that-feels-like-you.html")],
   ["/blog/henna-aftercare-tips-darker-stains", path.join(ROOT, "blog-henna-aftercare-tips-darker-stains.html")],
   ["/blog/why-black-henna-can-hurt-ppd-risks", path.join(ROOT, "blog-why-black-henna-can-hurt-ppd-risks.html")]
 ]);
@@ -74,7 +74,8 @@ const SEO_REDIRECTS = new Map([
   ["/henna-artist-near-me", "/mehndi-artist-london"],
   ["/bridal-mehndi-london", "/mehndi-artist-london"],
   ["/eid-henna-designs", "/eid-henna-designs-2026"],
-  ["/eid-mehndi-designs", "/eid-henna-designs-2026"]
+  ["/eid-mehndi-designs", "/eid-henna-designs-2026"],
+  ["/blog/draft-choosing-henna-design-that-feels-like-you", "/blog/choosing-henna-design-that-feels-like-you"]
 ]);
 const DATA_DIR = path.join(ROOT, "data");
 const DB_PATH = path.join(DATA_DIR, "enquiries.db");
