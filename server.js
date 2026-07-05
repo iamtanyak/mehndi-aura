@@ -53,6 +53,7 @@ const PAGE_PATHS = new Map([
   ["/meet-tanya", path.join(ROOT, "meet-tanya.html")],
   ["/henna-styles", path.join(ROOT, "gallery.html")],
   ["/gallery", path.join(ROOT, "gallery.html")],
+  ["/mehndi-design-inspiration-pinterest", path.join(ROOT, "mehndi-design-inspiration-pinterest.html")],
   ["/eid-henna-designs-2026", path.join(ROOT, "eid-henna-designs-2026.html")],
   ["/our-offerings", path.join(ROOT, "services.html")],
   ["/services", path.join(ROOT, "services.html")],
