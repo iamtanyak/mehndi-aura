@@ -507,6 +507,114 @@
       background: linear-gradient(90deg, transparent, rgba(203, 84, 117, 0.4), rgba(239, 163, 58, 0.5), transparent);
     }
 
+    .seasonal-update {
+      padding: 0 0 var(--section-space-sm);
+    }
+
+    .seasonal-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: clamp(22px, 4vw, 38px);
+      border: 1px solid rgba(47, 141, 133, 0.16);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(47, 141, 133, 0.12), transparent 26%),
+        linear-gradient(135deg, rgba(255, 250, 244, 0.94), rgba(239, 247, 241, 0.88));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .seasonal-panel::before {
+      content: "";
+      position: absolute;
+      right: -56px;
+      top: -62px;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      border: 2px solid rgba(47, 141, 133, 0.16);
+      box-shadow: inset 32px 0 0 rgba(255, 248, 239, 0.82);
+      pointer-events: none;
+    }
+
+    .seasonal-copy {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      align-content: center;
+    }
+
+    .seasonal-copy h2 {
+      margin: 0;
+      max-width: 12ch;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.05rem, 4.5vw, 4rem);
+      line-height: 1.02;
+    }
+
+    .seasonal-copy p {
+      max-width: 58ch;
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .seasonal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0 0;
+    }
+
+    .seasonal-tags span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border: 1px solid rgba(47, 141, 133, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--accent-deep);
+      font-size: var(--font-label);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .seasonal-image {
+      position: relative;
+      z-index: 1;
+      min-height: 360px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(47, 141, 133, 0.18);
+      box-shadow: 0 20px 44px rgba(52, 25, 17, 0.16);
+      background: #fff8ef;
+    }
+
+    .seasonal-image img {
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .seasonal-image span {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: rgba(255, 248, 239, 0.9);
+      color: var(--accent-deep);
+      font-size: var(--font-body-sm);
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+    }
+
     section {
       padding: var(--section-space) 0;
     }
@@ -2137,6 +2245,7 @@
       }
 
       .hero-grid,
+      .seasonal-panel,
       .highlight-grid,
       .home-video-grid,
       .process-layout,
@@ -2161,6 +2270,14 @@
 
       .recent-work-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .seasonal-image {
+        min-height: 320px;
+      }
+
+      .seasonal-image img {
+        min-height: 320px;
       }
 
       .recent-work-card img {
@@ -2267,6 +2384,7 @@
       }
 
       .hero-grid,
+      .seasonal-panel,
       .highlight-grid,
       .home-highlight-head,
       .home-video-grid,
@@ -2842,6 +2960,37 @@
             <p>Send me your date, area, outfit if you have it, and the kind of mehndi you keep saving on your phone.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="seasonal-update" aria-labelledby="seasonal-update-title">
+      <div class="shell seasonal-panel">
+        <div class="seasonal-copy">
+          <span class="eyebrow">Seasonal update</span>
+          <h2 id="seasonal-update-title">Seasonal Glow: Shravan Mehndi Edit</h2>
+          <p>
+            A fresh Shravan-inspired feature is here with Shiv-Parvati henna as the main
+            design, soft leafy details, floral trails and gentle devotional ideas for the sacred month.
+          </p>
+          <p>
+            This edit is for anyone who wants mehndi that feels meaningful, seasonal and still easy to
+            wear for Somwar vrat, puja days or family gatherings.
+          </p>
+          <div class="seasonal-tags" aria-label="Shravan mehndi design themes">
+            <span>Shiv-Parvati</span>
+            <span>Leafy trails</span>
+            <span>Floral hands</span>
+            <span>Puja-ready</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/shravan-month-mehndi-designs">Explore Shravan Mehndi</a>
+            <a class="btn btn-secondary" href="/get-in-touch">Ask About Shravan Henna</a>
+          </div>
+        </div>
+        <a class="seasonal-image" href="/shravan-month-mehndi-designs" aria-label="Explore Shravan month mehndi designs">
+          <img src="assets/blog/shravan-month/shiv-parvati-henna.jpeg" alt="Shiv and Parvati henna design for Shravan month by Mehndi Aura" width="900" height="1200" loading="lazy" decoding="async">
+          <span>New: Shravan month mehndi ideas by Tanya</span>
+        </a>
       </div>
     </section>
 

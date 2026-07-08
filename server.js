@@ -50,6 +50,7 @@ const LLMS_PATH = path.join(ROOT, "llms.txt");
 const PAGE_PATHS = new Map([
   ["/", INDEX_PATH],
   ["/mehndi-artist-london", path.join(ROOT, "mehndi-artist-london.html")],
+  ["/shravan-month-mehndi-designs", path.join(ROOT, "shravan-month-mehndi-designs.html")],
   ["/bridal-mehndi-london", path.join(ROOT, "bridal-mehndi-london.html")],
   ["/eid-henna-london", path.join(ROOT, "eid-henna-london.html")],
   ["/party-henna-london", path.join(ROOT, "party-henna-london.html")],
@@ -80,6 +81,9 @@ const SEO_REDIRECTS = new Map([
   ["/eid-mehndi-london", "/eid-henna-london"],
   ["/party-mehndi-london", "/party-henna-london"],
   ["/guest-mehndi-london", "/party-henna-london"],
+  ["/shravan-mehndi-designs", "/shravan-month-mehndi-designs"],
+  ["/sawan-mehndi-designs", "/shravan-month-mehndi-designs"],
+  ["/shiv-parvati-henna-design", "/shravan-month-mehndi-designs"],
   ["/eid-henna-designs", "/eid-henna-designs-2026"],
   ["/eid-mehndi-designs", "/eid-henna-designs-2026"],
   ["/blog/draft-choosing-henna-design-that-feels-like-you", "/blog/choosing-henna-design-that-feels-like-you"]
