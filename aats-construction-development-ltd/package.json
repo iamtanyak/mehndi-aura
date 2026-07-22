@@ -2,10 +2,7 @@
   "name": "aats-construction-development-ltd",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "build": "node scripts/build.mjs"
-  },
-  "dependencies": {},
-  "devDependencies": {}
+    "start": "node server.js"
+  }
 }
