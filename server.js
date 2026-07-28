@@ -63,6 +63,8 @@ const PAGE_PATHS = new Map([
   ["/eid-henna-designs-2026", path.join(ROOT, "eid-henna-designs-2026.html")],
   ["/our-offerings", path.join(ROOT, "services.html")],
   ["/services", path.join(ROOT, "services.html")],
+  ["/book-and-pay", path.join(ROOT, "book-and-pay.html")],
+  ["/checkout", path.join(ROOT, "book-and-pay.html")],
   ["/help-faq", path.join(ROOT, "faq.html")],
   ["/faq", path.join(ROOT, "faq.html")],
   ["/get-in-touch", path.join(ROOT, "contact.html")],
@@ -117,6 +119,8 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 const RESEND_FROM = process.env.RESEND_FROM || "";
 const CLIENT_AUTO_REPLY_ENABLED = String(process.env.CLIENT_AUTO_REPLY_ENABLED || "false").toLowerCase() === "true";
 const GOOGLE_REVIEW_URL = process.env.GOOGLE_REVIEW_URL || "";
+const SITE_URL = (process.env.SITE_URL || "http://localhost:3000").replace(/\/+$/, "");
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12;
 const sessions = new Map();
 
@@ -138,7 +142,7 @@ const CONTENT_SECURITY_POLICY = [
 const BASE_SECURITY_HEADERS = {
   "Content-Security-Policy": CONTENT_SECURITY_POLICY,
   "Cross-Origin-Opener-Policy": "same-origin",
-  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(self)",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "SAMEORIGIN",
@@ -518,6 +522,113 @@ function collectRequestBody(request) {
 
 function sanitize(value) {
   return String(value || "").trim();
+}
+
+function postStripeForm(pathname, formData) {
+  return new Promise((resolve, reject) => {
+    const body = new URLSearchParams(formData).toString();
+    const stripeRequest = https.request({
+      hostname: "api.stripe.com",
+      path: pathname,
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${STRIPE_SECRET_KEY}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": Buffer.byteLength(body)
+      }
+    }, (stripeResponse) => {
+      let data = "";
+
+      stripeResponse.on("data", (chunk) => {
+        data += chunk;
+      });
+
+      stripeResponse.on("end", () => {
+        try {
+          const parsed = JSON.parse(data || "{}");
+          if (stripeResponse.statusCode >= 400) {
+            reject(new Error(parsed.error?.message || "Stripe rejected the checkout request."));
+            return;
+          }
+
+          resolve(parsed);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+
+    stripeRequest.on("error", reject);
+    stripeRequest.write(body);
+    stripeRequest.end();
+  });
+}
+
+function getCheckoutPackage(payload) {
+  const packages = new Map([
+    ["Party Henna Deposit", 2500],
+    ["Eid Henna Deposit", 3500],
+    ["Bridal Consultation Deposit", 5000]
+  ]);
+  const packageName = sanitize(payload.packageName || payload.package);
+  const amount = packages.get(packageName);
+
+  return amount ? { packageName, amount } : null;
+}
+
+async function handleCreateCheckoutSession(request, response) {
+  if (!STRIPE_SECRET_KEY) {
+    sendJson(response, 503, {
+      error: "Stripe is not connected yet. Add STRIPE_SECRET_KEY in .env, restart the server, then try again."
+    });
+    return;
+  }
+
+  try {
+    const body = await collectRequestBody(request);
+    const payload = JSON.parse(body || "{}");
+    const checkoutPackage = getCheckoutPackage(payload);
+    const customerName = sanitize(payload.name);
+    const customerEmail = sanitize(payload.email);
+    const phone = sanitize(payload.phone);
+    const eventDate = sanitize(payload.eventDate);
+    const address = sanitize(payload.address);
+    const notes = sanitize(payload.notes);
+    const paymentMethod = sanitize(payload.paymentMethod || "Card");
+
+    if (!checkoutPackage || !customerName || !customerEmail || !phone || !eventDate || !address) {
+      sendJson(response, 400, { error: "Please complete all required booking details before payment." });
+      return;
+    }
+
+    const session = await postStripeForm("/v1/checkout/sessions", {
+      mode: "payment",
+      success_url: `${SITE_URL}/book-and-pay?payment=success&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${SITE_URL}/book-and-pay?payment=cancelled`,
+      customer_email: customerEmail,
+      "line_items[0][quantity]": "1",
+      "line_items[0][price_data][currency]": "gbp",
+      "line_items[0][price_data][unit_amount]": String(checkoutPackage.amount),
+      "line_items[0][price_data][product_data][name]": checkoutPackage.packageName,
+      "line_items[0][price_data][product_data][description]": "Mehndi Aura booking deposit",
+      "metadata[name]": customerName,
+      "metadata[email]": customerEmail,
+      "metadata[phone]": phone,
+      "metadata[event_date]": eventDate,
+      "metadata[address]": address,
+      "metadata[notes]": notes,
+      "metadata[payment_method_selected]": paymentMethod
+    });
+
+    sendJson(response, 200, { url: session.url });
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      sendJson(response, 400, { error: "The checkout payload was not valid JSON." });
+      return;
+    }
+
+    sendJson(response, 502, { error: error.message || "Unable to create Stripe checkout." });
+  }
 }
 
 function validateEnquiry(payload) {
@@ -1442,6 +1553,11 @@ const server = http.createServer(async (request, response) => {
 
   if (request.method === "POST" && url.pathname === "/api/review-requests") {
     await handleCreateReviewRequest(request, response);
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/create-checkout-session") {
+    await handleCreateCheckoutSession(request, response);
     return;
   }
 

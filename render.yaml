@@ -34,3 +34,9 @@ services:
         sync: false
       - key: CLIENT_AUTO_REPLY_ENABLED
         value: "false"
+      - key: SITE_URL
+        value: https://mehndiaura.co.uk
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false

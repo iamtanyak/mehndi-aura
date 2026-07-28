@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book & Pay Online | Mehndi Aura</title>
+  <meta name="description" content="Choose a Mehndi Aura henna package and complete a secure demo checkout with card, digital wallet, and PayPal-style payment options.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#8a2f24">
+  <link rel="canonical" href="https://mehndiaura.co.uk/book-and-pay">
+  <link rel="icon" href="assets/brand/holding-hands-new-logo-optimized.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="assets/brand/holding-hands-new-logo-optimized.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <style>
+    :root {
+      --bg: #fff7ec;
+      --cream: #fffaf3;
+      --ink: #321b18;
+      --muted: #74524f;
+      --line: rgba(138, 47, 36, 0.16);
+      --accent: #b94725;
+      --accent-deep: #7f2a20;
+      --gold: #eba946;
+      --rose: #c84f72;
+      --teal: #26877d;
+      --green: #247a4a;
+      --shadow: 0 22px 60px rgba(86, 35, 28, 0.13);
+      --max: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 8%, rgba(235, 169, 70, 0.24), transparent 24%),
+        radial-gradient(circle at 86% 22%, rgba(38, 135, 125, 0.14), transparent 22%),
+        linear-gradient(180deg, #fff9f0 0%, #f8e8dc 100%);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 247, 236, 0.9);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+    }
+
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 10px 24px rgba(96, 44, 36, 0.14);
+    }
+
+    .brand-mark {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .brand-note {
+      display: block;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    nav a[aria-current="page"],
+    nav a:hover {
+      color: var(--accent-deep);
+    }
+
+    .hero {
+      padding: 58px 0 30px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(330px, 0.78fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-grid > *,
+    .checkout-grid > *,
+    .package-card > * {
+      min-width: 0;
+    }
+
+    .hero-copy {
+      padding: 30px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-deep);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 16px 0 0 var(--rose), 32px 0 0 var(--teal);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 18px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2.55rem, 5vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .hero-copy p {
+      max-width: 660px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .hero-actions,
+    .trust-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      color: #fffaf3;
+      background: var(--accent-deep);
+      box-shadow: 0 14px 26px rgba(127, 42, 32, 0.22);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .button.secondary {
+      color: var(--accent-deep);
+      background: rgba(255, 250, 243, 0.88);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .hero-card {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card img {
+      display: block;
+      width: 100%;
+      height: 410px;
+      object-fit: cover;
+    }
+
+    .hero-card-body {
+      padding: 20px;
+    }
+
+    .trust-row {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .trust-pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255, 250, 243, 0.75);
+    }
+
+    .checkout-band {
+      padding: 28px 0 72px;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.7fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 243, 0.88);
+      box-shadow: 0 14px 44px rgba(86, 35, 28, 0.08);
+    }
+
+    .panel-head,
+    .panel-body {
+      padding: 22px;
+    }
+
+    .panel-head {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel h2 {
+      margin-bottom: 6px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+      line-height: 1;
+    }
+
+    .panel h3 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .panel p,
+    .fine-print {
+      color: var(--muted);
+    }
+
+    .packages {
+      display: grid;
+      gap: 12px;
+    }
+
+    .package-option {
+      position: relative;
+    }
+
+    .package-option input,
+    .payment-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .payment-option {
+      display: block;
+      cursor: pointer;
+    }
+
+    .package-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: start;
+      min-height: 124px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fffdf8;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .package-option input:checked + .package-card {
+      border-color: var(--accent);
+      box-shadow: 0 12px 28px rgba(185, 71, 37, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .package-title {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 800;
+    }
+
+    .package-meta {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .price {
+      color: var(--accent-deep);
+      font-size: 1.35rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(138, 47, 36, 0.22);
+      border-radius: 8px;
+      padding: 12px 13px;
+      color: var(--ink);
+      background: #fffefb;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(185, 71, 37, 0.12);
+    }
+
+    .payment-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .pay-method {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      border: 1px solid rgba(138, 47, 36, 0.2);
+      border-radius: 8px;
+      padding: 10px;
+      background: #fffdf8;
+      color: var(--ink);
+      font-weight: 900;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .payment-option input:checked + .pay-method {
+      border-color: var(--accent-deep);
+      background: #321b18;
+      color: #fffaf3;
+    }
+
+    .provider-note {
+      display: none;
+      border: 1px solid rgba(36, 122, 74, 0.2);
+      border-radius: 8px;
+      margin-top: 14px;
+      padding: 14px;
+      color: #1f5d39;
+      background: rgba(36, 122, 74, 0.08);
+      font-weight: 700;
+    }
+
+    .secure-provider-box {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+      border: 1px dashed rgba(38, 135, 125, 0.42);
+      border-radius: 8px;
+      padding: 18px;
+      background: #fffefb;
+    }
+
+    .secure-provider-box strong {
+      color: #225f59;
+    }
+
+    .order-summary {
+      position: sticky;
+      top: 92px;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(138, 47, 36, 0.12);
+    }
+
+    .summary-line strong {
+      font-weight: 900;
+    }
+
+    .total {
+      color: var(--accent-deep);
+      font-size: 1.35rem;
+    }
+
+    .secure-box {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 8px;
+      background: rgba(38, 135, 125, 0.08);
+      color: #225f59;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      border: 1px solid rgba(36, 122, 74, 0.3);
+      border-radius: 8px;
+      padding: 16px;
+      background: rgba(36, 122, 74, 0.1);
+      color: #1f5d39;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .checkout-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(50, 27, 24, 0.62);
+    }
+
+    .checkout-modal.open {
+      display: flex;
+    }
+
+    .checkout-dialog {
+      width: min(100%, 520px);
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      border-radius: 8px;
+      background: #fffaf3;
+      box-shadow: 0 24px 70px rgba(50, 27, 24, 0.32);
+      overflow: hidden;
+    }
+
+    .checkout-dialog-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .checkout-dialog-head h2 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .icon-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--accent-deep);
+      background: #fffdf8;
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .checkout-dialog-body {
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+    }
+
+    .checkout-provider-preview {
+      border: 1px dashed rgba(38, 135, 125, 0.45);
+      border-radius: 8px;
+      padding: 16px;
+      background: rgba(38, 135, 125, 0.08);
+      color: #225f59;
+      font-weight: 800;
+    }
+
+    .checkout-dialog-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 34px;
+      color: var(--muted);
+      background: rgba(255, 250, 243, 0.7);
+    }
+
+    .footer-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .topbar-inner,
+      .hero-grid,
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      .order-summary {
+        position: static;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        width: calc(100% - 28px);
+        max-width: 360px;
+        margin-left: 14px;
+        margin-right: auto;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .topbar-inner,
+      .hero-copy,
+      .hero-card,
+      .panel {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      nav {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+
+      nav::-webkit-scrollbar {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero-copy {
+        padding: 0;
+      }
+
+      h1 {
+        width: 100%;
+        max-width: 100%;
+        font-size: 2.18rem;
+      }
+
+      .hero-copy p,
+      .hero-card-body p,
+      .panel p,
+      .package-meta,
+      .trust-pill,
+      .pay-method {
+        overflow-wrap: anywhere;
+      }
+
+      .hero-card img {
+        height: 300px;
+      }
+
+      .form-grid,
+      .payment-tabs {
+        grid-template-columns: 1fr;
+      }
+
+      .package-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/" aria-label="Mehndi Aura home">
+        <img class="brand-logo" src="assets/brand/holding-hands-new-logo-optimized.jpg" alt="" aria-hidden="true">
+        <span>
+          <span class="brand-mark">Mehndi Aura</span>
+          <span class="brand-note">Book and pay online</span>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="/henna-styles">Henna Styles</a>
+        <a href="/our-offerings">Offerings</a>
+        <a href="/book-and-pay" aria-current="page">Book & Pay</a>
+        <a href="/get-in-touch">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Simple online checkout</span>
+          <h1>Choose your mehndi booking and pay on the website.</h1>
+          <p>Fill in your booking details, choose a deposit, then continue to secure checkout.</p>
+          <div class="hero-actions">
+            <a class="button" href="#checkout">Start Checkout</a>
+            <a class="button secondary" href="/get-in-touch">Ask Tanya First</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Mehndi Aura booking preview">
+          <img src="assets/brand/hand-signature.jpeg" alt="Detailed natural henna design by Mehndi Aura">
+          <div class="hero-card-body">
+            <strong>Secure deposit checkout</strong>
+            <p class="fine-print">Designed for bridal, Eid, party, and small group bookings.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="checkout-band" id="checkout">
+      <div class="shell checkout-grid">
+        <form class="panel" id="checkout-form">
+          <div class="panel-head">
+            <h2>Your booking</h2>
+            <p>Pick a package and tell Tanya when and where the henna is needed.</p>
+          </div>
+          <div class="panel-body">
+            <h3>1. Choose your deposit</h3>
+            <div class="packages">
+              <label class="package-option">
+                <input type="radio" name="package" value="Party Henna Deposit" data-price="25" checked>
+                <span class="package-card">
+                  <span>
+                    <span class="package-title">Party Henna Deposit</span>
+                    <span class="package-meta">Reserve a simple party or guest henna appointment. Balance confirmed after Tanya reviews your details.</span>
+                  </span>
+                  <span class="price">£25</span>
+                </span>
+              </label>
+              <label class="package-option">
+                <input type="radio" name="package" value="Eid Henna Deposit" data-price="35">
+                <span class="package-card">
+                  <span>
+                    <span class="package-title">Eid Henna Deposit</span>
+                    <span class="package-meta">Secure a festive Eid henna slot for natural, elegant hand designs.</span>
+                  </span>
+                  <span class="price">£35</span>
+                </span>
+              </label>
+              <label class="package-option">
+                <input type="radio" name="package" value="Bridal Consultation Deposit" data-price="50">
+                <span class="package-card">
+                  <span>
+                    <span class="package-title">Bridal Consultation Deposit</span>
+                    <span class="package-meta">Reserve time for bridal design planning, timing, coverage, and quote confirmation.</span>
+                  </span>
+                  <span class="price">£50</span>
+                </span>
+              </label>
+            </div>
+
+            <div class="form-grid" aria-label="Booking details">
+              <div class="field">
+                <label for="name">Full name</label>
+                <input id="name" name="name" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone or WhatsApp</label>
+                <input id="phone" name="phone" autocomplete="tel" required>
+              </div>
+              <div class="field">
+                <label for="date">Event date</label>
+                <input id="date" name="date" type="text" inputmode="numeric" autocomplete="off" placeholder="DD/MM/YYYY" required>
+              </div>
+              <div class="field full">
+                <label for="address">Event area or address</label>
+                <input id="address" name="address" autocomplete="street-address" placeholder="e.g. West Drayton, London" required>
+              </div>
+              <div class="field full">
+                <label for="notes">Design notes</label>
+                <textarea id="notes" name="notes" placeholder="Tell Tanya about style, timing, number of guests, or any special details."></textarea>
+              </div>
+            </div>
+
+            <div class="panel-head" style="padding-left:0;padding-right:0;margin-top:22px;">
+              <h2>Payment</h2>
+              <p>Choose one payment option. The secure payment window opens after you submit the form.</p>
+            </div>
+
+            <h3>2. Select payment method</h3>
+            <div class="payment-tabs">
+              <label class="payment-option">
+                <input type="radio" name="method" value="Card" checked>
+                <span class="pay-method">Card</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="method" value="Apple Pay">
+                <span class="pay-method">Apple Pay</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="method" value="Google Pay">
+                <span class="pay-method">Google Pay</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="method" value="Samsung Pay">
+                <span class="pay-method">Samsung Pay</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="method" value="PayPal">
+                <span class="pay-method">PayPal</span>
+              </label>
+              <label class="payment-option">
+                <input type="radio" name="method" value="Bank transfer">
+                <span class="pay-method">Bank</span>
+              </label>
+            </div>
+
+            <div class="secure-provider-box" id="provider-box">
+              <strong>Secure checkout</strong>
+              <span class="fine-print">Card and wallet details are handled by the payment provider, not stored on this website.</span>
+            </div>
+
+            <div class="provider-note" id="provider-note">
+              This option will open through the connected payment provider.
+            </div>
+          </div>
+        </form>
+
+        <aside class="panel order-summary">
+          <div class="panel-head">
+            <h2>Order summary</h2>
+            <p>Review before payment.</p>
+          </div>
+          <div class="panel-body">
+            <div class="summary-line">
+              <span>Package</span>
+              <strong id="summary-package">Party Henna Deposit</strong>
+            </div>
+            <div class="summary-line">
+              <span>Deposit</span>
+              <strong id="summary-price">£25.00</strong>
+            </div>
+            <div class="summary-line">
+              <span>Booking fee</span>
+              <strong>£0.00</strong>
+            </div>
+            <div class="summary-line total">
+              <span>Total today</span>
+              <strong id="summary-total">£25.00</strong>
+            </div>
+            <button class="button" type="button" id="pay-button" style="width:100%;margin-top:18px;">Pay £25.00</button>
+
+            <div class="secure-box">
+              <span><span class="status-dot"></span>Secure provider checkout</span>
+              <span>Receipt is sent after payment.</span>
+            </div>
+
+            <div class="result" id="result" role="status" aria-live="polite"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-wrap">
+      <span>© 2026 Mehndi Aura. Mehndi by Tanya, made with care.</span>
+      <span><a href="/">Home</a> · <a href="/our-offerings">Offerings</a> · <a href="/get-in-touch">Contact</a></span>
+    </div>
+  </footer>
+
+  <div class="checkout-modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-modal-title">
+    <div class="checkout-dialog">
+      <div class="checkout-dialog-head">
+        <div>
+          <h2 id="checkout-modal-title">Secure checkout</h2>
+          <p class="fine-print" id="checkout-modal-summary">Preparing your payment.</p>
+        </div>
+        <button class="icon-button" type="button" id="close-checkout" aria-label="Close checkout">×</button>
+      </div>
+      <div class="checkout-dialog-body">
+        <div class="checkout-provider-preview" id="checkout-provider-preview">
+          Connecting to Stripe secure checkout.
+        </div>
+        <p class="fine-print">Stripe opens a secure payment page for card and wallet details. Mehndi Aura does not store card numbers.</p>
+        <div class="checkout-dialog-actions">
+          <button class="button" type="button" id="demo-complete-payment">Continue to Stripe</button>
+          <button class="button secondary" type="button" id="cancel-checkout">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const packageInputs = document.querySelectorAll('input[name="package"]');
+    const methodInputs = document.querySelectorAll('input[name="method"]');
+    const summaryPackage = document.querySelector("#summary-package");
+    const summaryPrice = document.querySelector("#summary-price");
+    const summaryTotal = document.querySelector("#summary-total");
+    const payButton = document.querySelector("#pay-button");
+    const providerBox = document.querySelector("#provider-box");
+    const providerNote = document.querySelector("#provider-note");
+    const result = document.querySelector("#result");
+    const form = document.querySelector("#checkout-form");
+    const checkoutModal = document.querySelector("#checkout-modal");
+    const closeCheckout = document.querySelector("#close-checkout");
+    const cancelCheckout = document.querySelector("#cancel-checkout");
+    const demoCompletePayment = document.querySelector("#demo-complete-payment");
+    const checkoutModalSummary = document.querySelector("#checkout-modal-summary");
+    const checkoutProviderPreview = document.querySelector("#checkout-provider-preview");
+
+    function money(value) {
+      return new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "GBP"
+      }).format(value);
+    }
+
+    function selectedPackage() {
+      return document.querySelector('input[name="package"]:checked');
+    }
+
+    function selectedMethod() {
+      return document.querySelector('input[name="method"]:checked');
+    }
+
+    function refreshSummary() {
+      const choice = selectedPackage();
+      const price = Number(choice.dataset.price);
+      summaryPackage.textContent = choice.value;
+      summaryPrice.textContent = money(price);
+      summaryTotal.textContent = money(price);
+      payButton.textContent = `Pay ${money(price)}`;
+    }
+
+    function refreshPaymentFields() {
+      const method = selectedMethod().value;
+      const isCard = method === "Card";
+      providerBox.style.display = isCard ? "grid" : "none";
+      providerNote.style.display = isCard ? "none" : "block";
+      payButton.textContent = method === "PayPal"
+        ? `Continue to PayPal - ${summaryTotal.textContent}`
+        : `Pay ${summaryTotal.textContent}`;
+    }
+
+    packageInputs.forEach((input) => input.addEventListener("change", () => {
+      refreshSummary();
+      refreshPaymentFields();
+    }));
+
+    methodInputs.forEach((input) => input.addEventListener("change", refreshPaymentFields));
+
+    function getBookingPayload() {
+      return {
+        packageName: selectedPackage().value,
+        paymentMethod: selectedMethod().value,
+        name: document.querySelector("#name").value.trim(),
+        email: document.querySelector("#email").value.trim(),
+        phone: document.querySelector("#phone").value.trim(),
+        eventDate: document.querySelector("#date").value.trim(),
+        address: document.querySelector("#address").value.trim(),
+        notes: document.querySelector("#notes").value.trim()
+      };
+    }
+
+    function openCheckoutModal() {
+      const packageChoice = selectedPackage().value;
+      const total = summaryTotal.textContent;
+      const method = selectedMethod().value;
+      checkoutModalSummary.textContent = `${packageChoice} · ${method} · ${total}`;
+      checkoutProviderPreview.textContent = method === "PayPal"
+        ? "PayPal can be connected later. For now, this button will use Stripe Checkout."
+        : "Click Continue to Stripe to open the secure Stripe payment page.";
+      checkoutModal.classList.add("open");
+      closeCheckout.focus();
+    }
+
+    function closeCheckoutModal() {
+      checkoutModal.classList.remove("open");
+      payButton.focus();
+    }
+
+    function showMissingFieldMessage() {
+      if (!form.reportValidity()) {
+        const firstInvalid = form.querySelector(":invalid");
+        const label = firstInvalid
+          ? form.querySelector(`label[for="${firstInvalid.id}"]`)
+          : null;
+        const fieldName = label ? label.textContent : "booking details";
+        if (firstInvalid) {
+          firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+          firstInvalid.focus();
+        }
+        result.classList.add("show");
+        result.innerHTML = `<strong>Please check ${fieldName}.</strong><br>The checkout will open after all required fields are filled.`;
+        return false;
+      }
+
+      return true;
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!showMissingFieldMessage()) {
+        return;
+      }
+      openCheckoutModal();
+    });
+
+    payButton.addEventListener("click", () => {
+      if (!showMissingFieldMessage()) {
+        return;
+      }
+      openCheckoutModal();
+    });
+
+    demoCompletePayment.addEventListener("click", async () => {
+      demoCompletePayment.disabled = true;
+      demoCompletePayment.textContent = "Opening Stripe...";
+      result.classList.remove("show");
+
+      try {
+        const response = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(getBookingPayload())
+        });
+        const payload = await response.json();
+
+        if (!response.ok || !payload.url) {
+          throw new Error(payload.error || "Unable to open Stripe checkout.");
+        }
+
+        window.location.href = payload.url;
+      } catch (error) {
+        result.classList.add("show");
+        result.innerHTML = `<strong>Stripe checkout is not connected yet.</strong><br>${error.message}`;
+        closeCheckoutModal();
+      } finally {
+        demoCompletePayment.disabled = false;
+        demoCompletePayment.textContent = "Continue to Stripe";
+      }
+    });
+
+    closeCheckout.addEventListener("click", closeCheckoutModal);
+    cancelCheckout.addEventListener("click", closeCheckoutModal);
+    checkoutModal.addEventListener("click", (event) => {
+      if (event.target === checkoutModal) {
+        closeCheckoutModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && checkoutModal.classList.contains("open")) {
+        closeCheckoutModal();
+      }
+    });
+
+    refreshSummary();
+    refreshPaymentFields();
+  </script>
+</body>
+</html>
